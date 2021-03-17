@@ -1,9 +1,6 @@
 import React from "react";
 import './Register.css'
 import {setUser} from '../global'
-import {Link} from "react-router-dom";
-import ReactStars from "react-rating-stars-component";
-import MainHeader from "../MainHeader/MainHeader";
 class Register extends React.Component {
 
     constructor(props) {
