@@ -111,7 +111,7 @@ class CreateBook extends React.Component {
                             <div className="button-box">
                                 <button type="button" className="btn btn-outline custom-button sign-in"
                                         onClick = {() => {
-                                            window.location = "/createChapters"
+                                            // window.location = "/createChapters"
                                             localStorage.setItem('creatingBook' , this.state.name)
                                             addInitialBook(this.state.name , this.state.descr ,this.state.chosenTopic , this.state.curTags)}}>Продолжить</button>
                             </div>
