@@ -52,8 +52,8 @@ class CreateBook extends React.Component {
     }
 
     handleAddition(tag) {
-        this.setState(state => ({ curTags: [...state.curTags, tag] }));
-        console.log(tag)
+        this.state.curTags.push(tag)
+        console.log(this.state.curTags)
     }
 
     handleDelete(i) {
