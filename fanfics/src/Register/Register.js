@@ -27,7 +27,7 @@ class Register extends React.Component {
                             window.location = "/"
                         }}class = "application-name">Мордор</label>
                         <button className="btn btn-outline custom-button sign-up"
-                        onClick = {()=> {window.location = '/auth'}}>Sign In</button>
+                        onClick = {()=> {window.location = '/authPage'}}>Sign In</button>
                     </div>
                 </nav>
                 <form id="form">

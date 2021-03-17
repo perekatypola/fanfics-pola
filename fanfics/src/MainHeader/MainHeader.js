@@ -53,7 +53,7 @@ class  MainHeader extends React.Component {
             else {
                 return <> {
                     <button className="btn btn-outline custom-button sign-in-button"
-                            onClick = {()=> {window.location ="/auth"}
+                            onClick = {()=> {window.location ="/authPage"}
                             }>Sign In</button>
                 }</>
             }

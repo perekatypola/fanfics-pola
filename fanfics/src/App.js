@@ -32,10 +32,10 @@ function App() {
             <Route path="/chapterPage">
                 <ChapterPage/>
             </Route>
-            <Route path = "/auth">
+            <Route path = "/authPage">
                 <Auth/>
             </Route>
-            <Route path="/reg">
+            <Route path="/regPage">
                 <Register/>
             </Route>
             <Route path="/user">

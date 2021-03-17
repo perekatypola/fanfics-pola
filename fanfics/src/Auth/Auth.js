@@ -23,7 +23,7 @@ class Auth extends React.Component {
                             window.location = "/"
                         }} className="application-name">Мордор</label>
                         <button className="btn btn-outline custom-button sign-up"
-                        onClick={() => {window.location = '/reg'}}>Sign Up</button>
+                        onClick={() => {window.location = '/regPage'}}>Sign Up</button>
                     </div>
                 </nav>
                 <form id="form">
