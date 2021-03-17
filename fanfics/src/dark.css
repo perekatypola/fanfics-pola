@@ -1,0 +1,22 @@
+.custom-button {
+    display:block;
+    color: whitesmoke;
+    background-color: #373737;
+    border-color: whitesmoke
+}
+
+.custom-button:hover {
+    color: #373737;
+    background-color: whitesmoke;
+    border-color: whitesmoke
+}
+
+.navbar {
+    display:flex;
+    flex-direction:row;
+    background-color: #373737;
+}
+
+div {
+    color : whitesmoke
+}

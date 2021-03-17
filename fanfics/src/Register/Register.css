@@ -32,20 +32,14 @@ label {
     width: 50%;
 }
 
-.navbar {
-    color:#b76a47;
-    height: 8vh;
-}
+/*.navbar {*/
+/*    color:#b76a47;*/
+/*    height: 8vh;*/
+/*}*/
 
 .application-name {
     font-size: 2rem;
-    border-color: #ead6aa;
     border:  solid 0px  #b76a47;
-}
-
-.application-name:hover {
-    color: #b76a47;
-    background-color:  #ead6aa;
 }
 
 
@@ -63,6 +57,7 @@ label {
     flex-direction: row;
     width:100%
 }
+
 div {
         color:#b76a47;
 }

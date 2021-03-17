@@ -40,3 +40,20 @@
 .App-link {
   color: #61dafb;
 }
+
+.custom-dark-button {
+  display:block;
+  color: whitesmoke;
+  background-color: #373737;
+  border-color: whitesmoke
+}
+
+.custom-button:hover {
+  color: #373737;
+  background-color: whitesmoke;
+  border-color: whitesmoke
+}
+
+
+
+
