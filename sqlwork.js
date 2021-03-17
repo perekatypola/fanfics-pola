@@ -11,7 +11,7 @@ const mysql = require("mysql2");
 const {initTopic} = require("./entity/topic");
 
 connect = () =>{
-    const sequelize = new Sequelize('fanfics', 'root', 'vfvfgfgf2311', {
+    const sequelize = new Sequelize('heroku_28d73c2b5002cce', 'bf9cab5703465e', '5c8706ef', {
         host: 'localhost',
         dialect: 'mysql',
         pool: {
