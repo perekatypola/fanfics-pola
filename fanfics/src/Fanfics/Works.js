@@ -14,7 +14,7 @@ class Works extends React.Component {
     }
 
     componentDidMount() {
-        fetch("http://localhost:8080/loadWorks",  {
+        fetch("https://fanfics-pola.herokuapp.com/loadWorks",  {
             method: 'GET',
             headers:{'Content-Type': 'application/json'}
         }).then((response) => response.json()).then(res => {

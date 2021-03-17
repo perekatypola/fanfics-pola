@@ -17,7 +17,7 @@ class  ChapterPage extends React.Component {
     }
 
     componentDidMount() {
-        fetch("http://localhost:8080/loadChapters",  {
+        fetch("https://fanfics-pola.herokuapp.com/loadChapters",  {
             method: 'GET',
             headers:{'Content-Type': 'application/json' , 'chapterName' : this.state.chapterName, 'bookName' : this.state.book }
         }).then((response) => response.json()).then(res => {

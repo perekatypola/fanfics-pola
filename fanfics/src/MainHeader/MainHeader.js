@@ -70,7 +70,7 @@ class  MainHeader extends React.Component {
                             <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
                             <button className="btn btn-outline custom-button" type="submit"
                                     onClick={()=> {
-                                        fetch("http://localhost:8080/search",  {
+                                        fetch("https://fanfics-pola.herokuapp.com/search",  {
                                             method: 'GET',
                                             headers:{'Content-Type': 'application/json' , 'searchText' : "sss"}
                                         }).then((response) => response.json()).then(res => {

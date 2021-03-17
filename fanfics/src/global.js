@@ -28,7 +28,7 @@ export const setUser = (name , password , email) => {
 }
 
 export const signIn = (name , password) => {
-    fetch("http://localhost:8080/auth",  {
+    fetch("https://fanfics-pola.herokuapp.com/auth",  {
         method: 'GET',
         headers:{'Content-Type': 'application/json' , 'name' : name , 'password' : password}
     }).then((response) => response.text()).then(res => {
@@ -41,7 +41,7 @@ export const signIn = (name , password) => {
 }
 
 export const addComment =(name , text , book) => {
-    fetch("http://localhost:8080/addComment",  {
+    fetch("https://fanfics-pola.herokuapp.com/addComment",  {
         method: 'GET',
         headers:{'Content-Type': 'application/json' , 'name' : name , 'text' : text , 'book' : book}
     }).then((response) => response.text()).then(res => {

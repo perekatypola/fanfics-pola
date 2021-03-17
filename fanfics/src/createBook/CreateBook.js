@@ -29,14 +29,14 @@ class CreateBook extends React.Component {
     }
 
     componentDidMount() {
-        fetch("http://localhost:8080/loadTopics", {
+        fetch("https://fanfics-pola.herokuapp.com/loadTopics", {
             method: 'GET',
             headers: {'Content-Type': 'application/json','Auth' : localStorage.getItem('jwt')}
         }).then((response) => response.json()).then(res => {
             console.log(res)
             this.setState({topics: res})
         })
-        fetch("http://localhost:8080/loadTags", {
+        fetch("https://fanfics-pola.herokuapp.com/loadTags", {
             method: 'GET',
             headers: {'Content-Type': 'application/json','Auth' : localStorage.getItem('jwt')}
         }).then((response) => response.json()).then(res => {

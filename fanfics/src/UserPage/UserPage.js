@@ -17,7 +17,7 @@ class UserPage extends React.Component {
     }
 
     componentDidMount() {
-        fetch("http://localhost:8080/loadUserWorks",  {
+        fetch("https://fanfics-pola.herokuapp.com/loadUserWorks",  {
             method: 'GET',
             headers:{'Content-Type': 'application/json' , Auth: localStorage.getItem('jwt')}
         }).then((response) => response.json()).then(res => {
