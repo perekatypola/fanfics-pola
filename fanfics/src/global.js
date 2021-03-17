@@ -20,11 +20,10 @@ export const chaptersNav = async (chapters , curChapter) => {
 }
 
 export const setUser = (name , password , email) => {
-    fetch("https://fanfics-pola.herokuapp.com//reg",  {
+    fetch("https://fanfics-pola.herokuapp.com/reg",  {
         method: 'GET',
         headers:{'Content-Type': 'application/json' , 'name' : name , 'password' : password , 'email' : email}
     }).then((response) => response.json()).then(res => {
-        console.log(res)
     })
 }
 
