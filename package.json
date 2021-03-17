@@ -25,6 +25,7 @@
     "lucene-query-parser": "^1.2.0",
     "mysql2": "^2.2.5",
     "react-router-dom": "^5.2.0",
+    "react-tag-input": "^6.5.2",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.5.0",
     "typeorm": "^0.2.31"
