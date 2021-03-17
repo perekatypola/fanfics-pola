@@ -26,14 +26,14 @@ class  BookPage extends React.Component {
     }
 
     componentDidMount() {
-        fetch("http://localhost:8080/loadChapters",  {
+        fetch("https://fanfics-pola.herokuapp.com/loadChapters",  {
             method: 'GET',
             headers:{'Content-Type': 'application/json' , 'bookName' : this.state.header}
         }).then((response) => response.json()).then((res) => {
             console.log(res)
             this.setState({chaptersList:res})
         })
-        fetch("http://localhost:8080/getBookTags",  {
+        fetch("https://fanfics-pola.herokuapp.com/getBookTags",  {
             method: 'GET',
             headers:{'Content-Type': 'application/json' , 'bookName' : this.state.header , 'Auth' : localStorage.getItem('jwt')}
         }).then((response) => response.json()).then((res) => {
@@ -46,7 +46,7 @@ class  BookPage extends React.Component {
             })
             this.setState({tags:tags})
         })
-        fetch("http://localhost:8080/getLike",  {
+        fetch("https://fanfics-pola.herokuapp.com/getLike",  {
             method: 'GET',
             headers:{'Content-Type': 'application/json' , 'bookName' : this.state.header , 'Auth' : localStorage.getItem('jwt')}
         }).then((response) => response.json()).then((likes) => {
@@ -58,7 +58,7 @@ class  BookPage extends React.Component {
     }
 
     updateComments = ()=> {
-        fetch("http://localhost:8080/loadComments", {
+        fetch("https://fanfics-pola.herokuapp.com/loadComments", {
             method: 'GET',
             headers: {'Content-Type': 'application/json', 'bookName': this.state.header , 'Auth' : localStorage.getItem('jwt')}
         }).then((response) => response.json()).then(res => {
