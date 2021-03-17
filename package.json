@@ -9,7 +9,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "heroku-postbuild": "cd fanfics && npm install && npm run build"
+    "install-client" : "cd fanfics && npm run install",
+    "build-client" : "cd fanfics && npm run build",
+    "heroku-postbuild": "npm run install-client && npm run build-client"
   },
   "keywords": [],
   "author": "",
