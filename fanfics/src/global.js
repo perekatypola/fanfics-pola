@@ -76,7 +76,7 @@ export const deleteFanfic = (work) => {
 }
 
 export const addInitialBook = (name , description , topic , tags) => {
-    fetch("https://fanfics-pola.herokuapp.com/addBook",  {
+    fetch("http://localhost:8080/addBook",  {
         method: 'POST',
         headers:{'Content-Type': 'application/json' , 'name' : name , 'descr' : description , 'topic' : topic
             , 'Auth' : localStorage.getItem('jwt')},

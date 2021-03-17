@@ -168,7 +168,7 @@ router.post('/addBook' , (req ,res) => {
             if(user) {
                 console.log(user.user_id)
                 writeBookInst(req.header('name') , req.header('descr') , user.user_id , req.header('topic'),sequelize).then(result => {
-                    console.log(result)
+                    console.log(req.header('name'))
                     req.body.tags.forEach(tag => {
                         addTags(sequelize , tag , result.book_id).then(()=> {
                         })

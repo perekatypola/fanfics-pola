@@ -3,28 +3,15 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const db = require('./sqlwork')
 const path = require('path')
+const {setConnection} = require('./sqlwork')
 const Sequelize = require('sequelize')
-const {initBook} = require("./entity/book");
-const {initChapter} = require("./entity/chapter");
-const {initComment} = require("./entity/comment");
-const {initUser} = require("./entity/user");
-const {writeBookInst , setChapter , getChaptersList , setConnection ,
-    getComments , loadWorks , loadChapter , addUser , validatePassword , checkUser , getUserBooks , addComment,
-    loadBook,getChapters , getTags , addTags , addTagsToBook , getBookTags , setRating , getRating , deleteFanfic , setRatingToBook,
-    addLike , getLikes} = require ("./sqlwork")
-const safety = require('./safety')
-const {getTopics} = require("./sqlwork");
-const {initTopic} = require("./entity/topic");
-const fullText = require("./full-text-search")
-const {writeChapterInst} = require("./sqlwork");
 const sequelize = setConnection()
-
 const app = express()
 const port = process.env.PORT || 8080
 const router = require('./router')
 app.use(cors())
-app.use('/' , router)
 app.use(bodyParser.json())
+app.use('/' , router)
 
 // app.get('/reg' , (req , res) => {
 //     addUser(req.header('name') , req.header('password') , req.header('email') , sequelize).then(result => {console.log(result)})
