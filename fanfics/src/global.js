@@ -50,7 +50,7 @@ export const addComment =(name , text , book) => {
 }
 
 export const getRating = (work) => {
-        fetch("http://localhost:8080/getRating",  {
+        fetch("https://fanfics-pola.herokuapp.com/getRating",  {
             method: 'GET',
             headers:{'Content-Type': 'application/json' , 'book_name' : work.book_name},
         }).then((response) => response.json()).then(res => {
@@ -60,7 +60,7 @@ export const getRating = (work) => {
 }
 
 export const addLike = (work , user_liked) => {
-    fetch("http://localhost:8080/addLike",  {
+    fetch("https://fanfics-pola.herokuapp.com/addLike",  {
         method: 'GET',
         headers:{'Content-Type': 'application/json' , 'book_name' : work , 'user_liked' : user_liked , 'Auth' : localStorage.getItem('jwt')},
     }).then((response) => response.json()).then(res => {
@@ -69,14 +69,14 @@ export const addLike = (work , user_liked) => {
 }
 
 export const deleteFanfic = (work) => {
-    fetch("http://localhost:8080/deleteFanfic",  {
+    fetch("https://fanfics-pola.herokuapp.com/deleteFanfic",  {
         method: 'GET',
         headers:{'Content-Type': 'application/json' , 'book_name' : work.book_name , 'Auth' : localStorage.getItem('jwt')},
     }).then((response) => response.json()).then(res => {})
 }
 
 export const addInitialBook = (name , description , topic , tags) => {
-    fetch("http://localhost:8080/addBook",  {
+    fetch("https://fanfics-pola.herokuapp.com/addBook",  {
         method: 'POST',
         headers:{'Content-Type': 'application/json' , 'name' : name , 'descr' : description , 'topic' : topic
             , 'Auth' : localStorage.getItem('jwt')},
@@ -87,7 +87,7 @@ export const addInitialBook = (name , description , topic , tags) => {
 }
 
 export const addChapter = (name , text , book) => {
-    fetch("http://localhost:8080/addChapter", {
+    fetch("https://fanfics-pola.herokuapp.com/addChapter", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
