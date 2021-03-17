@@ -28,6 +28,7 @@ exports.setConnection = () => {
     const sequelize = connect()
     sequelize.authenticate()
         .then(()=>{
+            console.log("connecting")
             const User = initUser(Sequelize , sequelize)
             const Book = initBook(Sequelize , sequelize)
             const Chapter = initChapter(Sequelize , sequelize)
