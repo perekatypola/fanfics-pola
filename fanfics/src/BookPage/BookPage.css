@@ -1,0 +1,92 @@
+.background {
+    background-color: #f5edda;
+}
+
+.container {
+    width: 18rem;
+    height: 10rem;
+}
+.book {
+    margin-left: 5%;
+}
+.content {
+    min-height: 90vh;
+}
+.card {
+    width:68%;
+    margin-top:2%;
+    background-color: #ead6aa;
+}
+
+.card-box {
+    display: flex;
+    flex-direction:row;
+    min-height: 85vh;
+}
+
+.rating {
+    width: 20%;
+    height: 10rem;
+    margin-left:1.5%;
+    margin-top:2%;
+    background-color: #ead6aa;
+    border-radius:5px
+}
+
+.card-header {
+    height:7vh;
+    border:  solid 1px  #b76a47;
+    border-top-width:0px;
+    border-left-width:0px;
+    border-right-width:0px;
+}
+
+.list {
+    color: #b76a47;
+}
+
+a {
+    color : #955234;
+}
+.h5 {
+    margin-bottom: 3rem
+}
+
+.comments {
+    margin-left:5%;
+    margin-right:5%;
+    margin-bottom: 2%;
+    width: 90%;
+    height: 40%
+}
+
+.comment-box {
+    margin-left:2%;
+    margin-right:2%;
+    margin-bottom: 5%;
+    width: 96%;
+    background-color: #ead6aa;
+    border-radius: 5px;
+}
+
+.name {
+    margin-left:5%;
+    margin-right:5%;
+    width: 90%
+}
+
+label {
+     margin-left:5%;
+    margin-right:5%;
+    margin-top:5%
+}
+
+.send{
+    margin-left:5%;
+    margin-bottom: 5%;
+}
+
+.like-button {
+    margin-left: 3rem
+}
+

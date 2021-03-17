@@ -1,0 +1,23 @@
+.comment {
+    min-height : 20vh;
+    margin-left:20%;
+    margin-right:7%;
+    margin-bottom: 5%;
+    margin-top:5%;
+    width: 73%;
+    background-color: #f5edda;
+}
+
+label {
+    display: block;
+    margin:2%;
+}
+
+.comment-text {
+    margin-top: 5%;
+    margin-left:2%
+}
+
+.username {
+    margin-left:2%;
+}

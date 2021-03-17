@@ -1,0 +1,52 @@
+.custom-button {
+    display:block;
+    color: #b76a47;
+    background-color: #ead6aa;
+    border-color: #b76a47
+}
+
+.user-button{
+    border: solid 0px;
+    background-color: #ead6aa;
+}
+
+img {
+    width: 2rem;
+    height: 2rem;
+}
+
+.sign-in-button{
+    width:5rem;
+    margin-left:0.5rem;
+}
+
+
+.custom-button:hover {
+    color: #ead6aa;
+    background-color: #b76a47;
+    border-color: #b76a47
+}
+
+.navbar {
+    display:flex;
+    flex-direction:row;
+    background-color: #ead6aa;
+}
+
+.navbar-nav {
+    display:flex;
+    flex-direction: row;
+    align-items:center
+}
+
+.form {
+    height:100%;
+    display: flex;
+    flex-direction:row;
+}
+
+a {
+    margin-left:5px;
+}
+
+

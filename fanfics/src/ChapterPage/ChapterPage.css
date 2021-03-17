@@ -1,0 +1,28 @@
+.chapter {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.chapterWithNav {
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2%;
+    justify-content: center;
+    align-items:center;
+}
+
+
+.content-button {
+    margin-left:0.25%;
+    margin-right:0.25%
+}
+
+.hide-nav-button {
+    display:none;
+}

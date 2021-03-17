@@ -1,0 +1,37 @@
+{
+  "name": "fanfics-backend",
+  "version": "1.0.0",
+  "engines": {
+    "node": "14.x"
+  },
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "heroku-postbuild": "cd fanfics && npm install && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "argon2": "^0.27.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "elasticsearch": "^16.7.2",
+    "express": "^4.17.1",
+    "heroku": "^7.50.0",
+    "jsonwebtoken": "^8.5.1",
+    "lucene-query-parser": "^1.2.0",
+    "mysql2": "^2.2.5",
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^6.5.0",
+    "typeorm": "^0.2.31"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.31",
+    "jdk": "0.0.0",
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.3"
+  }
+}
