@@ -21,7 +21,7 @@ class  BookPage extends React.Component {
             chaptersNames: '',
             comments: [] ,
             tags: [] ,
-            likes : 0
+            likes : 5
         };
     }
 
@@ -82,6 +82,7 @@ class  BookPage extends React.Component {
             console.log(newRating)
         }
     }
+
 
     render() {
         const renderLikeImage = () => {
@@ -158,14 +159,15 @@ class  BookPage extends React.Component {
                                 <LikeButton
                                     className = "like-button"
                                     namespace="post"
-                                    id={this.state.header}
+                                    id={this.state.likes}
                                     component={LikeButton.templates.Twitter}
                                     hideCounterIfLessThan={50000}
                                     onPress = {data=> {
                                         addLike(this.state.header , data.attributes.userHasLiked)
                                     }}
+
                                 />
-                                <strong>Лайков: {document.getElementById(this.state.header).totalVotes}</strong>
+                                <strong>Лайков: {this.state.likes}</strong>
                             </div>
                             <ReactTags className = "tags"
                                        tags={this.state.tags}/>

@@ -385,7 +385,7 @@ exports.getLikes = (sequelize , book_name) => {
                 }
         })
             .then(likes => {
-                console.log(likes)
+                console.log(likes.length)
                 resolve(likes.length)
             })
     })
