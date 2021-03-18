@@ -262,7 +262,8 @@ router.get('/addLike' , (req ,res) => {
         checkUser(safety.decodeToken(req.header('Auth')).data.name , sequelize).then(
             user => {
                 if(user) {
-                    if(req.header('user_liked') === "true") {
+                    if(req.body.user_liked) {
+                        console.log(req.header('user_liked'))
                         addLike(sequelize , user.name, req.header('book_name') , "true")
                     }
                     else {
