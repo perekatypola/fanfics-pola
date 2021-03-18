@@ -21,7 +21,6 @@ class  BookPage extends React.Component {
             chaptersNames: '',
             comments: [] ,
             tags: [] ,
-            likes : 5
         };
     }
 
