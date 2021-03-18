@@ -19,6 +19,7 @@ const router = express.Router()
 router.get('/reg' , (req , res) => {
     addUser(req.header('name') , req.header('password') , req.header('email') , sequelize).then(result => {console.log(result)})
 })
+
 router.get('/auth' , (req , res) => {
     checkUser(req.header('name') , sequelize).then((user) => {
         if(user) {
@@ -40,6 +41,27 @@ router.get('/auth' , (req , res) => {
                 }
             })
         }
+    })
+})
+
+router.get('/vkAuth' , (req , res) => {
+    addUser(req.header('name') , "vk" , "vk" , sequelize).then(result => {
+        checkUser(req.body.name , sequelize).then(async (user) => {
+            if(user) {
+                if(user.status === "unblocked") {
+                    let hashedPassword =  await safety.hashPassword(req.header('password'))
+                    let dataForJwt = {name : req.body.name , password: hashedPassword}
+                     let jwtRes = safety.generateToken(dataForJwt)
+                    console.log(jwtRes)
+                    res.send(jwtRes)
+                } else {
+                    res.send("blocked")
+                }
+            }
+            else {
+                res.send("invalid")
+            }
+        })
     })
 })
 

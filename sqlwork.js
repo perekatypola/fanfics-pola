@@ -239,6 +239,7 @@ exports.getTopics = (sequelize) => {
                 resolve(res))
     })
 }
+
 exports.getTags = (sequelize) => {
     return new Promise((resolve,reject) => {
         const Tag = initTag(Sequelize, sequelize)
