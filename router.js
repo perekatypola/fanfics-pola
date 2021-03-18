@@ -65,6 +65,27 @@ router.post('/vkAuth' , (req , res) => {
     })
 })
 
+router.post('/facebookAuth' , (req , res) => {
+    addUser(req.body.name , "facebook" , "facebook" , sequelize).then(result => {
+        checkUser(req.body.name , sequelize).then(async (user) => {
+            if(user) {
+                if(user.status === "unblocked") {
+                    let hashedPassword =  await safety.hashPassword("facebook")
+                    let dataForJwt = {name : req.body.name , password: hashedPassword}
+                    let jwtRes = safety.generateToken(dataForJwt)
+                    console.log(jwtRes)
+                    res.send(jwtRes)
+                } else {
+                    res.send("blocked")
+                }
+            }
+            else {
+                res.send("invalid")
+            }
+        })
+    })
+})
+
 router.get('/loadUserWorks' , (req , res) => {
     if(req.header('Auth')) {
         checkUser(safety.decodeToken(req.header('Auth')).data.name , sequelize).then(

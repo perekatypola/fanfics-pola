@@ -3,7 +3,7 @@ import '../Register/Register.css'
 import './Auth.css'
 import FacebookAuth from 'react-facebook-auth';
 import MyFacebookButton from './MyFacebookButton'
-import {signIn} from '../global'
+import {loginFacebook, signIn} from '../global'
 class Auth extends React.Component {
 
     constructor(props) {
@@ -53,6 +53,7 @@ class Auth extends React.Component {
                                             signIn(this.state.name , this.state.password)
                                             }}>Sign In</button>
                             </div>
+                            <div className="button-box">
                             <button type="button" className="btn btn-outline custom-button sign-in"
                                     onClick = {() => {
                                         VK.Auth.login(function(response) {  // eslint-disable-line no-undef
@@ -74,7 +75,9 @@ class Auth extends React.Component {
                             <FacebookAuth
                                 appId="149884340333072"
                                 component={MyFacebookButton}
+                                callback = {loginFacebook}
                             />
+                            </div>
                         </div>
                     </div>
                 </form>

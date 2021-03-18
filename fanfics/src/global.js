@@ -86,6 +86,20 @@ export const addInitialBook = (name , description , topic , tags) => {
     })
 }
 
+export const loginFacebook = (response)  => {
+    if(response.status === "connected") {
+        console.log(response.authResponse.signedRequest)
+        fetch("https://fanfics-pola.herokuapp.com/facebookAuth", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'} ,
+            body : JSON.stringify({name : response.authResponse.signedRequest})
+        }).then((response) => response.text()).then(result => {
+            localStorage.setItem('jwt' , result)
+            window.location = "/userPage"
+            console.log(result)
+        })
+    }
+}
 export const addChapter = (name , text , book) => {
     fetch("https://fanfics-pola.herokuapp.com/addChapter", {
         method: 'GET',
