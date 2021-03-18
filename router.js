@@ -44,7 +44,7 @@ router.get('/auth' , (req , res) => {
     })
 })
 
-router.get('/vkAuth' , (req , res) => {
+router.post('/vkAuth' , (req , res) => {
     addUser(req.header('name') , "vk" , "vk" , sequelize).then(result => {
         checkUser(req.body.name , sequelize).then(async (user) => {
             if(user) {
