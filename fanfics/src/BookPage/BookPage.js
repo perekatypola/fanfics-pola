@@ -143,8 +143,8 @@ class  BookPage extends React.Component {
                     <div className="card book">
                         <div className="content">
                             <div className="card-header">
-                                <p className="rating-text">{this.state.header}</p>
-                                <p className="rating-text">Topic : {this.state.topic} </p>
+                                <p>{this.state.header}</p>
+                                <p>Topic : {this.state.topic} </p>
                             </div>
                             <div className="card-body">
                                 <ol>
@@ -166,12 +166,12 @@ class  BookPage extends React.Component {
                                     }}
 
                                 />
-                                <strong>Лайков: {this.state.likes}</strong>
+                                <strong className="rating-text">Лайков: {this.state.likes}</strong>
                             </div>
                             <ReactTags className = "tags"
                                        tags={this.state.tags}/>
                             <div className="box">
-                                <strong>Оставьте рейтинг: </strong>
+                                <strong className="rating-text">Оставьте рейтинг: </strong>
                                 <ReactStars {...this.changeRating} class = "stars" size={20} activeColor = "#b76a47"/>
                             </div>
                         </div>
