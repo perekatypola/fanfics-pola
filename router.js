@@ -257,7 +257,7 @@ router.get('/deleteFanfic' , (req ,res) => {
     }
 })
 
-router.get('/addLike' , (req ,res) => {
+router.post('/addLike' , (req ,res) => {
     if(req.header('Auth')) {
         checkUser(safety.decodeToken(req.header('Auth')).data.name , sequelize).then(
             user => {
