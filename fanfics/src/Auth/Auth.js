@@ -26,10 +26,6 @@ class Auth extends React.Component {
                         onClick={() => {window.location = '/regPage'}}>Sign Up</button>
                     </div>
                 </nav>
-                <div id="vk_auth"></div>
-                <script type="text/javascript">
-                    VK.Widgets.Auth("vk_auth");
-                </script>
                 <form id="form">
                     <p className="display-4">Sign in to fanficbook</p>
                     <div className="cont p-4 my-3 border">
@@ -51,8 +47,25 @@ class Auth extends React.Component {
                         <div className="form-group">
                             <div className="button-box">
                                 <button type="button" className="btn btn-outline custom-button sign-in"
-                                        onClick = {() => {signIn(this.state.name , this.state.password)}}>Sign In</button>
+                                        onClick = {() => {
+                                            signIn(this.state.name , this.state.password)
+                                            }}>Sign In</button>
                             </div>
+                            <button type="button" className="btn btn-outline custom-button sign-in"
+                                    onClick = {() => {
+                                        VK.Auth.login(function(response) {  // eslint-disable-line no-undef
+                                            if (response.status === "connected") {
+                                                fetch("https://fanfics-pola.herokuapp.com/vkAuth", {
+                                                    method: 'GET',
+                                                    headers: {'Content-Type': 'application/json', 'name': response.session.first_name}
+                                                }).then((response) => response.text()).then(res => {
+                                                    console.log(res)
+                                                })
+                                            } else {
+                                                // Пользователь нажал кнопку Отмена в окне авторизации
+                                            }
+                                        });
+                                    }}>VK</button>
                         </div>
                     </div>
                 </form>
