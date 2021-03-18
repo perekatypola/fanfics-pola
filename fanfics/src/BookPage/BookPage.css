@@ -18,6 +18,10 @@
     min-height: 85vh;
 }
 
+.rating-text {
+    size: 5vw;
+}
+
 .rating {
     width: 20%;
     height: 10rem;

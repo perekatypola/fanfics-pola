@@ -143,8 +143,8 @@ class  BookPage extends React.Component {
                     <div className="card book">
                         <div className="content">
                             <div className="card-header">
-                                <p className="h5">{this.state.header}</p>
-                                <p className="h5">Topic : {this.state.topic} </p>
+                                <p className="rating-text">{this.state.header}</p>
+                                <p className="rating-text">Topic : {this.state.topic} </p>
                             </div>
                             <div className="card-body">
                                 <ol>
@@ -154,7 +154,7 @@ class  BookPage extends React.Component {
                         </div>
                         <div className = "rating-box">
                             <div className="box">
-                                <strong>Поставьте лайк:</strong>
+                                <strong className="rating-text">Поставьте лайк:</strong>
                                 <LikeButton
                                     className = "like-button"
                                     namespace="post"
