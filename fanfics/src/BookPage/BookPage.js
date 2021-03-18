@@ -165,7 +165,7 @@ class  BookPage extends React.Component {
                                         addLike(this.state.header , data.attributes.userHasLiked)
                                     }}
                                 />
-                                <strong>Лайков: {this.state.likes}</strong>
+                                <strong>Лайков: {document.getElementById(this.state.header).totalVotes}</strong>
                             </div>
                             <ReactTags className = "tags"
                                        tags={this.state.tags}/>
