@@ -60,7 +60,10 @@ class Auth extends React.Component {
                                                     method: 'POST',
                                                     headers: {'Content-Type': 'application/json'} ,
                                                     body : JSON.stringify({name : response.session.user.first_name})
-                                                }).then((response) => response.text())
+                                                }).then((response) => response.text()).then(result => {
+                                                    localStorage.setItem('jwt' , result)
+                                                    console.log(result)
+                                                })
                                             } else {
                                                 // Пользователь нажал кнопку Отмена в окне авторизации
                                             }
