@@ -16,7 +16,7 @@ label {
 .cont {
     overflow:hidden;
     flex-direction: column;
-    width:30rem;
+    width:25rem;
 }
 
 .button-box {

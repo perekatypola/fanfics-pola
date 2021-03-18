@@ -1,9 +1,11 @@
 import React from "react";
 import '../Register/Register.css'
 import './Auth.css'
+import vk from '../vk.png'
 import FacebookAuth from 'react-facebook-auth';
 import MyFacebookButton from './MyFacebookButton'
 import {loginFacebook, signIn} from '../global'
+import user from "../user.png";
 class Auth extends React.Component {
 
     constructor(props) {
@@ -29,7 +31,7 @@ class Auth extends React.Component {
                     </div>
                 </nav>
                 <form id="form">
-                    <p className="display-4">Sign in to fanficbook</p>
+                    <p className="display-4 text-center">Sign in to fanficbook</p>
                     <div className="cont p-4 my-3 border">
                         <div className="form-group">
                             <label htmlFor="inputUsername">Username</label>
@@ -54,7 +56,7 @@ class Auth extends React.Component {
                                             }}>Sign In</button>
                             </div>
                             <div className="button-box">
-                            <button type="button" className="btn btn-outline custom-button sign-in"
+                            <button type="button" className="btn vk-button"
                                     onClick = {() => {
                                         VK.Auth.login(function(response) {  // eslint-disable-line no-undef
                                             if (response.status === "connected") {
@@ -71,7 +73,9 @@ class Auth extends React.Component {
                                                 // Пользователь нажал кнопку Отмена в окне авторизации
                                             }
                                         }.bind(this))
-                                    }}>VK</button>
+                                    }}>
+                                <img src = {vk} alt = "vk"></img>
+                            </button>
                             <FacebookAuth
                                 appId="149884340333072"
                                 component={MyFacebookButton}

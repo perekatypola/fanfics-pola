@@ -35,7 +35,7 @@ class  BookPage extends React.Component {
         })
         fetch("https://fanfics-pola.herokuapp.com/getBookTags",  {
             method: 'GET',
-            headers:{'Content-Type': 'application/json' , 'bookName' : this.state.header , 'Auth' : localStorage.getItem('jwt')}
+            headers:{'Content-Type': 'application/json' , 'bookName' : this.state.header}
         }).then((response) => response.json()).then((res) => {
             console.log(res)
             const tags = res.map(tag => {
@@ -142,39 +142,41 @@ class  BookPage extends React.Component {
                 <div className="card-box">
                     <div className="card book">
                         <div className="content">
-                            <div className="card-header text-center">
+                            <div className="card-header">
                                 <p className="h5">{this.state.header}</p>
+                                <p className="h5">Topic : {this.state.topic} </p>
                             </div>
                             <div className="card-body">
                                 <ol>
                                     {renderChapters()}
                                 </ol>
-                                {/*<ReactMarkdown className = "list" source={this.state.chaptersNames}/>*/}
-                                {/*<p className="card-text" id = "text">{this.state.text}</p>*/}
                             </div>
                         </div>
-                            <LikeButton
-                                className = "like-button"
-                                namespace="post"
-                                id={this.state.header}
-                                component={LikeButton.templates.Twitter}
-                                hideCounterIfLessThan={50000}
-                                onPress = {data=> {
-                                    addLike(this.state.header , data.attributes.userHasLiked)
-                                }}
-                            />
-                            <strong>{this.state.likes}</strong>
+                        <div className = "rating-box">
+                            <div className="box">
+                                <strong>Поставьте лайк:</strong>
+                                <LikeButton
+                                    className = "like-button"
+                                    namespace="post"
+                                    id={this.state.header}
+                                    component={LikeButton.templates.Twitter}
+                                    hideCounterIfLessThan={50000}
+                                    onPress = {data=> {
+                                        addLike(this.state.header , data.attributes.userHasLiked)
+                                    }}
+                                />
+                                <strong>Лайков: {this.state.likes}</strong>
+                            </div>
+                            <ReactTags className = "tags"
+                                       tags={this.state.tags}/>
+                            <div className="box">
+                                <strong>Оставьте рейтинг: </strong>
+                                <ReactStars {...this.changeRating} class = "stars" size={20} activeColor = "#b76a47"/>
+                            </div>
+                        </div>
                         {renderComment()}
                         <div className="form-outline border-top border-bottom">
                             {renderComments()}
-                        </div>
-                    </div>
-                    <div className="rating border">
-                        <div className="card-body">
-                            <p>Topic : {this.state.topic} </p>
-                            <ReactTags className = "tags"
-                                       tags={this.state.tags}/>
-                            <ReactStars {...this.changeRating} class = "stars" size={20} activeColor = "#b76a47"/>
                         </div>
                     </div>
                 </div>

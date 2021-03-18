@@ -70,8 +70,8 @@ class  ChapterPage extends React.Component {
                 </div>
                 <div className="chapterWithNav">
                     <div className="chapter">
-                        <div className="card">
-                            <div className="content">
+                        <div className="chapter-content">
+                            <div>
                                 <div className="card-header text-center">
                                     <p className="h5">{this.state.chapterName}</p>
                                 </div>

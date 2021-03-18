@@ -24,28 +24,28 @@ class Register extends React.Component {
                             window.location = "/"
                         }}class = "application-name">Мордор</label>
                         <button className="btn btn-outline custom-button sign-up"
-                        onClick = {()=> {window.location = '/authPage'}}>Sign In</button>
+                        onClick = {()=> {window.location = '/authPage'}}>Войти</button>
                     </div>
                 </nav>
                 <form id="form">
-                    <p className="display-4">Create your account</p>
+                    <p className="display-4 text-center">Создай свой аккаунт</p>
                     <div className="cont p-4 my-3 border">
                         <div className="form-group">
-                            <label htmlFor="inputUsername">Username</label>
+                            <label htmlFor="inputUsername">Имя</label>
                             <input initialValue="" type="name" className="form-control" placeholder="Username" id = "name"
                             onChange = {event=> {
                                 this.setState({ name: event.target.value})
                             }}/>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="inputEmail" or="inputEmail">Email address</label>
+                            <label htmlFor="inputEmail" or="inputEmail">Email</label>
                             <input initialValue="" type="email" className="form-control" placeholder="Enter email" id = "email"
                                    onChange = {event=> {
                                        this.setState({ email: event.target.value})
                                    }}/>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="inputPassword">Password</label>
+                            <label htmlFor="inputPassword">Пароль</label>
                             <input initialValue="" type="password" className="form-control" id = "passw" placeholder="Enter password"
                                    onChange = {event=> {
                                        this.setState({password: event.target.value})
@@ -56,7 +56,7 @@ class Register extends React.Component {
                                 <button type="button" className="btn btn-outline custom-button sign-in"
                                         onClick = {() => {setUser(this.state.name , this.state.password,this.state.email)
                                             document.getElementById("form").reset();}}
-                                >Sign Up</button>
+                                >Регистрация</button>
                             </div>
                         </div>
                     </div>

@@ -1,26 +1,20 @@
 .background {
     background-color: #f5edda;
 }
-
-.container {
-    width: 18rem;
-    height: 10rem;
-}
 .book {
-    margin-left: 5%;
+    margin-left: 15%;
+    margin-right:15%
 }
 .content {
     min-height: 90vh;
 }
 .card {
-    width:68%;
     margin-top:2%;
     background-color: #ead6aa;
 }
 
 .card-box {
-    display: flex;
-    flex-direction:row;
+    width: 100%;
     min-height: 85vh;
 }
 
@@ -39,7 +33,10 @@
     border-top-width:0px;
     border-left-width:0px;
     border-right-width:0px;
+    display:flex;
+    justify-content: space-between;
 }
+
 
 .list {
     color: #b76a47;
@@ -86,7 +83,20 @@ label {
     margin-bottom: 5%;
 }
 
+.box {
+    margin: 5rem;
+    align-items: center;
+    display:flex;
+    flex-direction :row
+}
+
 .like-button {
     margin-left: 3rem
+}
+
+.rating-box {
+    align-items: center;
+    display:flex;
+    justify-content: space-between;
 }
 

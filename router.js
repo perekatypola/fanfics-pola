@@ -241,14 +241,9 @@ router.get('/addChapter' , (req ,res) => {
 })
 
 router.get('/getBookTags' , (req ,res) => {
-    if(req.header('Auth')) {
         getBookTags(req.header('bookName') , sequelize).then(result=> {
             res.send(result)
         })
-    }
-    else {
-        res.send("Not authorized")
-    }
 })
 
 router.get('/deleteFanfic' , (req ,res) => {

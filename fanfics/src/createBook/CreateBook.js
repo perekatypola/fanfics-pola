@@ -82,7 +82,7 @@ class CreateBook extends React.Component {
             <div className="background">
                 <MainHeader></MainHeader>
                 <form id="form">
-                    <p className="display-4">Ваша новая работа:</p>
+                    <p className="display-4 text-center">Ваша новая работа:</p>
                     <div className="cont p-4 my-3 border">
                         <div className="form-group">
                             <div className = "tags-and-topics-books">
@@ -111,7 +111,7 @@ class CreateBook extends React.Component {
                             <div className="button-box">
                                 <button type="button" className="btn btn-outline custom-button sign-in"
                                         onClick = {() => {
-                                            // window.location = "/createChapters"
+                                             window.location = "/createChapters"
                                             localStorage.setItem('creatingBook' , this.state.name)
                                             addInitialBook(this.state.name , this.state.descr ,this.state.chosenTopic , this.state.curTags)}}>Продолжить</button>
                             </div>

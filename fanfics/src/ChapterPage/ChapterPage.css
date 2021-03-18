@@ -1,8 +1,15 @@
 .chapter {
-    display:flex;
     align-items: center;
     justify-content: center;
 }
+.chapter-content {
+    margin-top:2%;
+    background-color: #ead6aa;
+    min-height: 90vh;
+    margin-left:15%;
+    margin-right:15%
+}
+
 .chapterWithNav {
     overflow:hidden;
     display:flex;
