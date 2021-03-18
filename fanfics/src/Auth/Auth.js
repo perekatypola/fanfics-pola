@@ -64,7 +64,7 @@ class Auth extends React.Component {
                                             } else {
                                                 // Пользователь нажал кнопку Отмена в окне авторизации
                                             }
-                                        })
+                                        }.bind(this))
                                     }}>VK</button>
                         </div>
                     </div>
