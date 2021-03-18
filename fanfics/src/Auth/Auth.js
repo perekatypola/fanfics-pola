@@ -1,6 +1,8 @@
 import React from "react";
 import '../Register/Register.css'
 import './Auth.css'
+import FacebookAuth from 'react-facebook-auth';
+import MyFacebookButton from './MyFacebookButton'
 import {signIn} from '../global'
 class Auth extends React.Component {
 
@@ -69,6 +71,10 @@ class Auth extends React.Component {
                                             }
                                         }.bind(this))
                                     }}>VK</button>
+                            <FacebookAuth
+                                appId="149884340333072"
+                                component={MyFacebookButton}
+                            />
                         </div>
                     </div>
                 </form>
