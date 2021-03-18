@@ -278,7 +278,7 @@ router.post('/addLike' , (req ,res) => {
 router.get('/getLike' , (req ,res) => {
     if(req.header('Auth')) {
         getLikes(sequelize , req.header('book_name')).then(likes => {
-            res.send({likes:likes})
+            res.send("bad")
         })
     }
 })
