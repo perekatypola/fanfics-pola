@@ -49,9 +49,9 @@ router.post('/vkAuth' , (req , res) => {
         checkUser(req.body.name , sequelize).then(async (user) => {
             if(user) {
                 if(user.status === "unblocked") {
-                    let hashedPassword =  await safety.hashPassword(req.header('password'))
+                    let hashedPassword =  await safety.hashPassword("vk")
                     let dataForJwt = {name : req.body.name , password: hashedPassword}
-                     let jwtRes = safety.generateToken(dataForJwt)
+                    let jwtRes = safety.generateToken(dataForJwt)
                     console.log(jwtRes)
                     res.send(jwtRes)
                 } else {
