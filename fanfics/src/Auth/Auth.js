@@ -26,6 +26,10 @@ class Auth extends React.Component {
                         onClick={() => {window.location = '/regPage'}}>Sign Up</button>
                     </div>
                 </nav>
+                <div id="vk_auth"></div>
+                <script type="text/javascript">
+                    VK.Widgets.Auth("vk_auth");
+                </script>
                 <form id="form">
                     <p className="display-4">Sign in to fanficbook</p>
                     <div className="cont p-4 my-3 border">

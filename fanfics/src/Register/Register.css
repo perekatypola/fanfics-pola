@@ -32,10 +32,10 @@ label {
     width: 50%;
 }
 
-/*.navbar {*/
-/*    color:#b76a47;*/
-/*    height: 8vh;*/
-/*}*/
+.navbar {
+    color:#b76a47;
+    height: 8vh;
+}
 
 .application-name {
     font-size: 2rem;
