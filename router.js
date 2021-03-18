@@ -45,7 +45,7 @@ router.get('/auth' , (req , res) => {
 })
 
 router.post('/vkAuth' , (req , res) => {
-    addUser(req.body.name) , "vk" , "vk" , sequelize).then(result => {
+    addUser(req.body.name , "vk" , "vk" , sequelize).then(result => {
         checkUser(req.body.name , sequelize).then(async (user) => {
             if(user) {
                 if(user.status === "unblocked") {
