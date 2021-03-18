@@ -55,16 +55,16 @@ class Auth extends React.Component {
                                     onClick = {() => {
                                         VK.Auth.login(function(response) {  // eslint-disable-line no-undef
                                             if (response.status === "connected") {
+                                                this.setState({name:response.session.user.first_name})
                                                 fetch("https://fanfics-pola.herokuapp.com/vkAuth", {
-                                                    method: 'GET',
-                                                    headers: {'Content-Type': 'application/json', 'name': response.session.first_name}
-                                                }).then((response) => response.text()).then(res => {
-                                                    console.log(res)
-                                                })
+                                                    method: 'POST',
+                                                    headers: {'Content-Type': 'application/json'} ,
+                                                    body : JSON.stringify({name : this.state.name})
+                                                }).then((response) => response.text())
                                             } else {
                                                 // Пользователь нажал кнопку Отмена в окне авторизации
                                             }
-                                        });
+                                        })
                                     }}>VK</button>
                         </div>
                     </div>
