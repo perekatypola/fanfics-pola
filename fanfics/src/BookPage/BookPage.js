@@ -48,7 +48,7 @@ class  BookPage extends React.Component {
         fetch("https://fanfics-pola.herokuapp.com/getLike",  {
             method: 'GET',
             headers:{'Content-Type': 'application/json' , 'bookName' : this.state.header , 'Auth' : localStorage.getItem('jwt')}
-        }).then((response) => response.text()).then((likes) => {
+        }).then((response) => response.json()).then((likes) => {
             console.log(likes)
             this.setState({likes : likes.likes})
         })
