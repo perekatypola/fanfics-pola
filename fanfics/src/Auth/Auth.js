@@ -66,7 +66,7 @@ class Auth extends React.Component {
                                                     body : JSON.stringify({name : response.session.user.first_name})
                                                 }).then((response) => response.text()).then(result => {
                                                     localStorage.setItem('jwt' , result)
-                                                    window.location = "/userPage"
+                                                    window.location = "/user"
                                                     console.log(result)
                                                 })
                                             } else {

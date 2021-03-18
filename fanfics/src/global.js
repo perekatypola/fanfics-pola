@@ -60,6 +60,7 @@ export const getRating = (work) => {
 }
 
 export const addLike = (work , user_liked) => {
+    console.log(user_liked)
     fetch("https://fanfics-pola.herokuapp.com/addLike",  {
         method: 'GET',
         headers:{'Content-Type': 'application/json' , 'book_name' : work , 'user_liked' : user_liked , 'Auth' : localStorage.getItem('jwt')},
@@ -96,7 +97,7 @@ export const loginFacebook = (response)  => {
             body : JSON.stringify({name : response.authResponse.signedRequest})
         }).then((response) => response.text()).then(result => {
             localStorage.setItem('jwt' , result)
-            window.location = "/userPage"
+            window.location = "/user"
             console.log(result)
         })
     }

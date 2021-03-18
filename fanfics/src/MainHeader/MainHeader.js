@@ -47,14 +47,14 @@ class  MainHeader extends React.Component {
                     <button className="btn btn-outline custom-button sign-in-button"
                             onClick = {() =>{window.location = "/"
                             localStorage.setItem('jwt' , "")}
-                    }>LogOut</button>
+                    }>Выйти</button>
                 }</>
             }
             else {
                 return <> {
                     <button className="btn btn-outline custom-button sign-in-button"
                             onClick = {()=> {window.location ="/authPage"}
-                            }>Sign In</button>
+                            }>Войти</button>
                 }</>
             }
         }
@@ -77,7 +77,7 @@ class  MainHeader extends React.Component {
                                             console.log(res)
                                         })
                                     }}
-                            >Search</button>
+                            >Поиск</button>
                         </form>
                         {renderLogOut()}
                         {renderAdd()}
