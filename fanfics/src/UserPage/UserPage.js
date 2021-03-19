@@ -33,7 +33,7 @@ class UserPage extends React.Component {
         const renderWorks = () => {
             if(this.state.works.length === 0) {
                 return <>
-                <p className="h5">У тебя еще нет работ</p>
+                <p className="h5" сlassName = "text-center">У тебя еще нет работ</p>
                  </>
             }
             else

@@ -155,7 +155,6 @@ class  BookPage extends React.Component {
                                  onPress = {data=> {
                                      addLike(this.state.header , data.attributes.userHasLiked)
                                  }}
-
                              />
                              <strong className="rating-text">Лайков: {this.state.likes}</strong>
                          </div>

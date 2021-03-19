@@ -71,7 +71,9 @@ label {
 .box {
     align-items: center;
     display:flex;
-    flex-direction :row
+    flex-direction :row;
+    mrgin-left:1.5rem;
+    margin-right:1.5rem
 }
 
 .like-button {
@@ -83,7 +85,7 @@ label {
     align-items: center;
     display:flex;
     justify-content: space-between;
-    width:100%
+    width:100%;
 }
 
 @media (max-width: 976px){
