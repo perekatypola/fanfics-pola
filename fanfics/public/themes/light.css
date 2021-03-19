@@ -56,3 +56,7 @@
 .App.dark .card-header {
     border-color: whitesmoke;
 }
+
+.App.light .chapter-content {
+    background-color: #ead6aa;
+}

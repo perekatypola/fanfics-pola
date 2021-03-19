@@ -12,5 +12,10 @@ td {
     min-width: 30vw;
 }
 
+.App.dark .UserPage p {
+    color: whitesmoke;
+}
 
-
+.App.light .UserPage p {
+    color : #b76a47
+}

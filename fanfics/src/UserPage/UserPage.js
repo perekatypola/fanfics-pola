@@ -33,7 +33,7 @@ class UserPage extends React.Component {
         const renderWorks = () => {
             if(this.state.works.length === 0) {
                 return <>
-                <p className="h5" сlassName = "text-center">У тебя еще нет работ</p>
+                <p className = "display-4 text-center">Еще нет работ</p>
                  </>
             }
             else
@@ -73,7 +73,7 @@ class UserPage extends React.Component {
         }
 
         return (
-            <div className="background">
+            <div className="background UserPage">
                 <MainHeader loggedIn = {true}></MainHeader>
                 <div className="container user-works">
                     <div className="table-responsive">

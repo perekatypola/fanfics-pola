@@ -53,7 +53,10 @@
     background-color: #d3d3d3
 }
 
-.App.light .comment-box {
+.App.dark .comment-box {
     background-color: #373737;
 }
 
+.App.dark .chapter-content {
+    background-color: #373737;
+}
