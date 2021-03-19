@@ -20,7 +20,7 @@ class  MainHeader extends React.Component {
         const renderUserImage = () => {
             if(localStorage.getItem('jwt')!="") {
                 return <> {
-                    <button className="user-button" data-placement="bottom" title="Твоя страница"
+                    <button className="user-button"
                     onClick = {()=> {
                         window.location = "/user"
                     }}>
@@ -34,7 +34,7 @@ class  MainHeader extends React.Component {
         const renderAdd = () => {
             if(this.props.loggedIn===true) {
                 return <> {
-                    <button className="user-button" data-placement="bottom" title="Добавь фанфик"
+                    <button className="user-button"
                             onClick = {()=> {
                                 window.location = "/createBook"
                             }}>
