@@ -31,21 +31,28 @@ class UserPage extends React.Component {
     render() {
 
         const renderWorks = () => {
-            return <>
-                {
-                    this.state.works.map(work =>
-                        <React.Fragment>
-                            {getRating(work)}
-                            <div className = "cell">
-                                <tr>
-                                    <th scope="row"></th>
-                                    <td class = "book-name">
-                                        <Link to = "/bookPage" onClick = {() => {localStorage.setItem('curBook' ,work.book_name)}}>{work.book_name}</Link>
-                                    </td>
-                                    <td class="stars">
-                                        <ReactStars  value = {work.cur_rating} size = {20} edit = {false} activeColor = "#b76a47" class="text-right"/>
-                                    </td>
-                                    <td>
+            if(this.state.works.length === 0) {
+                return <>
+                <p className="h5">У тебя еще нет работ</p>
+                 </>
+            }
+            else
+            {
+                return <>
+                    {
+                        this.state.works.map(work =>
+                            <React.Fragment>
+                                {getRating(work)}
+                                <div className = "cell">
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td class = "book-name">
+                                            <Link to = "/bookPage" onClick = {() => {localStorage.setItem('curBook' ,work.book_name)}}>{work.book_name}</Link>
+                                        </td>
+                                        <td class="stars">
+                                            <ReactStars  value = {work.cur_rating} size = {20} edit = {false} activeColor = "#b76a47" class="text-right"/>
+                                        </td>
+                                        <td>
                                             <div className="nav-item dropdown">
                                                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -56,12 +63,13 @@ class UserPage extends React.Component {
                                                     <button className="dropdown-item" >Редактировать</button>
                                                 </div>
                                             </div>
-                                    </td>
-                                </tr>
-                            </div>
-                        </React.Fragment>
-                    )}
-            </>
+                                        </td>
+                                    </tr>
+                                </div>
+                            </React.Fragment>
+                        )}
+                </>
+            }
         }
 
         return (
