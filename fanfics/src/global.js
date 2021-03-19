@@ -42,8 +42,9 @@ export const signIn = (name , password) => {
 
 export const addComment =(name , text , book) => {
     fetch("https://fanfics-pola.herokuapp.com/addComment",  {
-        method: 'GET',
-        headers:{'Content-Type': 'application/json' , 'name' : name , 'text' : text , 'book' : book}
+        method: 'POST',
+        headers:{'Content-Type': 'application/json'},
+        body: JSON.stringify({name : name , text: text , book : book})
     }).then((response) => response.text()).then(res => {
         console.log(res)
     })

@@ -150,8 +150,8 @@ router.get('/loadTags' , (req , res) => {
     }
 })
 
-router.get('/addComment' , (req , res) => {
-    addComment(req.header('name') , req.header('text') , sequelize , req.header('book')).then(result=>res.send(result))
+router.post('/addComment' , (req , res) => {
+    addComment(req.body.name , req.body.text , sequelize , req.body.book).then(result=>res.send(result))
 })
 
 router.get('/loadRecentWorks' , (req , res) => {
