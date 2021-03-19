@@ -52,3 +52,7 @@
 .App.light .comment-box {
     background-color: #ead6aa;
 }
+
+.App.dark .card-header {
+    border-color: whitesmoke;
+}

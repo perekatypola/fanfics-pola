@@ -4,6 +4,7 @@ import './MainHeader.css'
 import {switchTheme} from "../App";
 
 import React from "react";
+import Tooltip from "react-bootstrap/Tooltip";
 
 class  MainHeader extends React.Component {
 
@@ -19,7 +20,7 @@ class  MainHeader extends React.Component {
         const renderUserImage = () => {
             if(localStorage.getItem('jwt')!="") {
                 return <> {
-                    <button className="user-button"
+                    <button className="user-button" data-placement="bottom" title="Твоя страница"
                     onClick = {()=> {
                         window.location = "/user"
                     }}>
@@ -33,7 +34,7 @@ class  MainHeader extends React.Component {
         const renderAdd = () => {
             if(this.props.loggedIn===true) {
                 return <> {
-                    <button className="user-button"
+                    <button className="user-button" data-placement="bottom" title="Добавь фанфик"
                             onClick = {()=> {
                                 window.location = "/createBook"
                             }}>

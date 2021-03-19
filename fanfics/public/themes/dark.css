@@ -50,9 +50,10 @@
 }
 
 .App.dark .comment {
-    background-color: #373737;
+    background-color: #d3d3d3
 }
 
 .App.light .comment-box {
     background-color: #373737;
 }
+

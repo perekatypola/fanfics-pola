@@ -140,6 +140,37 @@ class  BookPage extends React.Component {
             }
         }
 
+        const renderRatingBox = () => {
+         if(localStorage.getItem('jwt')!="") {
+                 return <> {
+                     <div className = "rating-box">
+                         <div className="box">
+                             <strong className="rating-text">Поставьте лайк:</strong>
+                             <LikeButton
+                                 className = "like-button"
+                                 namespace="post"
+                                 id={this.state.likes}
+                                 component={LikeButton.templates.Twitter}
+                                 hideCounterIfLessThan={50000}
+                                 onPress = {data=> {
+                                     addLike(this.state.header , data.attributes.userHasLiked)
+                                 }}
+
+                             />
+                             <strong className="rating-text">Лайков: {this.state.likes}</strong>
+                         </div>
+                         <ReactTags className = "tags"
+                                    tags={this.state.tags}/>
+                         <div className="box">
+                             <strong className="rating-text">Оставьте рейтинг: </strong>
+                             <ReactStars {...this.changeRating} class = "stars" size={20} activeColor = "#b76a47"/>
+                         </div>
+                     </div>
+                 }
+                 </>
+            }
+         }
+
         return (
             <div className="background">
                 <MainHeader></MainHeader>
@@ -148,7 +179,7 @@ class  BookPage extends React.Component {
                         <div className="content">
                             <div className="card-header">
                                 <p>{this.state.header}</p>
-                                <p>Topic : {this.state.topic} </p>
+                                <p>Жанр : {this.state.topic} </p>
                             </div>
                             <div className="card-body">
                                 <ol>
@@ -156,29 +187,7 @@ class  BookPage extends React.Component {
                                 </ol>
                             </div>
                         </div>
-                        <div className = "rating-box">
-                            <div className="box">
-                                <strong className="rating-text">Поставьте лайк:</strong>
-                                <LikeButton
-                                    className = "like-button"
-                                    namespace="post"
-                                    id={this.state.likes}
-                                    component={LikeButton.templates.Twitter}
-                                    hideCounterIfLessThan={50000}
-                                    onPress = {data=> {
-                                        addLike(this.state.header , data.attributes.userHasLiked)
-                                    }}
-
-                                />
-                                <strong className="rating-text">Лайков: {this.state.likes}</strong>
-                            </div>
-                            <ReactTags className = "tags"
-                                       tags={this.state.tags}/>
-                            <div className="box">
-                                <strong className="rating-text">Оставьте рейтинг: </strong>
-                                <ReactStars {...this.changeRating} class = "stars" size={20} activeColor = "#b76a47"/>
-                            </div>
-                        </div>
+                        {renderRatingBox()}
                         {renderComment()}
                         <div className="form-outline border-top border-bottom">
                             {renderComments()}

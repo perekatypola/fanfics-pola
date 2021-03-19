@@ -8,7 +8,7 @@ img {
     margin-left:0.5%;
 }
 .application-name {
-    font-size: 3vw;
+    font-size: 2rem;
     border:  solid 0px  #b76a47;
 }
 
@@ -30,6 +30,12 @@ a {
 
 App.dark .MainHeader label {
     color: whitesmoke
+}
+
+@media (max-width: 976px){
+    .App .application-name {
+        font-size: 5vw;
+    }
 }
 
 
