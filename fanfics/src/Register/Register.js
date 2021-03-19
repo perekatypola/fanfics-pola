@@ -1,6 +1,7 @@
 import React from "react";
 import './Register.css'
 import {setUser} from '../global'
+import {switchTheme} from "../App";
 class Register extends React.Component {
 
     constructor(props) {
@@ -13,6 +14,7 @@ class Register extends React.Component {
     }
 
     componentDidMount() {
+        switchTheme(localStorage.getItem('theme'))
     }
 
     render() {
@@ -23,6 +25,10 @@ class Register extends React.Component {
                         <label onClick = {()=>{
                             window.location = "/"
                         }}class = "application-name">Мордор</label>
+                        <button type="button" className="btn btn-outline custom-button"
+                                onClick = {() => {
+                                    switchTheme()
+                                }}>Тема</button>
                         <button className="btn btn-outline custom-button sign-up"
                         onClick = {()=> {window.location = '/authPage'}}>Войти</button>
                     </div>

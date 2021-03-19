@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import MainHeader from "../MainHeader/MainHeader";
 import {getRating} from '../global'
 import CommentArea from "../CommentArea/CommentArea";
+import {switchTheme} from "../App";
 class RecentWorks extends React.Component {
 
     constructor(props) {
@@ -15,6 +16,7 @@ class RecentWorks extends React.Component {
     }
 
     componentDidMount() {
+        switchTheme(localStorage.getItem('theme'))
         fetch("https://fanfics-pola.herokuapp.com/loadRecentWorks",  {
             method: 'GET',
             headers:{'Content-Type': 'application/json'}
@@ -47,7 +49,7 @@ class RecentWorks extends React.Component {
         }
 
         return (
-            <div className="background">
+            <div className="RecentWorks background">
                 <MainHeader></MainHeader>
                 <div className="container">
                     <table className="table">

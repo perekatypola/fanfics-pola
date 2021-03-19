@@ -1,6 +1,7 @@
 import user from '../user.png'
 import book from '../book.png'
 import './MainHeader.css'
+import {switchTheme} from "../App";
 
 import React from "react";
 
@@ -11,6 +12,7 @@ class  MainHeader extends React.Component {
     }
 
     componentDidMount() {
+        switchTheme(localStorage.getItem('theme'))
     }
 
     render() {
@@ -44,7 +46,7 @@ class  MainHeader extends React.Component {
         const renderLogOut = () => {
             if(localStorage.getItem('jwt')!="") {
                 return <> {
-                    <button className="btn btn-outline custom-button sign-in-button"
+                    <button className="btn custom-button sign-in-button"
                             onClick = {() =>{window.location = "/"
                             localStorage.setItem('jwt' , "")}
                     }>Выйти</button>
@@ -52,23 +54,28 @@ class  MainHeader extends React.Component {
             }
             else {
                 return <> {
-                    <button className="btn btn-outline custom-button sign-in-button"
+                    <button className="btn custom-button sign-in-button"
                             onClick = {()=> {window.location ="/authPage"}
                             }>Войти</button>
                 }</>
             }
         }
         return (
-            <div>
+            <div className = "MainHeader">
                 <nav className="navbar navbar-expand-lg navbar-light">
                     <div className="header">
                         {renderUserImage()}
                         <label onClick={() => {
                             window.location = "/"
                         }} className="application-name">Мордор</label>
+                        <button className="btn btn-outline custom-button" type="submit"
+                                onClick={()=> {
+                                    switchTheme()
+                                }}
+                        >Тема</button>
                         <form className="form mr-auto">
                             <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-                            <button className="btn btn-outline custom-button" type="submit"
+                            <button className="btn custom-button" type="submit"
                                     onClick={()=> {
                                         fetch("https://fanfics-pola.herokuapp.com/search",  {
                                             method: 'GET',

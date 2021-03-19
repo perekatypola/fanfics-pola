@@ -1,16 +1,10 @@
-.background {
-    background-color: #f5edda;
-}
+
 .book {
     margin-left: 15%;
     margin-right:15%
 }
 .content {
     min-height: 90vh;
-}
-.card {
-    margin-top:2%;
-    background-color: #ead6aa;
 }
 
 .card-box {
@@ -19,7 +13,7 @@
 }
 
 .rating-text {
-    size: 5vw;
+    font-size: 1vw;
 }
 
 .rating {
@@ -45,9 +39,6 @@
     color: #b76a47;
 }
 
-a {
-    color : #955234;
-}
 .h5 {
     margin-bottom: 3rem
 }
@@ -58,15 +49,6 @@ a {
     margin-bottom: 2%;
     width: 90%;
     height: 40%
-}
-
-.comment-box {
-    margin-left:2%;
-    margin-right:2%;
-    margin-bottom: 5%;
-    width: 96%;
-    background-color: #ead6aa;
-    border-radius: 5px;
 }
 
 .name {
@@ -87,7 +69,6 @@ label {
 }
 
 .box {
-    margin: 5rem;
     align-items: center;
     display:flex;
     flex-direction :row
@@ -98,9 +79,16 @@ label {
 }
 
 .rating-box {
+    flex-direction : row;
     align-items: center;
     display:flex;
     justify-content: space-between;
-    width:10%
+    width:100%
+}
+
+@media (max-width: 976px){
+    .rating-box {
+        flex-direction: column
+    }
 }
 

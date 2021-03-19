@@ -381,11 +381,10 @@ exports.getLikes = (sequelize , book_name) => {
             where:
                 {
                     book_name: book_name,
-                    liked: "true"
+                    like: "true"
                 }
         })
             .then(likes => {
-                console.log(likes.length)
                 resolve(likes.length)
             })
     })

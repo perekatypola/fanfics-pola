@@ -1,6 +1,7 @@
 import React from "react";
 import './MainPage.css'
 import RecentWorks from '../RecentWorks/RecentWorks'
+import {switchTheme} from "../App";
 class MainPage extends React.Component {
 
     constructor(props) {
@@ -13,6 +14,7 @@ class MainPage extends React.Component {
     }
 
     componentDidMount() {
+        switchTheme(localStorage.getItem('theme'))
     }
 
 

@@ -1,0 +1,17 @@
+.container {
+    margin-top:2%;
+    min-height: 90vh;
+    width:70vw;
+    display: flex;
+    justify-content: center;
+    border: solid 1px #b76a47;
+    border-bottom-width:0px;
+    border-top-width:0px;
+}
+
+.cell {
+    margin-top:1%;
+    border:solid 1px;
+    display:flex;
+    flex-direction:row
+}

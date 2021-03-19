@@ -1,4 +1,7 @@
 
+.App.dark #form{
+    color: #373737
+}
 
 form {
     display: flex;
@@ -36,12 +39,6 @@ label {
     color:#b76a47;
     height: 8vh;
 }
-
-.application-name {
-    font-size: 2rem;
-    border:  solid 0px  #b76a47;
-}
-
 
 .sign-up {
     overflow: hidden;

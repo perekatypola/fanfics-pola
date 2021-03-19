@@ -3,6 +3,7 @@ import './CreateChapters.css'
 import MainHeader from "../MainHeader/MainHeader";
 import {addChapter} from "../global"
 import {getCreatingBook} from "../global"
+import {switchTheme} from "../App";
 const KeyCodes = {
     comma: 188,
     enter: 13,
@@ -22,6 +23,7 @@ class CreateChapters extends React.Component {
     }
 
     componentDidMount() {
+        switchTheme(localStorage.getItem('theme'))
     }
 
     render() {

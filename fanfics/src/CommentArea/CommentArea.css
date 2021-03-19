@@ -5,7 +5,6 @@
     margin-bottom: 5%;
     margin-top:5%;
     width: 73%;
-    background-color: #f5edda;
 }
 
 label {
@@ -20,4 +19,12 @@ label {
 
 .username {
     margin-left:2%;
+}
+
+.comment-box {
+    margin-left:2%;
+    margin-right:2%;
+    margin-bottom: 5%;
+    width: 96%;
+    border-radius: 5px;
 }

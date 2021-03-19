@@ -1,5 +1,6 @@
 import React from "react";
 import './CommentArea.css'
+import {switchTheme} from "../App";
 class  Comment extends React.Component {
 
     constructor(props) {
@@ -7,6 +8,7 @@ class  Comment extends React.Component {
     }
 
     componentDidMount() {
+        switchTheme(localStorage.getItem('theme'))
     }
 
     render() {

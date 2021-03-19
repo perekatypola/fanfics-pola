@@ -6,6 +6,7 @@ import './UserPage.css'
 import CommentArea from "../CommentArea/CommentArea";
 import {getRating, deleteFanfic} from "../global";
 import user from "../user.png";
+import {switchTheme} from "../App";
 class UserPage extends React.Component {
 
     constructor(props) {
@@ -17,6 +18,7 @@ class UserPage extends React.Component {
     }
 
     componentDidMount() {
+        switchTheme(localStorage.getItem('theme'))
         fetch("https://fanfics-pola.herokuapp.com/loadUserWorks",  {
             method: 'GET',
             headers:{'Content-Type': 'application/json' , Auth: localStorage.getItem('jwt')}

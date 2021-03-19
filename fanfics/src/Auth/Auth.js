@@ -5,6 +5,7 @@ import vk from '../vk.png'
 import FacebookAuth from 'react-facebook-auth';
 import MyFacebookButton from './MyFacebookButton'
 import {loginFacebook, signIn} from '../global'
+import {switchTheme} from "../App";
 import user from "../user.png";
 class Auth extends React.Component {
 
@@ -16,32 +17,38 @@ class Auth extends React.Component {
         };
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+        switchTheme(localStorage.getItem('theme'))
+    }
 
     render() {
         return (
-            <div>
+            <div className="Auth">
                 <nav className="navbar navbar-light">
                     <div className="header">
                         <label onClick={() => {
-                            window.location = "/"
+                            window.location.href = "/"
                         }} className="application-name">Мордор</label>
+                        <button type="button" className="btn btn-outline custom-button"
+                                onClick = {() => {
+                                    switchTheme()
+                                }}>Тема</button>
                         <button className="btn btn-outline custom-button sign-up"
-                        onClick={() => {window.location = '/regPage'}}>Sign Up</button>
+                        onClick={() => {window.location = '/regPage'}}>Регистрация</button>
                     </div>
                 </nav>
                 <form id="form">
                     <p className="display-4 text-center">Sign in to fanficbook</p>
                     <div className="cont p-4 my-3 border">
                         <div className="form-group">
-                            <label htmlFor="inputUsername">Username</label>
+                            <label htmlFor="inputUsername">Имя</label>
                             <input initialValue="" type="name" className="form-control" placeholder="Username"
                                    onChange = {event=> {
                                        this.setState({ name: event.target.value})
                                    }}/>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="inputPassword">Password</label>
+                            <label htmlFor="inputPassword">Пароль</label>
                             <input initialValue="" type="password" className="form-control" id="passw"
                                    placeholder="Enter password"
                                    onChange = {event=> {

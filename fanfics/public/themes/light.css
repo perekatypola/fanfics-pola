@@ -1,0 +1,54 @@
+.App.light .custom-button {
+    margin-right: 0.5vw;
+    display:block;
+    color: #b76a47;
+    background-color: #ead6aa;
+    border-color: #b76a47;
+    font-size: 1rem
+}
+
+.App.light .custom-button:hover {
+    color: #ead6aa;
+    background-color: #b76a47;
+    border-color: #b76a47
+}
+
+.App.light .navbar {
+    display:flex;
+    flex-direction:row;
+    background-color: #ead6aa;
+}
+
+.App.light .user-button{
+    border: solid 0px;
+    background-color: #ead6aa;
+}
+
+.App.light .background {
+    background-color: #f5edda;
+}
+
+.App.light .card {
+    margin-top:2%;
+    background-color: #ead6aa;
+}
+
+.App.light .container {
+    background-color: #ead6aa;
+}
+
+.App.light .cell {
+    border-color: #b76a47;
+}
+
+.App.light a {
+    color: #b76a47;
+}
+
+.App.light .comment {
+    background-color: #f5edda;
+}
+
+.App.light .comment-box {
+    background-color: #ead6aa;
+}

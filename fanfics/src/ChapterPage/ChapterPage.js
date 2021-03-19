@@ -3,6 +3,7 @@ import './ChapterPage.css'
 import {chaptersNav} from '../global'
 import MainHeader from '../MainHeader/MainHeader'
 import CommentArea from "../CommentArea/CommentArea";
+import {switchTheme} from "../App";
 class  ChapterPage extends React.Component {
 
     constructor(props) {
@@ -17,6 +18,7 @@ class  ChapterPage extends React.Component {
     }
 
     componentDidMount() {
+        switchTheme(localStorage.getItem('theme'))
         fetch("https://fanfics-pola.herokuapp.com/loadChapters",  {
             method: 'GET',
             headers:{'Content-Type': 'application/json' , 'chapterName' : this.state.chapterName, 'bookName' : this.state.book }

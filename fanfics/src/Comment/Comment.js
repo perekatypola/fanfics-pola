@@ -1,5 +1,6 @@
 import React from "react";
 import {addComment} from '../global'
+import {switchTheme} from "../App";
 class  Comment extends React.Component {
 
     constructor(props) {
@@ -10,7 +11,9 @@ class  Comment extends React.Component {
         }
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+        switchTheme(localStorage.getItem('theme'))
+    }
 
     render() {
         return (

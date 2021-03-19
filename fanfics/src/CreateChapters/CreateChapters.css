@@ -4,8 +4,7 @@
     justify-content: center;
     margin-top: 2vh
 }
-
 .create-book {
-    display:flex;
-    justify-content: center;
+    margin-left:15%;
+    margin-right:15%
 }

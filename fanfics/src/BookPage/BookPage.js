@@ -10,6 +10,7 @@ import {WithContext as ReactTags} from "react-tag-input";
 import like from "../like.png";
 import { Provider, LikeButton } from "@lyket/react";
 import {addLike} from "../global";
+import {switchTheme} from "../App";
 class  BookPage extends React.Component {
 
     constructor(props) {
@@ -25,6 +26,7 @@ class  BookPage extends React.Component {
     }
 
     componentDidMount() {
+        switchTheme(localStorage.getItem('theme'))
         fetch("https://fanfics-pola.herokuapp.com/loadChapters",  {
             method: 'GET',
             headers:{'Content-Type': 'application/json' , 'bookName' : this.state.header}
@@ -45,9 +47,10 @@ class  BookPage extends React.Component {
             })
             this.setState({tags:tags})
         })
-        fetch("https://fanfics-pola.herokuapp.com/getLike",  {
+        console.log(localStorage.getItem('curBook'))
+        fetch("http://localhost:8080/getLike",  {
             method: 'GET',
-            headers:{'Content-Type': 'application/json' , 'bookName' : this.state.header , 'Auth' : localStorage.getItem('jwt')}
+            headers:{'Content-Type': 'application/json' , 'book_name' : localStorage.getItem('curBook') , 'Auth' : localStorage.getItem('jwt')}
         }).then((response) => response.json()).then((likes) => {
             console.log(likes)
             this.setState({likes : likes.likes})
@@ -66,6 +69,8 @@ class  BookPage extends React.Component {
         })
     }
 
+
+
     componentWillUnmount() {
         clearInterval(this.intervalId)
     }
@@ -81,7 +86,6 @@ class  BookPage extends React.Component {
             console.log(newRating)
         }
     }
-
 
     render() {
         const renderLikeImage = () => {

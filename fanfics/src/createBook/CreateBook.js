@@ -3,6 +3,7 @@ import './CreateBook.css'
 import MainHeader from "../MainHeader/MainHeader";
 import {addInitialBook, setCreatingBook} from '../global'
 import {WithContext as ReactTags} from "react-tag-input";
+import {switchTheme} from "../App";
 
 const KeyCodes = {
     comma: 188,
@@ -29,6 +30,7 @@ class CreateBook extends React.Component {
     }
 
     componentDidMount() {
+        switchTheme(localStorage.getItem('theme'))
         fetch("https://fanfics-pola.herokuapp.com/loadTopics", {
             method: 'GET',
             headers: {'Content-Type': 'application/json','Auth' : localStorage.getItem('jwt')}

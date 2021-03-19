@@ -1,36 +1,15 @@
-.custom-button {
-    display:block;
-    color: #b76a47;
-    background-color: #ead6aa;
-    border-color: #b76a47
-}
-
-.user-button{
-    border: solid 0px;
-    background-color: #ead6aa;
-}
-
 img {
-    width: 2rem;
-    height: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 .sign-in-button{
-    width:5rem;
-    margin-left:0.5rem;
+    width:fit-content;
+    margin-left:0.5%;
 }
-
-
-.custom-button:hover {
-    color: #ead6aa;
-    background-color: #b76a47;
-    border-color: #b76a47
-}
-
-.navbar {
-    display:flex;
-    flex-direction:row;
-    background-color: #ead6aa;
+.application-name {
+    font-size: 3vw;
+    border:  solid 0px  #b76a47;
 }
 
 .navbar-nav {
@@ -47,6 +26,10 @@ img {
 
 a {
     margin-left:5px;
+}
+
+App.dark .MainHeader label {
+    color: whitesmoke
 }
 
 
