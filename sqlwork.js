@@ -449,7 +449,8 @@ exports.blockUser = (sequelize , user_name , status) => {
             newStatus = "unblocked"
         }
 
-        User.update({status : newStatus},
+        User.update(
+            {status : newStatus},
             {where:
                     {
                         name:user_name

@@ -92,7 +92,7 @@ export const deleteUser = (user_name) => {
 }
 
 export const blockUser = (user_name , user_status) => {
-    fetch("https://fanfics-pola.herokuapp.com/deleteUser",  {
+    fetch("https://fanfics-pola.herokuapp.com/blockUser",  {
         method: 'POST',
         headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
         body: JSON.stringify({user_name : user_name , status:  user_status})
