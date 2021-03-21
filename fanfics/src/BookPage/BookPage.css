@@ -29,11 +29,11 @@
 .tag-button:hover {
     height: fit-content;
     width: fit-content;
-    background-color: #f5edda;
+    background-color: #f9f8e5;
     font-size: 0.7rem;
     border-radius: 5%;
     margin: 2px;
-    color: #b76a47
+    color: #b77c59
 }
 
 .rating-text {
@@ -87,12 +87,20 @@
     width: 90%
 }
 
-label {
-     margin-left:5%;
-    margin-right:5%;
-    margin-top:5%
+.tags-mg {
+    margin-bottom: 2%
 }
 
+.chapter-link {
+    margin-bottom:5%
+}
+.tags {
+    border-bottom: solid 1px ;
+}
+
+.chapters {
+    border-bottom: solid 1px #b76a47;
+}
 .send{
     margin-left:5%;
     margin-bottom: 5%;

@@ -17,12 +17,20 @@ class  BookPage extends React.Component {
         super(props);
         this.state = {
             header:localStorage.getItem('curBook') ,
-            topic: '',
-            chaptersList: [],
+            topic: 'Романтика',
+            chaptersList: [{chapter_name: 'First'} , {chapter_name : 'Second'} , {chapter_name : 'Second'},{chapter_name : 'Second'},{chapter_name : 'Second'},{chapter_name : 'Second'}],
             chaptersNames: '',
             comments: [] ,
-            tags: [] ,
-            description: ''
+            tags: [{text:'book'} , {text:'fun'}] ,
+            description: 'Coming out of my cage\n' +
+                'And I\'ve been doing just fine\n' +
+                'Gotta gotta be down\n' +
+                'Because I want it all\n' +
+                '\n' +
+                'Я выхожу из своей клетки,\n' +
+                'Там мне было хорошо,\n' +
+                'Но я в расстроенных чувствах,\n' +
+                'Потому что хочу всего и сразу.'
         };
     }
 
@@ -54,7 +62,6 @@ class  BookPage extends React.Component {
             this.setState({topic:res.topic})
             this.setState({description: res.description})
         })
-        console.log(localStorage.getItem('curBook'))
         fetch("https://fanfics-pola.herokuapp.com/getLike",  {
             method: 'GET',
             headers:{'Content-Type': 'application/json' , 'book_name' : localStorage.getItem('curBook') , 'Auth' : localStorage.getItem('jwt')}
@@ -127,8 +134,8 @@ class  BookPage extends React.Component {
                 {
                     this.state.chaptersList.map(chapter =>
                         <React.Fragment>
-                                    <li>
-                                        <Link to = "/chapterPage"
+                                    <li className="chapter-link">
+                                        <Link className = "h5" to = "/chapterPage"
                                               onClick = {() =>
                                               {localStorage.setItem('curChapter' ,chapter.chapter_name)}}>
                                             {chapter.chapter_name}</Link>
@@ -197,13 +204,23 @@ class  BookPage extends React.Component {
                                 <p className="h5">Жанр : {this.state.topic} </p>
                             </div>
                             <div className="card-header">
-                                <label>Метки:</label>
-                                {renderTags()}
+                                <div className="tags">
+                                    <label>Метки:</label>
+                                    <div className = "tags-mg">
+                                        {renderTags()}
+                                    </div>
+                                </div>
+                                    <label>Описание:</label>
+                                    <i>
+                                        {this.state.description}
+                                    </i>
                             </div>
-                            <div className="card-body">
-                                <ol>
-                                    {renderChapters()}
-                                </ol>
+                            <div className="card-body chapters">
+                                <div>
+                                    <ol>
+                                        {renderChapters()}
+                                    </ol>
+                                </div>
                             </div>
                         </div>
                         {renderRatingBox()}

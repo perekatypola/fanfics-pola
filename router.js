@@ -6,7 +6,7 @@ const {initUser} = require("./entity/user");
 const {writeBookInst , setChapter , getChaptersList , setConnection ,
     getComments , loadWorks , loadChapter , addUser , validatePassword , checkUser , getUserBooks , addComment,
     loadBook,getChapters , getTags , addTags , addTagsToBook , getBookTags , setRating , getRating , deleteFanfic , setRatingToBook,
-    addLike , getLikes,getUsers , deleteUser, blockUser} = require ("./sqlwork")
+    addLike , getLikes,getUsers , deleteUser, blockUser ,getBookProps} = require ("./sqlwork")
 const safety = require('./safety')
 const {getTopics} = require("./sqlwork");
 const {initTopic} = require("./entity/topic");
@@ -269,6 +269,12 @@ router.get('/getBookTags' , (req ,res) => {
         getBookTags(req.header('bookName') , sequelize).then(result=> {
             res.send(result)
         })
+})
+
+router.get('/getBookProps' , (req ,res) => {
+    getBookProps(req.header('bookName') , sequelize).then(book=> {
+        res.send({topic: book.book_genre , description: book.book_descr})
+    })
 })
 
 router.get('/deleteFanfic' , (req ,res) => {

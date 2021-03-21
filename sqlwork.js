@@ -462,3 +462,18 @@ exports.blockUser = (sequelize , user_name , status) => {
             })
     })
 }
+
+exports.getBookProps = (book_name , sequelize) => {
+    return new Promise((resolve, reject) => {
+        const Book = initBook(Sequelize , sequelize)
+        Book.findOne(
+            {where:
+                    {
+                        book_name:book_name
+                    }
+            })
+            .then(book => {
+                resolve(book)
+            })
+    })
+}
