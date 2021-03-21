@@ -17,6 +17,7 @@ import MainPage from "./MainPage/MainPage";
 import UserPage from "./UserPage/UserPage";
 import CreateBook from "./createBook/CreateBook";
 import CreateChapters from "./CreateChapters/CreateChapters";
+import Admin from "./Admin/Admin";
 function App() {
 
   return (
@@ -43,6 +44,9 @@ function App() {
                   </Route>
                   <Route path="/createBook">
                       <CreateBook/>
+                  </Route>
+                  <Route path="/admin">
+                      <Admin/>
                   </Route>
                   <Route path="/createChapters">
                       <CreateChapters/>

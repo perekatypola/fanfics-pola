@@ -6,7 +6,7 @@ const {initUser} = require("./entity/user");
 const {writeBookInst , setChapter , getChaptersList , setConnection ,
     getComments , loadWorks , loadChapter , addUser , validatePassword , checkUser , getUserBooks , addComment,
     loadBook,getChapters , getTags , addTags , addTagsToBook , getBookTags , setRating , getRating , deleteFanfic , setRatingToBook,
-    addLike , getLikes} = require ("./sqlwork")
+    addLike , getLikes,getUsers} = require ("./sqlwork")
 const safety = require('./safety')
 const {getTopics} = require("./sqlwork");
 const {initTopic} = require("./entity/topic");
@@ -223,6 +223,19 @@ router.post('/addBook' , (req ,res) => {
                 res.send("no user")
             }
         })
+    }
+    else {
+        res.send("Not authorized")
+    }
+})
+
+router.get('/getUsers' , (req ,res) => {
+    if(req.header('Auth')) {
+            if(safety.decodeToken(req.header('Auth')).data.name === "admin") {
+                getUsers(sequelize).then(users => {
+                    res.send({users:users})
+                })
+            }
     }
     else {
         res.send("Not authorized")

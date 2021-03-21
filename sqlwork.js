@@ -282,6 +282,17 @@ exports.checkUser = (name , sequelize) => {
     })
 }
 
+exports.getUsers = (sequelize) => {
+    return new Promise((resolve,reject) => {
+        const User = initUser(Sequelize , sequelize)
+        User.findAll()
+            .then(users=>{
+                if(!users) resolve(false);
+                resolve(users)
+            }).catch(err=>console.log(err));
+    })
+}
+
 exports.loadBook = (name , sequelize) => {
     return new Promise((resolve,reject) => {
         const Book = initBook(Sequelize , sequelize)
