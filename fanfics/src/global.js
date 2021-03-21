@@ -78,6 +78,13 @@ export const deleteFanfic = (work) => {
     }).then((response) => response.json()).then(res => {})
 }
 
+export const deleteUser = (user_name) => {
+    fetch("https://fanfics-pola.herokuapp.com/deleteUser",  {
+        method: 'GET',
+        headers:{'Content-Type': 'application/json' , 'user_name' : user_name , 'Auth' : localStorage.getItem('jwt')},
+    }).then((response) => response.json()).then(res => {})
+}
+
 export const addInitialBook = (name , description , topic , tags) => {
     fetch("https://fanfics-pola.herokuapp.com/addBook",  {
         method: 'POST',

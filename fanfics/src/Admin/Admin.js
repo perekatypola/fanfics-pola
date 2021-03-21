@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import MainHeader from "../MainHeader/MainHeader";
 import './Admin.css'
 import CommentArea from "../CommentArea/CommentArea";
-import {getRating, deleteFanfic} from "../global";
+import {deleteUser} from "../global";
 import user from "../user.png";
 import {switchTheme} from "../App";
 class Admin extends React.Component {
@@ -45,7 +45,7 @@ class Admin extends React.Component {
                                     <tr>
                                         <th scope="row"></th>
                                         <td class = "book-name">
-                                            <Link to = "/userPage" onClick = {() => {localStorage.setItem('curUser' , user.name)}}>{user.name}</Link>
+                                            <Link to = "/user" onClick = {() => {localStorage.setItem('curUser' , user.name)}}>{user.name}</Link>
                                         </td>
                                         <td>
                                             <div className="nav-item dropdown">
@@ -53,7 +53,9 @@ class Admin extends React.Component {
                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 </a>
                                                 <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                                    <button className="dropdown-item" >Удалить</button>
+                                                    <button className="dropdown-item" onClick={() => {
+                                                        deleteUser(user.name)
+                                                    }}>Удалить</button>
                                                     <button className="dropdown-item" >Блокировать</button>
                                                 </div>
                                             </div>
