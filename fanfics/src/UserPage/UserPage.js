@@ -21,7 +21,7 @@ class UserPage extends React.Component {
         switchTheme(localStorage.getItem('theme'))
         fetch("https://fanfics-pola.herokuapp.com/loadUserWorks",  {
             method: 'GET',
-            headers:{'Content-Type': 'application/json' , Auth: localStorage.getItem('jwt')}
+            headers:{'Content-Type': 'application/json' , Auth: localStorage.getItem('jwt') , "AdminModeUser" : localStorage.getItem('curUser')}
         }).then((response) => response.json()).then(res => {
             console.log(res)
             this.setState({works:res})
