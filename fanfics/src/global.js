@@ -96,14 +96,24 @@ export const addInitialBook = (name , description , topic , tags) => {
         console.log(res)
     })
 }
-
+export const loginVk = (name) => {
+    fetch("https://fanfics-pola.herokuapp.com/vkAuth", {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'} ,
+        body : JSON.stringify({name : name , email: "vk" , password: "vk"})
+    }).then((response) => response.text()).then(result => {
+        localStorage.setItem('jwt' , result)
+        window.location = "/user"
+        console.log(result)
+    })
+}
 export const loginFacebook = (response)  => {
     if(response) {
         console.log(response.name)
-        fetch("https://fanfics-pola.herokuapp.com/facebookAuth", {
+        fetch("https://fanfics-pola.herokuapp.com/facebookVkAuth", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'} ,
-            body : JSON.stringify({name : response.authResponse.signedRequest})
+            body : JSON.stringify({name : response.name , email : response.email , password : "facebook"})
         }).then((response) => response.text()).then(result => {
             localStorage.setItem('jwt' , result)
             window.location = "/user"

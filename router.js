@@ -65,24 +65,27 @@ router.post('/vkAuth' , (req , res) => {
     })
 })
 
-router.post('/facebookAuth' , (req , res) => {
-    addUser(req.body.name , "facebook" , "facebook" , sequelize).then(result => {
-        checkUser(req.body.name , sequelize).then(async (user) => {
-            if(user) {
-                if(user.status === "unblocked") {
-                    let hashedPassword =  await safety.hashPassword("facebook")
-                    let dataForJwt = {name : req.body.name , password: hashedPassword}
-                    let jwtRes = safety.generateToken(dataForJwt)
-                    console.log(jwtRes)
-                    res.send(jwtRes)
-                } else {
-                    res.send("blocked")
-                }
+router.post('/facebookVkAuth' , (req , res) => {
+    checkUser(req.body.name , sequelize).then(async (user) => {
+        if(!user) {
+            addUser(req.body.name , req.body.password , req.body.email , sequelize).then( async (result) => {
+                console.log(result)
+                let hashedPassword =  await safety.hashPassword(req.body.password)
+                let dataForJwt = {name : req.body.name , password: hashedPassword}
+                let jwtRes = safety.generateToken(dataForJwt)
+                res.send(jwtRes)
+            })
+        }
+        else {
+            if(user.status === "unblocked") {
+                let hashedPassword =  await safety.hashPassword(req.body.password)
+                let dataForJwt = {name : req.body.name , password: hashedPassword}
+                let jwtRes = safety.generateToken(dataForJwt)
+                res.send(jwtRes)
+            } else {
+                res.send("blocked")
             }
-            else {
-                res.send("invalid")
-            }
-        })
+        }
     })
 })
 

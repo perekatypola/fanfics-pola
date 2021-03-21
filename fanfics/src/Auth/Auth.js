@@ -4,7 +4,7 @@ import './Auth.css'
 import vk from '../vk.png'
 import FacebookAuth from 'react-facebook-auth';
 import MyFacebookButton from './MyFacebookButton'
-import {loginFacebook, signIn} from '../global'
+import {loginFacebook, loginVk, signIn} from '../global'
 import {switchTheme} from "../App";
 import user from "../user.png";
 class Auth extends React.Component {
@@ -67,15 +67,7 @@ class Auth extends React.Component {
                                     onClick = {() => {
                                         VK.Auth.login(function(response) {  // eslint-disable-line no-undef
                                             if (response.status === "connected") {
-                                                fetch("https://fanfics-pola.herokuapp.com/vkAuth", {
-                                                    method: 'POST',
-                                                    headers: {'Content-Type': 'application/json'} ,
-                                                    body : JSON.stringify({name : response.session.user.first_name})
-                                                }).then((response) => response.text()).then(result => {
-                                                    localStorage.setItem('jwt' , result)
-                                                    window.location = "/user"
-                                                    console.log(result)
-                                                })
+                                                loginVk(response.session.user.first_name)
                                             } else {
                                                 // Пользователь нажал кнопку Отмена в окне авторизации
                                             }
