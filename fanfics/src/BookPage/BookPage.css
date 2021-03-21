@@ -94,3 +94,10 @@ label {
     }
 }
 
+@media (max-width: 976px){
+    .book {
+        margin-left : 5%;
+        margin-right: 5%
+    }
+}
+

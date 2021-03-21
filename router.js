@@ -256,7 +256,7 @@ router.get('/getUsers' , (req ,res) => {
 
 router.get('/addChapter' , (req ,res) => {
     if(req.header('Auth')) {
-        writeChapterInst(sequelize , req.header('book_name') , req.header('name') , req.header('text')).then(result => {
+        writeChapterInst(sequelize , req.body.book_name , req.body.name , req.body.text).then(result => {
             res.send("Added")
         })
     }
@@ -298,16 +298,16 @@ router.post('/deleteUser' , (req ,res) => {
     }
 })
 
-router.post('/blockUser' , (req ,res) => {
+router.post('/block' , (req ,res) => {
     if(req.header('Auth')) {
-        if(safety.decodeToken(req.header('Auth')).data.name === "admin") {
+        // if(safety.decodeToken(req.header('Auth')).data.name === "admin") {
             blockUser(sequelize , req.body.user_name, req.body.status).then(()=> {
                 res.send("blocked/unblocked")
             })
-        }
-        else {
-            res.send("Not admin")
-        }
+        // }
+        // else {
+        //     res.send("Not admin")
+        // }
     }
     else {
         res.send("Not authorized")

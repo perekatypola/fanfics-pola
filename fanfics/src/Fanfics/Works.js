@@ -35,7 +35,7 @@ class Works extends React.Component {
                                         <Link to = "/bookPage" onClick = {() => {localStorage.setItem('curBook' ,work.book_name)}}>{work.book_name}</Link>
                                     </td>
                                     <td>
-                                        <ReactStars   class="text-right" />
+                                        <ReactStars   size = {20} />
                                     </td>
                                 </tr>
                             </div>
@@ -46,7 +46,6 @@ class Works extends React.Component {
 
         return (
             <div className="background">
-               <MainHeader></MainHeader>
                 <div className="container">
                         <table className="table">
                             <tbody>

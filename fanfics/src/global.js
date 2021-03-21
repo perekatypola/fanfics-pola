@@ -88,15 +88,19 @@ export const deleteUser = (user_name) => {
         method: 'POST',
         headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
         body: JSON.stringify({user_name : user_name})
-    }).then((response) => response.text()).then(res => {})
+    }).then((response) => response.text()).then(res => {
+        window.location.reload()
+    })
 }
 
 export const blockUser = (user_name , user_status) => {
-    fetch("https://fanfics-pola.herokuapp.com/blockUser",  {
+    fetch("https://fanfics-pola.herokuapp.com/block",  {
         method: 'POST',
         headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
         body: JSON.stringify({user_name : user_name , status:  user_status})
-    }).then((response) => response.text()).then(res => {})
+    }).then((response) => response.text()).then(res => {
+        window.location.reload()
+    })
 }
 
 export const addInitialBook = (name , description , topic , tags) => {
@@ -135,14 +139,11 @@ export const loginFacebook = (response)  => {
 }
 export const addChapter = (name , text , book) => {
     fetch("https://fanfics-pola.herokuapp.com/addChapter", {
-        method: 'GET',
+        method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'name': name,
-            'text': text,
-            'book_name': book,
             'Auth': localStorage.getItem('jwt')
-        }
+        },
+        body : JSON.stringify({name: name , text: text , book_name: book})
     }).then((response) => response.text()).then(res => {
         console.log(res)
     })

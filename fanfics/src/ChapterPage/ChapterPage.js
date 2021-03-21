@@ -3,6 +3,7 @@ import './ChapterPage.css'
 import {chaptersNav} from '../global'
 import MainHeader from '../MainHeader/MainHeader'
 import CommentArea from "../CommentArea/CommentArea";
+import ReactMarkdown from 'react-markdown'
 import {switchTheme} from "../App";
 class  ChapterPage extends React.Component {
 
@@ -78,9 +79,7 @@ class  ChapterPage extends React.Component {
                                     <p className="h5">{this.state.chapterName}</p>
                                 </div>
                                 <div className="card-body">
-                                    <p>
-                                        {this.state.text}
-                                    </p>
+                                    <ReactMarkdown>{this.state.text}</ReactMarkdown>
                                 </div>
                             </div>
                         </div>

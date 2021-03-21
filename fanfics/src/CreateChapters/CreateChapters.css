@@ -5,6 +5,28 @@
     margin-top: 2vh
 }
 .create-book {
-    margin-left:15%;
-    margin-right:15%
+    display: flex;
+    justify-content: center;
+}
+
+.chapter-name {
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 96%
+}
+.Editor {
+    margin: 2%
+}
+.chapter-editor {
+    min-height: 60vh
+}
+
+.create-chapter {
+    width: 80%
+}
+
+@media (max-width: 976px){
+    .create-chapter {
+        width: 90%
+    }
 }

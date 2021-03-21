@@ -448,7 +448,8 @@ exports.blockUser = (sequelize , user_name , status) => {
         else {
             newStatus = "unblocked"
         }
-
+        console.log(user_name)
+        console.log(status)
         User.update(
             {status : newStatus},
             {where:
@@ -458,21 +459,6 @@ exports.blockUser = (sequelize , user_name , status) => {
             })
             .then(user => {
                 resolve(user)
-            })
-    })
-}
-
-exports.blockUser = (sequelize , user_name) => {
-    return new Promise((resolve, reject) => {
-        const User = initUser(Sequelize , sequelize)
-        User.findOne(
-            {where:
-                    {
-                        user_name:user_name
-                    }
-            })
-            .then(user => {
-                user.destroy()
             })
     })
 }

@@ -2,9 +2,12 @@ import React from "react";
 import ReactStars from "react-rating-stars-component";
 import {Link} from 'react-router-dom';
 import MainHeader from "../MainHeader/MainHeader";
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 import './Admin.css'
+import Works from '../Fanfics/Works'
 import CommentArea from "../CommentArea/CommentArea";
-import {deleteUser} from "../global";
+import {deleteUser, getRating} from "../global";
 import user from "../user.png";
 import {switchTheme} from "../App";
 import {blockUser} from '../global'
@@ -14,7 +17,6 @@ class Admin extends React.Component {
         super(props);
         this.state = {
             users: [] ,
-            checked:''
         };
     }
 
@@ -77,31 +79,50 @@ class Admin extends React.Component {
         return (
             <div className="background ">
                 <MainHeader loggedIn = {false}></MainHeader>
-                <ul className="nav nav-tabs">
-                    <li className="nav-item tab">
-                        <a className="nav-link active" id = "authorsTab" aria-selected="true"  href ="#authors" onClick = {()=> {
-                            document.getElementById("authorsTab").classList.add("active")
-                            document.getElementById("worksTab").classList.remove("active")
-                        }}>Все авторы</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" id = "worksTab" href="#" onClick={()=> {
-                            document.getElementById("authorsTab").classList.remove("active")
-                            document.getElementById("worksTab").classList.add("active")
-                        }}>Все работы</a>
-                    </li>
-                </ul>
-                <div className="tab-content">
-                    <div className="tab-pane fade show active container" id="authors">
-                        <table className="table-responsive">
-                            <tbody>
-                        {renderUsers()}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div className="tab-pane fade" id="works">
-                    </div>
-                </div>
+                <Tabs>
+                    <TabList  className="tab">
+                        <Tab>Все авторы</Tab>
+                        <Tab>Все фанфики</Tab>
+                    </TabList>
+                    <TabPanel>
+                        <div className = "container">
+                            <table className="table-responsive ">
+                                <tbody>
+                                {renderUsers()}
+                                </tbody>
+                            </table>
+                        </div>
+                    </TabPanel>
+                    <TabPanel>
+                        <Works></Works>
+                    </TabPanel>
+                </Tabs>
+            {/*    <ul className="nav nav-tabs">*/}
+            {/*        <li className="nav-item tab">*/}
+            {/*            <a className="nav-link active"  data-toggle="tab" id = "authorsTab"  href ="#authors" onClick = {()=> {*/}
+            {/*                document.getElementById("authorsTab").classList.add("active")*/}
+            {/*                document.getElementById("worksTab").classList.remove("active")*/}
+            {/*            }}>Все авторы</a>*/}
+            {/*        </li>*/}
+            {/*        <li className="nav-item">*/}
+            {/*            <a className="nav-link" data-toggle="tab" id = "worksTab" href="#works" onClick={()=> {*/}
+            {/*                document.getElementById("authorsTab").classList.remove("active")*/}
+            {/*                document.getElementById("worksTab").classList.add("active")*/}
+            {/*            }}>Все работы</a>*/}
+            {/*        </li>*/}
+            {/*    </ul>*/}
+            {/*    <div className="tab-content">*/}
+            {/*        <div className="tab-pane fade show active container" id="authors">*/}
+            {/*
+            {/*        </div>*/}
+            {/*        <div className="tab-pane fade" id="works">*/}
+            {/*            <table className="table-responsive">*/}
+            {/*                <tbody>*/}
+            {/*                {renderUsers()}*/}
+            {/*                </tbody>*/}
+            {/*            </table>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
             </div>
         );
     }
