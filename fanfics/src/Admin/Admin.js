@@ -7,6 +7,7 @@ import CommentArea from "../CommentArea/CommentArea";
 import {deleteUser} from "../global";
 import user from "../user.png";
 import {switchTheme} from "../App";
+import {blockUser} from '../global'
 class Admin extends React.Component {
 
     constructor(props) {
@@ -59,7 +60,9 @@ class Admin extends React.Component {
                                                     <button className="dropdown-item" onClick={() => {
                                                         deleteUser(user.name)
                                                     }}>Удалить</button>
-                                                    <button className="dropdown-item" >Блокировать/Разблокировать</button>
+                                                    <button className="dropdown-item" onClick={() => {
+                                                        blockUser(user.name , user.status)
+                                                    }}>Блокировать/Разблокировать</button>
                                                 </div>
                                             </div>
                                         </td>

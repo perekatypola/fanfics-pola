@@ -91,6 +91,14 @@ export const deleteUser = (user_name) => {
     }).then((response) => response.text()).then(res => {})
 }
 
+export const blockUser = (user_name , user_status) => {
+    fetch("https://fanfics-pola.herokuapp.com/deleteUser",  {
+        method: 'POST',
+        headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
+        body: JSON.stringify({user_name : user_name , status:  user_status})
+    }).then((response) => response.text()).then(res => {})
+}
+
 export const addInitialBook = (name , description , topic , tags) => {
     fetch("https://fanfics-pola.herokuapp.com/addBook",  {
         method: 'POST',
@@ -102,7 +110,7 @@ export const addInitialBook = (name , description , topic , tags) => {
     })
 }
 export const loginVk = (name) => {
-    fetch("https://fanfics-pola.herokuapp.com/vkAuth", {
+    fetch("https://fanfics-pola.herokuapp.com/facebookVkAuth", {
         method: 'POST',
         headers: {'Content-Type': 'application/json'} ,
         body : JSON.stringify({name : name , email: "vk" , password: "vk"})

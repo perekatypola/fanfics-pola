@@ -438,6 +438,29 @@ exports.deleteUser = (sequelize , user_name) => {
     })
 }
 
+exports.blockUser = (sequelize , user_name , status) => {
+    return new Promise((resolve, reject) => {
+        const User = initUser(Sequelize , sequelize)
+        let newStatus
+        if(status === "unblocked") {
+            newStatus = "blocked"
+        }
+        else {
+            newStatus = "unblocked"
+        }
+
+        User.update({status : newStatus},
+            {where:
+                    {
+                        name:user_name
+                    }
+            })
+            .then(user => {
+                resolve(user)
+            })
+    })
+}
+
 exports.blockUser = (sequelize , user_name) => {
     return new Promise((resolve, reject) => {
         const User = initUser(Sequelize , sequelize)

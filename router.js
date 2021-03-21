@@ -6,7 +6,7 @@ const {initUser} = require("./entity/user");
 const {writeBookInst , setChapter , getChaptersList , setConnection ,
     getComments , loadWorks , loadChapter , addUser , validatePassword , checkUser , getUserBooks , addComment,
     loadBook,getChapters , getTags , addTags , addTagsToBook , getBookTags , setRating , getRating , deleteFanfic , setRatingToBook,
-    addLike , getLikes,getUsers , deleteUser} = require ("./sqlwork")
+    addLike , getLikes,getUsers , deleteUser, blockUser} = require ("./sqlwork")
 const safety = require('./safety')
 const {getTopics} = require("./sqlwork");
 const {initTopic} = require("./entity/topic");
@@ -287,6 +287,22 @@ router.post('/deleteUser' , (req ,res) => {
         if(safety.decodeToken(req.header('Auth')).data.name === "admin") {
             deleteUser(sequelize , req.body.user_name).then(()=> {
                 res.send("deleted")
+            })
+        }
+        else {
+            res.send("Not admin")
+        }
+    }
+    else {
+        res.send("Not authorized")
+    }
+})
+
+router.post('/blockUser' , (req ,res) => {
+    if(req.header('Auth')) {
+        if(safety.decodeToken(req.header('Auth')).data.name === "admin") {
+            blockUser(sequelize , req.body.user_name, req.body.status).then(()=> {
+                res.send("blocked/unblocked")
             })
         }
         else {
