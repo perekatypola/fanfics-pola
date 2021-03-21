@@ -140,6 +140,12 @@ class  BookPage extends React.Component {
             }
         }
 
+        const renderTags = () => {
+            return <>{
+                         <button className="btn custom-button"></button>
+            }
+            </button>
+        }
         const renderRatingBox = () => {
          if(localStorage.getItem('jwt')!="") {
                  return <> {
@@ -158,8 +164,6 @@ class  BookPage extends React.Component {
                              />
                              <strong className="rating-text">Лайков: {this.state.likes}</strong>
                          </div>
-                         <ReactTags className = "tags"
-                                    tags={this.state.tags}/>
                          <div className="box">
                              <strong className="rating-text">Оставьте рейтинг: </strong>
                              <ReactStars {...this.changeRating} class = "stars" size={20} activeColor = "#b76a47"/>
@@ -181,6 +185,9 @@ class  BookPage extends React.Component {
                                 <p>Жанр : {this.state.topic} </p>
                             </div>
                             <div className="card-body">
+                                <div className = "tags">
+
+                                </div>
                                 <ol>
                                     {renderChapters()}
                                 </ol>

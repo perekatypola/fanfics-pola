@@ -86,7 +86,6 @@ class  ChapterPage extends React.Component {
                     </div>
                     <div className="button-box">
                         <div className = "buttons">
-                            {/*{drawNavButtons()}*/}
                             <button className="btn btn-outline custom-button content-button" id = "left"
                                     onClick = {() => {navigateLeft()}}>Назад</button>
                             <button className="btn btn-outline custom-button content-button"
