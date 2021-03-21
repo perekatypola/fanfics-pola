@@ -12,6 +12,30 @@
     min-height: 85vh;
 }
 
+.tag-button {
+    height: fit-content;
+    width: fit-content;
+    background-color: #f5edda;
+    font-size: 0.8rem;
+    border-radius: 5%;
+    margin: 2px;
+    color:#b76a47
+}
+
+.name-book {
+    margin-left: 2%;
+}
+
+.tag-button:hover {
+    height: fit-content;
+    width: fit-content;
+    background-color: #f5edda;
+    font-size: 0.7rem;
+    border-radius: 5%;
+    margin: 2px;
+    color: #b76a47
+}
+
 .rating-text {
     font-size: 1vw;
 }
@@ -26,14 +50,20 @@
 }
 
 .card-header {
+
+}
+
+.book-header {
     height:7vh;
     border:  solid 1px  #b76a47;
     border-top-width:0px;
     border-left-width:0px;
     border-right-width:0px;
     display:flex;
+    flex-direction: row;
     justify-content: space-between;
 }
+
 
 .list {
     color: #b76a47;

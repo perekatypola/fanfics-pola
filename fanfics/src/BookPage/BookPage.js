@@ -17,11 +17,12 @@ class  BookPage extends React.Component {
         super(props);
         this.state = {
             header:localStorage.getItem('curBook') ,
-            topic: "Fiction",
+            topic: '',
             chaptersList: [],
             chaptersNames: '',
             comments: [] ,
             tags: [] ,
+            description: ''
         };
     }
 
@@ -38,7 +39,6 @@ class  BookPage extends React.Component {
             method: 'GET',
             headers:{'Content-Type': 'application/json' , 'bookName' : this.state.header}
         }).then((response) => response.json()).then((res) => {
-            console.log(res)
             const tags = res.map(tag => {
                 return {
                     id: tag.tag ,
@@ -46,6 +46,13 @@ class  BookPage extends React.Component {
                 }
             })
             this.setState({tags:tags})
+        })
+        fetch("https://fanfics-pola.herokuapp.com/getBookProps",  {
+            method: 'GET',
+            headers:{'Content-Type': 'application/json' , 'bookName' : this.state.header}
+        }).then((response) => response.json()).then((res) => {
+            this.setState({topic:res.topic})
+            this.setState({description: res.description})
         })
         console.log(localStorage.getItem('curBook'))
         fetch("https://fanfics-pola.herokuapp.com/getLike",  {
@@ -141,11 +148,16 @@ class  BookPage extends React.Component {
         }
 
         const renderTags = () => {
-            return <>{
-                         <button className="btn custom-button"></button>
-            }
-            </button>
+            return <>
+                {
+                    this.state.tags.map(tag =>
+                        <React.Fragment>
+                            <button disabled="true" className="btn tag-button text-center">{tag.text}</button>
+                        </React.Fragment>
+                    )}
+            </>
         }
+
         const renderRatingBox = () => {
          if(localStorage.getItem('jwt')!="") {
                  return <> {
@@ -180,14 +192,15 @@ class  BookPage extends React.Component {
                 <div className="card-box">
                     <div className="card book">
                         <div className="content">
+                            <div className="card-header book-header">
+                                <p className = "name-book h5">{this.state.header}</p>
+                                <p className="h5">Жанр : {this.state.topic} </p>
+                            </div>
                             <div className="card-header">
-                                <p>{this.state.header}</p>
-                                <p>Жанр : {this.state.topic} </p>
+                                <label>Метки:</label>
+                                {renderTags()}
                             </div>
                             <div className="card-body">
-                                <div className = "tags">
-
-                                </div>
                                 <ol>
                                     {renderChapters()}
                                 </ol>
