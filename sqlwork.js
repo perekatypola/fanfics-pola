@@ -319,8 +319,6 @@ exports.setRating = (sequelize, user_name, book_name , rating) => {
         const Rating = initRating(Sequelize , sequelize)
         Rating.findOne({where:{user_name:user_name , book_name: book_name}}).then(res => {
             if(res) {
-                console.log(user_name)
-                console.log(book_name)
                 Rating.update({rating: rating} ,
                     {
                         where : {
@@ -400,6 +398,7 @@ exports.getLikes = (sequelize , book_name) => {
             })
     })
 }
+
 exports.deleteFanfic = (sequelize , book_name) => {
     return new Promise((resolve, reject) => {
         const Book = initBook(Sequelize , sequelize)
@@ -416,3 +415,40 @@ exports.deleteFanfic = (sequelize , book_name) => {
     })
 }
 
+exports.deleteUser = (sequelize , user_name) => {
+    return new Promise((resolve, reject) => {
+        const User = initUser(Sequelize , sequelize)
+        const Book = initBook(Sequelize , sequelize)
+        User.hasMany(Book)
+        User.findOne(
+            {where:
+                    {
+                        name:user_name
+                    }
+            })
+            .then(user => {
+                user.getBooks().then(books => {
+                    books.forEach(book => {
+                        console.log(book)
+                        book.destroy()
+                    })
+                    user.destroy()
+                })
+            })
+    })
+}
+
+exports.blockUser = (sequelize , user_name) => {
+    return new Promise((resolve, reject) => {
+        const User = initUser(Sequelize , sequelize)
+        User.findOne(
+            {where:
+                    {
+                        user_name:user_name
+                    }
+            })
+            .then(user => {
+                user.destroy()
+            })
+    })
+}

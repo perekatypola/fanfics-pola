@@ -6,7 +6,7 @@ const {initUser} = require("./entity/user");
 const {writeBookInst , setChapter , getChaptersList , setConnection ,
     getComments , loadWorks , loadChapter , addUser , validatePassword , checkUser , getUserBooks , addComment,
     loadBook,getChapters , getTags , addTags , addTagsToBook , getBookTags , setRating , getRating , deleteFanfic , setRatingToBook,
-    addLike , getLikes,getUsers} = require ("./sqlwork")
+    addLike , getLikes,getUsers , deleteUser} = require ("./sqlwork")
 const safety = require('./safety')
 const {getTopics} = require("./sqlwork");
 const {initTopic} = require("./entity/topic");
@@ -88,13 +88,22 @@ router.post('/facebookAuth' , (req , res) => {
 
 router.get('/loadUserWorks' , (req , res) => {
     if(req.header('Auth')) {
-        checkUser(safety.decodeToken(req.header('Auth')).data.name , sequelize).then(
-            user => {
-                getUserBooks(user).then(books => {
-                    res.send(books)
+        if(safety.decodeToken(req.header('Auth')).data.name === "admin") {
+            checkUser(req.header('AdminModeUser') , sequelize).then(
+                user => {
+                    getUserBooks(user).then(books => {
+                        res.send(books)
+                    })
                 })
-            }
-        )
+        }
+        else {
+            checkUser(safety.decodeToken(req.header('Auth')).data.name , sequelize).then(
+                user => {
+                    getUserBooks(user).then(books => {
+                        res.send(books)
+                    })
+                })
+        }
     }
     else {
         res.send("Not authorized")
@@ -269,6 +278,23 @@ router.get('/deleteFanfic' , (req ,res) => {
         res.send("Not authorized")
     }
 })
+
+router.post('/deleteUser' , (req ,res) => {
+    if(req.header('Auth')) {
+        if(safety.decodeToken(req.header('Auth')).data.name === "admin") {
+            deleteUser(sequelize , req.body.user_name).then(()=> {
+                res.send("deleted")
+            })
+        }
+        else {
+            res.send("Not admin")
+        }
+    }
+    else {
+        res.send("Not authorized")
+    }
+})
+
 
 router.post('/addLike' , (req ,res) => {
     if(req.header('Auth')) {

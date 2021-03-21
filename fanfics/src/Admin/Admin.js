@@ -48,6 +48,9 @@ class Admin extends React.Component {
                                             <Link to = "/user" onClick = {() => {localStorage.setItem('curUser' , user.name)}}>{user.name}</Link>
                                         </td>
                                         <td>
+                                            <p>Status : {user.status} </p>
+                                        </td>
+                                        <td>
                                             <div className="nav-item dropdown">
                                                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -56,7 +59,7 @@ class Admin extends React.Component {
                                                     <button className="dropdown-item" onClick={() => {
                                                         deleteUser(user.name)
                                                     }}>Удалить</button>
-                                                    <button className="dropdown-item" >Блокировать</button>
+                                                    <button className="dropdown-item" >Блокировать/Разблокировать</button>
                                                 </div>
                                             </div>
                                         </td>
@@ -87,7 +90,7 @@ class Admin extends React.Component {
                 </ul>
                 <div className="tab-content">
                     <div className="tab-pane fade show active container" id="authors">
-                        <table className="table">
+                        <table className="table-responsive">
                             <tbody>
                         {renderUsers()}
                             </tbody>
