@@ -98,9 +98,8 @@ export const addInitialBook = (name , description , topic , tags) => {
 }
 
 export const loginFacebook = (response)  => {
-    console.log(response)
-    if(response.status === "connected") {
-        console.log(response.authResponse.signedRequest)
+    if(response) {
+        console.log(response.name)
         fetch("https://fanfics-pola.herokuapp.com/facebookAuth", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'} ,
