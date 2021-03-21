@@ -35,7 +35,12 @@ export const signIn = (name , password) => {
         console.log(res)
         if(res!=="invalid" && res!== "blocked") {
             localStorage.setItem('jwt' , res)
-            window.location = '/user'
+            if(name === "admin") {
+                window.location = '/admin'
+            }
+            else {
+                window.location = '/user'
+            }
         }
     })
 }
@@ -109,7 +114,6 @@ export const loginVk = (name) => {
 }
 export const loginFacebook = (response)  => {
     if(response) {
-        console.log(response.name)
         fetch("https://fanfics-pola.herokuapp.com/facebookVkAuth", {
             method: 'POST',
             headers: {'Content-Type': 'application/json'} ,
