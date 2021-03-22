@@ -3,7 +3,7 @@ import ReactStars from "react-rating-stars-component";
 import './RecentWorks.css'
 import {Link} from 'react-router-dom';
 import MainHeader from "../MainHeader/MainHeader";
-import {getRating} from '../global'
+import {deleteFanfic, getRating, getTags} from '../global'
 import CommentArea from "../CommentArea/CommentArea";
 import {switchTheme} from "../App";
 class RecentWorks extends React.Component {
@@ -11,7 +11,8 @@ class RecentWorks extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            works: []
+            works: [],
+            curTags:[]
         };
     }
 
@@ -27,21 +28,36 @@ class RecentWorks extends React.Component {
     }
 
     render() {
+        const renderTags = () => {
+            return <>
+                {
+                   this.state.curTags.map(tag =>
+                        <React.Fragment>
+                            <button disabled="true" className="btn tag-button text-center">{tag.text}</button>
+                        </React.Fragment>
+                    )})
+                }
+            </>
+        }
+
         const renderWorks = () => {
             return <>
                 {
                     this.state.works.map(work =>
                         <React.Fragment>
-                            {getRating(work)}
-                            <div className = "cell">
-                                <tr>
-                                    <td>
-                                        <Link to = "/bookPage" onClick = {() => {localStorage.setItem('curBook' ,work.book_name)}}>{work.book_name}</Link>
-                                    </td>
-                                    <td class="stars">
-                                        <ReactStars value = {work.cur_rating} size = {20} edit = {false} activeColor = "#b76a47" class="text-right"/>
-                                    </td>
-                                </tr>
+                            <div className = "card">
+                                <div className="card-header books-headers">
+                                    <Link className = "name-book" to = "/bookPage" onClick = {() => {localStorage.setItem('curBook' ,work.book_name)}}>{work.book_name}</Link>
+                                </div>
+                                <div className="card-body">
+                                    <label>Описание:</label>
+                                    <i  className="descr-text">
+                                        {work.book_descr}
+                                    </i>
+                                </div>
+                                <div className="card-footer">
+                                    <ReactStars value = {work.cur_rating} size = {20} edit = {false} activeColor = "#b76a47" class="text-right"/>
+                                </div>
                             </div>
                         </React.Fragment>
                     )}

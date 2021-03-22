@@ -6,7 +6,7 @@ const {initUser} = require("./entity/user");
 const {writeBookInst , setChapter , getChaptersList , setConnection ,
     getComments , loadWorks , loadChapter , addUser , validatePassword , checkUser , getUserBooks , addComment,
     loadBook,getChapters , getTags , addTags , addTagsToBook , getBookTags , setRating , getRating , deleteFanfic , setRatingToBook,
-    addLike , getLikes,getUsers , deleteUser, blockUser ,getBookProps} = require ("./sqlwork")
+    addLike , getLikes,getUsers , deleteUser, blockUser ,getBookProps , editBookInst, editChapterInst} = require ("./sqlwork")
 const safety = require('./safety')
 const {getTopics} = require("./sqlwork");
 const {initTopic} = require("./entity/topic");
@@ -240,6 +240,47 @@ router.post('/addBook' , (req ,res) => {
         res.send("Not authorized")
     }
 })
+
+router.post('/editBook' , (req ,res) => {
+    if(req.header('Auth')) {
+        checkUser(safety.decodeToken(req.header('Auth')).data.name , sequelize).then(user=> {
+            if(user) {
+                editBookInst(req.body.name , req.body.descr , req.body.prevName , sequelize).then(book => {
+                    req.body.tags.forEach(tag => {
+                        addTags(sequelize , tag , book.book_id).then(()=> {
+                        })
+                    })
+                    res.send("Added")
+                })
+            }
+            else {
+                res.send("no user")
+            }
+        })
+    }
+    else {
+        res.send("Not authorized")
+    }
+})
+
+router.post('/editChapter' , (req ,res) => {
+    if(req.header('Auth')) {
+        checkUser(safety.decodeToken(req.header('Auth')).data.name , sequelize).then(user=> {
+            if(user) {
+                editChapterInst(req.body.name , req.body.text , req.body.prevName,sequelize ).then(book => {
+                    res.send("Added")
+                })
+            }
+            else {
+                res.send("no user")
+            }
+        })
+    }
+    else {
+        res.send("Not authorized")
+    }
+})
+
 
 router.get('/getUsers' , (req ,res) => {
     if(req.header('Auth')) {

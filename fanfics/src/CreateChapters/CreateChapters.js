@@ -6,12 +6,6 @@ import {getCreatingBook} from "../global"
 import {switchTheme} from "../App";
 import ReactMde from "react-mde";
 import "react-mde/lib/styles/css/react-mde-all.css";
-const KeyCodes = {
-    comma: 188,
-    enter: 13,
-};
-
-const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
 class CreateChapters extends React.Component {
 

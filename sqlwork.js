@@ -124,6 +124,27 @@ exports.getBookTags = (name , sequelize) => {
     })
 }
 
+exports.editBookInst = (name , descr, prevName , sequelize) => {
+    return new Promise((resolve, reject) => {
+        const Book = initBook(Sequelize ,sequelize)
+        const Tag = initTag(Sequelize , sequelize)
+        Tag.belongsToMany(Book , {through : 'Book_Tag'})
+        Book.belongsToMany(Tag , {through : 'Book_Tag'})
+        Book.update({book_name: name , book_descr : descr},{where : {book_name: prevName}}).then(book => {
+            Book.findOne({where: {book_name: name}}).then(result => {
+                resolve(result)
+            })
+        })
+    })
+}
+
+exports.editChapterInst = (name , text, prevName , sequelize) => {
+    return new Promise((resolve, reject) => {
+        const Chapter = initChapter(Sequelize ,sequelize)
+        Chapter.update({chapter_name: name , text : text},{where : {chapter_name: prevName}}).then(book => {})
+    })
+}
+
 
 exports.getChaptersList = (Book , name) => {
     return new Promise((resolve , reject) => {

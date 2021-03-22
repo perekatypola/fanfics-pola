@@ -65,6 +65,10 @@ export const getRating = (work) => {
         })
 }
 
+export const getTags = (work) => {
+
+}
+
 export const addLike = (work , user_liked) => {
     console.log(user_liked)
     fetch("https://fanfics-pola.herokuapp.com/addLike",  {
@@ -113,6 +117,30 @@ export const addInitialBook = (name , description , topic , tags) => {
         console.log(res)
     })
 }
+
+export const editBook = (name , description, tags ,prevName) => {
+    fetch("http://localhost:8080/editBook",  {
+        method: 'POST',
+        headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
+        body : JSON.stringify({tags : tags , prevName :prevName, name : name ,descr : description})
+    }).then((response) => response.text()).then(res => {
+        window.location = "/user"
+        console.log(res)
+    })
+}
+
+export const editChapter = (name , text, book_name ,prevName) => {
+    fetch("http://localhost:8080/editChapter",  {
+        method: 'POST',
+        headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
+        body : JSON.stringify({prevName :prevName, name : name , book_name : book_name})
+    }).then((response) => response.text()).then(res => {
+        window.location = "/editBook"
+        console.log(res)
+    })
+}
+
+
 export const loginVk = (name) => {
     fetch("https://fanfics-pola.herokuapp.com/facebookVkAuth", {
         method: 'POST',

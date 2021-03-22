@@ -18,6 +18,8 @@ import UserPage from "./UserPage/UserPage";
 import CreateBook from "./createBook/CreateBook";
 import CreateChapters from "./CreateChapters/CreateChapters";
 import Admin from "./Admin/Admin";
+import EditBook from "./EditBook/EditBook";
+import EditChapter from "./EditChapter/EditChapter";
 function App() {
 
   return (
@@ -39,11 +41,17 @@ function App() {
                   <Route path="/regPage">
                       <Register/>
                   </Route>
+                  <Route path="/editChapter">
+                      <EditChapter/>
+                  </Route>
                   <Route path="/user">
                       <UserPage/>
                   </Route>
                   <Route path="/createBook">
                       <CreateBook/>
+                  </Route>
+                  <Route path="/editBook">
+                      <EditBook/>
                   </Route>
                   <Route path="/admin">
                       <Admin/>

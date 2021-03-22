@@ -18,7 +18,7 @@ class  MainHeader extends React.Component {
 
     render() {
         const renderUserImage = () => {
-            if(this.props.loggedIn===true) {
+            if(localStorage.getItem('jwt')) {
                 return <> {
                     <button className="user-button"
                     onClick = {()=> {

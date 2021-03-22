@@ -13,5 +13,29 @@
     margin-top:1%;
     border:solid 1px;
     display:flex;
-    flex-direction:row
+    flex-direction:row;
+}
+
+.App.dark .RecentWorks .card {
+    border-color : whitesmoke
+}
+
+.App.light .RecentWorks .card {
+    border-color : #b76a47
+}
+
+.descr-text {
+    margin-left:2%
+}
+
+.books-headers {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items:center
+}
+
+.card-footer {
+    display:flex;
+    justify-content: flex-start;
 }

@@ -215,7 +215,7 @@ class  BookPage extends React.Component {
                                         {this.state.description}
                                     </i>
                             </div>
-                            <div className="card-body chapters">
+                            <div className="card-body">
                                 <div>
                                     <ol>
                                         {renderChapters()}
