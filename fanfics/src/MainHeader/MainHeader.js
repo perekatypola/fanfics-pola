@@ -31,19 +31,6 @@ class  MainHeader extends React.Component {
             }
         }
 
-        const renderAdd = () => {
-            if(this.props.loggedIn===true) {
-                return <> {
-                    <button className="user-button"
-                            onClick = {()=> {
-                                window.location = "/createBook"
-                            }}>
-                        <img src = {book} alt = "user"></img>
-                    </button>
-                }
-                </>
-            }
-        }
         const renderLogOut = () => {
             if(localStorage.getItem('jwt')!="") {
                 return <> {
@@ -88,7 +75,6 @@ class  MainHeader extends React.Component {
                             >Поиск</button>
                         </form>
                         {renderLogOut()}
-                        {renderAdd()}
                     </div>
                 </nav>
             </div>

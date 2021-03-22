@@ -17,7 +17,6 @@ class EditChapter extends React.Component {
             book : localStorage.getItem('curBook') ,
             chapterName: localStorage.getItem('curChapter'),
             text: '',
-            newText: '',
             newName: '',
         }
     }
@@ -36,10 +35,11 @@ class EditChapter extends React.Component {
             })
             console.log(res)
         })
+        console.log(this.state)
     }
 
     setTextChapter = (text) => {
-        this.setState({newText: text})
+        this.setState({text: text})
     }
 
     render() {
@@ -70,7 +70,7 @@ class EditChapter extends React.Component {
                                 />
                             </div>
                             <button className = "save-button btn custom-button" onClick ={() => {
-                                editChapter(this.state.newName , this.state.newText , this.state.book ,this.state.chapterName)
+                                editChapter(this.state.newName , this.state.text , this.state.book ,this.state.chapterName)
                             }}>Сохранить</button>
                         </div>
                     </div>

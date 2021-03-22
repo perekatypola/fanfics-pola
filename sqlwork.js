@@ -138,13 +138,19 @@ exports.editBookInst = (name , descr, prevName , sequelize) => {
     })
 }
 
-exports.editChapterInst = (name , text, prevName , sequelize) => {
+exports.editChapterInst = (name , text, prevName , book_name , sequelize) => {
     return new Promise((resolve, reject) => {
         const Chapter = initChapter(Sequelize ,sequelize)
-        Chapter.update({chapter_name: name , text : text},{where : {chapter_name: prevName}}).then(book => {})
+        const Book = initBook(Sequelize ,sequelize)
+        Book.hasMany(Chapter)
+        Chapter.belongsTo(Book)
+        Book.findOne({where:{book_name:book_name}}).then(book =>{
+            console.log(book.book_id)
+            Chapter.findOne({where:{bookBookId:book.book_id , chapter_name: prevName}}).then(chapter => {console.log(chapter)})
+            Chapter.update({text:text, chapter_name:name},{where:{bookBookId: book.book_id, chapter_name: prevName}}).then(()=> {})
+        })
     })
 }
-
 
 exports.getChaptersList = (Book , name) => {
     return new Promise((resolve , reject) => {

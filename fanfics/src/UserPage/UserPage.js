@@ -7,13 +7,18 @@ import CommentArea from "../CommentArea/CommentArea";
 import {getRating, deleteFanfic} from "../global";
 import user from "../user.png";
 import {switchTheme} from "../App";
+import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
+import Works from "../Fanfics/Works";
+import add from "../add.png";
+import edit from "../edit.png";
 class UserPage extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             works: [] ,
-            checked:''
+            checked:'',
+            editing:false
         };
     }
 
@@ -33,7 +38,7 @@ class UserPage extends React.Component {
         const renderWorks = () => {
             if(this.state.works.length === 0) {
                 return <>
-                <p className = "display-4 text-center">Еще нет работ</p>
+                        <p className = "display-4 text-center">Еще нет работ</p>
                 </>
             }
             else
@@ -74,18 +79,115 @@ class UserPage extends React.Component {
             }
         }
 
+        const renderUserPage = ()=> {
+            if (this.state.editing === false)
+            {
+                return <>
+                    <div className="user-profile">
+                        <div className="card">
+                            <div className="card-header">
+                                <div>
+                                    <p className="h2">
+                                        Пользователь:
+                                    </p>
+                                    <p className="h3">{localStorage.getItem('curUser')}</p>
+                                </div>
+                                <button className="user-button" onClick={() => {
+                                    window.location = "/editUser"
+                                }
+                                }>
+                                    <img className="edit-button" src={edit} alt="edit"></img>
+                                </button>
+                            </div>
+                            <div className="card-body">
+                                <p className="h3">
+                                    O себе:
+                                </p>
+                                <p>
+                                    ООООО
+                                </p>
+                                <p className="h3">
+                                    Контактная информация:
+                                </p>
+                                <p>
+                                    ООООО
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </>
+        }
+            else {
+                return <>
+                    <div className="user-profile">
+                        <div className="card">
+                            <div className="card-header">
+                                <div>
+                                    <p className="h2">
+                                        Пользователь:
+                                    </p>
+                                    <p className="h3">{localStorage.getItem('curUser')}</p>
+                                </div>
+                                <button className="user-button" onClick={() => {
+                                    window.location = "/editUser"
+                                }
+                                }>
+                                    <img className="edit-button" src={edit} alt="edit"></img>
+                                </button>
+                            </div>
+                            <div className="card-body">
+                                <p className="h3">
+                                    O себе:
+                                </p>
+                                <p>
+                                    ООООО
+                                </p>
+                                <p className="h3">
+                                    Контактная информация:
+                                </p>
+                                <p>
+                                    ООООО
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            }
+
+        }
+
         return (
             <div className="background UserPage">
                 <MainHeader loggedIn = {true}></MainHeader>
-                <div className="container user-works">
-                    <div className="table-responsive">
-                    <table className="table">
-                        <tbody>
-                        {renderWorks()}
-                        </tbody>
-                    </table>
-                    </div>
-                </div>
+                <Tabs>
+                    <TabList  className="tab">
+                        <Tab>Страница</Tab>
+                        <Tab>Все работы</Tab>
+                    </TabList>
+                    <TabPanel>
+                        {renderUserPage()}
+                    </TabPanel>
+                    <TabPanel>
+                        <div className="container user-works">
+                            <div className="table-responsive">
+                                <table className="table">
+                                    <tbody>
+                                    <div className = "flex-box">
+                                        <button className="user-button"
+                                                onClick = {()=> {
+                                                    window.location = "/createBook"
+                                                }}>
+                                            <img src = {add} alt = "add"></img>
+                                        </button>
+                                    </div>
+                                    {renderWorks()}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </TabPanel>
+                </Tabs>
+
             </div>
         );
     }

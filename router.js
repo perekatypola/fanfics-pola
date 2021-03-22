@@ -120,12 +120,13 @@ router.get('/search' , (req , res) => {
             res.send(result)})
 })
 
-router.get('/setRating' , (req , res) => {
+router.post('/setRating' , (req , res) => {
     if(req.header('Auth')) {
         checkUser(safety.decodeToken(req.header('Auth')).data.name , sequelize).then(
             user => {
                 if(user) {
-                    setRating(sequelize , user.name , req.header('book_name') , req.header('user_rating')).then(result=> {
+                    setRating(sequelize , user.name , req.header('book_name') , req.body.user_rating).then(result=> {
+                        res.send(result)
                     })
                 }
             }
@@ -267,7 +268,7 @@ router.post('/editChapter' , (req ,res) => {
     if(req.header('Auth')) {
         checkUser(safety.decodeToken(req.header('Auth')).data.name , sequelize).then(user=> {
             if(user) {
-                editChapterInst(req.body.name , req.body.text , req.body.prevName,sequelize ).then(book => {
+                editChapterInst(req.body.name , req.body.text , req.body.prevName,req.body.book_name ,sequelize ).then(chapter => {
                     res.send("Added")
                 })
             }

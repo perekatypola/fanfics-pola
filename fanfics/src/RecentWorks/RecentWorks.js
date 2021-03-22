@@ -45,6 +45,7 @@ class RecentWorks extends React.Component {
                 {
                     this.state.works.map(work =>
                         <React.Fragment>
+                            {getRating(work)}
                             <div className = "card">
                                 <div className="card-header books-headers">
                                     <Link className = "name-book" to = "/bookPage" onClick = {() => {localStorage.setItem('curBook' ,work.book_name)}}>{work.book_name}</Link>

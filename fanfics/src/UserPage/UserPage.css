@@ -19,3 +19,37 @@ td {
 .App.light .UserPage p {
     color : #b76a47
 }
+
+.user-profile {
+    width:70%;
+    margin-left: 15%;
+    min-height: 10rem;
+}
+
+.user-profile {
+    min-height: 90vh
+}
+
+
+.App.dark .UserPage .card {
+    border-color : whitesmoke
+}
+
+.App.light .UserPage .card {
+    border-color : #b76a47
+}
+
+.flex-box {
+    margin-top: 2%;
+    display:flex;
+    justify-content: center;
+}
+
+.App .UserPage .card-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.App .UserPage .user-button {
+    background-color: #e3cfa5;
+}

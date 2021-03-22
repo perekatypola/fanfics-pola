@@ -91,13 +91,15 @@ class  BookPage extends React.Component {
 
     changeRating = {
         onChange : newRating => {
-            fetch("https://fanfics-pola.herokuapp.com/setRating", {
-                method: 'GET',
-                headers: {'Content-Type': 'application/json', 'book_name': this.state.header , 'Auth' : localStorage.getItem('jwt') , 'user_rating': newRating}
+
+            fetch("http://localhost:8080/setRating", {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json', 'book_name': this.state.header , 'Auth' : localStorage.getItem('jwt')},
+                body: JSON.stringify({user_rating: newRating})
             }).then((response) => response.json()).then(res => {
+                console.log(newRating)
                 console.log(res)
             })
-            console.log(newRating)
         }
     }
 

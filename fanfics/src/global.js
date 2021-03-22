@@ -35,6 +35,7 @@ export const signIn = (name , password) => {
         console.log(res)
         if(res!=="invalid" && res!== "blocked") {
             localStorage.setItem('jwt' , res)
+            localStorage.setItem('curUser' , name)
             if(name === "admin") {
                 window.location = '/admin'
             }
@@ -133,7 +134,7 @@ export const editChapter = (name , text, book_name ,prevName) => {
     fetch("http://localhost:8080/editChapter",  {
         method: 'POST',
         headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
-        body : JSON.stringify({prevName :prevName, name : name , book_name : book_name})
+        body : JSON.stringify({prevName :prevName, name : name , text: text , book_name: book_name})
     }).then((response) => response.text()).then(res => {
         window.location = "/editBook"
         console.log(res)
@@ -148,6 +149,7 @@ export const loginVk = (name) => {
         body : JSON.stringify({name : name , email: "vk" , password: "vk"})
     }).then((response) => response.text()).then(result => {
         localStorage.setItem('jwt' , result)
+        localStorage.setItem('curUser' , name)
         window.location = "/user"
         console.log(result)
     })
@@ -160,6 +162,7 @@ export const loginFacebook = (response)  => {
             body : JSON.stringify({name : response.name , email : response.email , password : "facebook"})
         }).then((response) => response.text()).then(result => {
             localStorage.setItem('jwt' , result)
+            localStorage.setItem('curUser' , response.name)
             window.location = "/user"
             console.log(result)
         })
