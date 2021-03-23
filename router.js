@@ -16,6 +16,7 @@ const sequelize = setConnection()
 const express = require('express')
 const router = express.Router()
 
+
 router.get('/reg' , (req , res) => {
     addUser(req.header('name') , req.header('password') , req.header('email') , sequelize).then(result => {console.log(result)})
 })
@@ -113,12 +114,17 @@ router.get('/loadUserWorks' , (req , res) => {
     }
 })
 
-router.get('/search' , (req , res) => {
-    const Chapter  = initChapter(Sequelize , sequelize)
-    fullText.searchFromBooks(req.header('searchText') , sequelize)
-        .then(result=> {console.log(result)
-            res.send(result)})
+router.post('/search' , (req , res) => {
+        fullText.search(req.header('searchText') , sequelize)
+            .then(result=> {
+                console.log(result)
+                res.send({result: result})
+            })
 })
+
+// router.get('/addIndex' , (req,res) => {
+//     fullText.addIndex()
+// })
 
 router.post('/setRating' , (req , res) => {
     if(req.header('Auth')) {
@@ -236,6 +242,15 @@ router.post('/addBook' , (req ,res) => {
                 res.send("no user")
             }
         })
+    }
+    else {
+        res.send("Not authorized")
+    }
+})
+
+router.get('/getUser' , (req ,res) => {
+    if(req.header('Auth')) {
+       res.send(safety.decodeToken(req.header('Auth')).data.name)
     }
     else {
         res.send("Not authorized")
@@ -389,5 +404,6 @@ router.get('/getLike' , (req ,res) => {
         })
     }
 })
+
 
 module.exports = router

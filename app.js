@@ -7,6 +7,7 @@ const {setConnection} = require('./sqlwork')
 const Sequelize = require('sequelize')
 const sequelize = setConnection()
 const app = express()
+const fullText = require('./full-text-search')
 const port = process.env.PORT || 8080
 const router = require('./router')
 app.use(cors())
@@ -25,8 +26,7 @@ app.listen(process.env.PORT || port, () => {
     console.log('Server running')
 })
 
-// fullText.indexing(Sequelize, sequelize)
-//
+fullText.indexing(Sequelize , sequelize)
 // const intervalId = setInterval(fullText.indexing , 1800000)
 
 

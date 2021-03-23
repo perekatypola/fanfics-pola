@@ -20,6 +20,7 @@ import CreateChapters from "./CreateChapters/CreateChapters";
 import Admin from "./Admin/Admin";
 import EditBook from "./EditBook/EditBook";
 import EditChapter from "./EditChapter/EditChapter";
+import Results from "./Results/Results";
 function App() {
 
   return (
@@ -34,6 +35,9 @@ function App() {
                   </Route>
                   <Route path="/chapterPage">
                       <ChapterPage/>
+                  </Route>
+                  <Route path="/results">
+                      <Results/>
                   </Route>
                   <Route path = "/authPage">
                       <Auth/>

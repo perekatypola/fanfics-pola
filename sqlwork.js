@@ -215,14 +215,15 @@ exports.getBooks = (Book) => {
     })
 }
 
-exports.getComments = (Comment) => {
-    return new Promise((resolve,reject) => {
-        Comment.findAll({raw:true})
-            .then(comments => {
-                resolve(comments)
-            })
-    })
-}
+// exports.getComments = (Comment) => {
+//     return new Promise((resolve,reject) => {
+//         Comment.findAll({raw:true})
+//             .then(comments => {
+//                 console.log(comments)
+//                 resolve(comments)
+//             })
+//     })
+// }
 
 exports.getComments = (Book , name) => {
     return new Promise((resolve , reject) => {

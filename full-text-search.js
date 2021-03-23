@@ -1,11 +1,11 @@
 const elasticsearch = require("elasticsearch")
-const {getChapters,getBooks , getComments , getBookById , getChapter , getComment} = require("./sqlwork")
+const {getChapters,getBooks , getComments , getBookById , getChapter , getComment , getChaptersList} = require("./sqlwork")
 const {initChapter} = require('./entity/chapter')
 const {initBook} = require('./entity/book')
 const {initComment} = require('./entity/comment')
-const esClient = elasticsearch.Client({
-    host: "http://127.0.0.1:9200",
-})
+const algoliasearch = require("algoliasearch");
+const client = algoliasearch("H017D4FJ1A", "29b539cc291a62b792c846e5b6f6b029");
+const bookIndex = client.initIndex("books");
 
 let bookArray = []
 let bookIsIndexed = false
@@ -60,179 +60,87 @@ const indexingChapters = (Sequelize , sequelize) => {
     })
 }
 
-const indexingBooks = (Sequelize , sequelize) => {
+const initBookIndex = () => {
+    return bookIndex
+}
+
+exports.indexing = (Sequelize , sequelize) => {
     return new Promise((resolve, reject)=> {
+        const ind = initBookIndex()
         const Book = initBook(Sequelize, sequelize)
-        if(bookIsIndexed) {
-            bookIsIndexed = false
-            esClient.indices.delete({
-                index: "books",
-            }).then(()=> {
-                    getBooks(Book).then(books => {
-                        books.forEach(book => {
-                            esClient.index({
-                                index: "books",
-                                body:
-                                    {
-                                        'book_id': book.book_id,
-                                        'book_name': book.book_name,
-                                        'book_descr': book.book_descr ,
-                                        'book_genre': book.book_genre ,
-                                        'quant_of_ratings': book.quant_of_ratings ,
-                                        'cur_ratings': book.cur_ratings
-                                    }
-                            })
-                                .then(res => {
-                                    resolve(res)
-                                })
-                        })
-                    })
-                }
-            )
-        }
-        else {
-            bookIsIndexed = true
+        const Chapter = initChapter(Sequelize, sequelize)
+        const Comment = initComment(Sequelize, sequelize)
+        Book.hasMany(Chapter)
+        Book.hasMany(Comment)
+        let booksArray = []
             getBooks(Book).then(books => {
                 books.forEach(book => {
-                    esClient.index({
-                        index: "books",
-                        body:
-                            {
-                                'book_id': book.book_id,
-                                'book_name': book.book_name,
-                                'book_descr': book.book_descr ,
-                                'book_genre': book.book_genre ,
-                                'quant_of_ratings': book.quant_of_ratings ,
-                                'cur_ratings': book.cur_ratings
-                            }
-                    })
-                        .then(res => {
-                            resolve(res)
-                        })
-                })
-            })
-        }
-    })
-}
-
-const indexingComments = (Sequelize , sequelize) => {
-    return new Promise((resolve, reject)=> {
-        const Comment = initComment(Sequelize, sequelize)
-        if(commentIsIndexed) {
-            commentIsIndexed = false
-            esClient.indices.delete({
-                index: "comments",
-            }).then(()=> {
-                    getComments(Comment).then(comments => {
-                        comments.forEach(comment => {
-                            esClient.index({
-                                index: "comments",
-                                body:
-                                    {
-                                        'comment_text': comment.comment_text
-                                    }
-                            })
-                                .then(res => {
-                                    resolve(res)
+                    let curBook = {}
+                    getChaptersList(Book ,book.book_name).then(chapters => {
+                        getComments(Book , book.book_name).then(comments => {
+                            curBook.chapters = chapters
+                            curBook.comments = comments
+                            curBook.book_id = book.book_id
+                            curBook.book_name = book.book_name
+                            curBook.book_desc = book.book_descr
+                            curBook.book_genre =  book.book_genre
+                            curBook.cur_rating =  book.cur_rating
+                        }).then(result => {
+                            console.log(curBook)
+                            ind.
+                                saveObject(curBook ,{ autoGenerateObjectIDIfNotExist: true })
+                                .then(({ objectIDs }) => {
+                                    console.log(objectIDs);
                                 })
-                        })
+                                .catch(err => {
+                                    console.log(err);
+                                });
+                            })
                     })
-                }
-            )
-        }
-        else {
-            commentIsIndexed = true
-            getComments(Comment).then(comments => {
-                comments.forEach(comment => {
-                    esClient.index({
-                        index: "comments",
-                        body:
-                            {
-                                'comment_text': comment.comment_text
-                            }
-                    })
-                        .then(res => {
-                            resolve(res)
-                        })
                 })
             })
         }
-
-    })
-
+    )
 }
 
-exports.indexing = (Sequelize, sequelize) => {
-    indexingChapters(Sequelize, sequelize).then(()=> {
-        indexingBooks(Sequelize, sequelize).then(()=> {
-            indexingComments(Sequelize, sequelize).then(()=> {
-            })
-        })
-    })
-}
-
-exports.searchFromChapters = (filter , sequelize) => {
+exports.search = (filter , sequelize ) => {
     return new Promise((resolve, reject)=> {
-        esClient.search({
-            index: "chapters",
-            body: {
-                query: {
-                    match: {"text": filter.trim()}
-                }
-            }
-        })
-            .then(result => {
-                result.hits.hits.forEach(res => {
-                    getChapter(res._source.chapter_id , sequelize).then(chapter => {
-                        chapter.getBook().then(book => {
-                            bookArray.push(book)
-                        })
-                    })
-                })
+        const ind = initBookIndex()
+        ind
+            .search("Mr")
+            .then(({ hits }) => {
+                resolve(hits)
             })
+            .catch(err => {
+                console.log(err);
+            });
     })
 }
 
-exports.searchFromBooks = (filter , sequelize) => {
+exports.add = (sequelize, bookIndex , book_name) => {
     return new Promise((resolve, reject)=> {
-        esClient.search({
-            index: "books",
-            body: {
-                query: {
-                    match: {"book_descr": filter.trim() },
-                    match: {"book_name" : filter.trim()}
-                }
-            }
-        })
-            .then(result => {
-                result.hits.hits.forEach(res => {
-                    getBookById(res._source.book_id , sequelize).then(book => {
-                        console.log(book)
-                        bookArray.push(book)
+        const ind = initBookIndex()
+        const Book = initBook(Sequelize, sequelize)
+        getChaptersList(Book ,book_name).then(chapters => {
+            getComments(Book , book_name).then(comments => {
+                let curBook = {}
+                curBook.chapters = chapters
+                curBook.comments = comments
+                curBook.book_id = book.book_id
+                curBook.book_name = book.book_name
+                curBook.book_desc = book.book_descr
+                curBook.book_genre =  book.book_genre
+                curBook.cur_rating =  book.cur_rating
+            }).then(result => {
+                ind.
+                saveObject(curBook ,{ autoGenerateObjectIDIfNotExist: true })
+                    .then(({ objectIDs }) => {
+                        console.log(objectIDs);
                     })
-                })
+                    .catch(err => {
+                        console.log(err);
+                    });
             })
-    })
-}
-
-exports.searchFromComment = (filter , sequelize) => {
-    return new Promise((resolve, reject)=> {
-        esClient.search({
-            index: "comments",
-            body: {
-                query: {
-                    match: {"comment_text": filter.trim()}
-                }
-            }
         })
-            .then(result => {
-                result.hits.hits.forEach(res => {
-                    getComment(res._source.chapter_id , sequelize).then(comment => {
-                        comment.getBook().then(book => {
-                            bookArray.push(book)
-                        })
-                    })
-                })
-            })
     })
 }

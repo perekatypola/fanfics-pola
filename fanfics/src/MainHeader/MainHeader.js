@@ -10,6 +10,9 @@ class  MainHeader extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            resultsOfSearch : []
+        }
     }
 
     componentDidMount() {
@@ -22,7 +25,15 @@ class  MainHeader extends React.Component {
                 return <> {
                     <button className="user-button"
                     onClick = {()=> {
-                        window.location = "/user"
+                        fetch("https://fanfics-pola.herokuapp.com/getUser",  {
+                            method: 'GET',
+                            headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
+                        }).then((response) => response.text()).then(res => {
+                            if(res === "admin")
+                                window.location = "/admin"
+                            else
+                                window.location = "/user"
+                        })
                     }}>
                         <img src = {user} alt = "user"></img>
                     </button>
@@ -62,14 +73,18 @@ class  MainHeader extends React.Component {
                                 }}
                         >Тема</button>
                         <form className="form mr-auto">
-                            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-                            <button className="btn custom-button" type="submit"
+                            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange = {event => {
+                                this.setState({searchText : event.target.value})
+                            }}/>
+                            <button className="btn custom-button"
                                     onClick={()=> {
                                         fetch("https://fanfics-pola.herokuapp.com/search",  {
-                                            method: 'GET',
-                                            headers:{'Content-Type': 'application/json' , 'searchText' : "sss"}
+                                            method: 'POST',
+                                            headers:{'Content-Type': 'application/json'},
+                                            body: JSON.stringify({searchText: this.state.searchText})
                                         }).then((response) => response.json()).then(res => {
-                                            console.log(res)
+                                            console.log(res.result)
+                                            localStorage.setItem('results' , res)
                                         })
                                     }}
                             >Поиск</button>
