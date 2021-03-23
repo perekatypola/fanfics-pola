@@ -38,4 +38,16 @@ App.dark .MainHeader label {
     }
 }
 
+@media (max-width: 976px){
+    .App .MainHeader .custom-button {
+        font-size: 3vw;
+    }
+}
+
+@media (max-width: 976px){
+    .App .MainHeader .search {
+        font-size: 3vw;
+    }
+}
+
 

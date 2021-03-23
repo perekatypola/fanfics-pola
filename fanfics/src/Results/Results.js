@@ -9,7 +9,7 @@ class Results extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            works: localStorage.getItem('results')
+            works: JSON.parse(localStorage.getItem('results'))
         };
     }
 
@@ -56,6 +56,7 @@ class Results extends React.Component {
                 <div className="container">
                     <table className="table">
                         <tbody>
+                        {console.log(this.state.works)}
                         {renderWorks()}
                         </tbody>
                     </table>

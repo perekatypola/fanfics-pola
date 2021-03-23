@@ -73,22 +73,23 @@ class  MainHeader extends React.Component {
                                 }}
                         >Тема</button>
                         <form className="form mr-auto">
-                            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange = {event => {
+                            <input className="form-control mr-sm-2 search" type="search" placeholder="Search" aria-label="Search" onChange = {event => {
                                 this.setState({searchText : event.target.value})
                             }}/>
-                            <button className="btn custom-button"
-                                    onClick={()=> {
-                                        fetch("https://fanfics-pola.herokuapp.com/search",  {
-                                            method: 'POST',
-                                            headers:{'Content-Type': 'application/json'},
-                                            body: JSON.stringify({searchText: this.state.searchText})
-                                        }).then((response) => response.json()).then(res => {
-                                            console.log(res.result)
-                                            localStorage.setItem('results' , res)
-                                        })
-                                    }}
-                            >Поиск</button>
                         </form>
+                        <button className="btn custom-button"
+                                onClick={()=> {
+                                    fetch("https://fanfics-pola.herokuapp.com/search",  {
+                                        method: 'POST',
+                                        headers:{'Content-Type': 'application/json'},
+                                        body: JSON.stringify({searchText: this.state.searchText})
+                                    }).then((response) => response.json()).then(res => {
+                                        console.log(res.result)
+                                        localStorage.setItem('results' ,  JSON.stringify(res.result))
+                                        window.location = "/results"
+                                    })
+                                }}
+                        >Поиск</button>
                         {renderLogOut()}
                     </div>
                 </nav>
