@@ -55,7 +55,7 @@ exports.writeBookInst = (name , descr, user , topic ,sequelize) => {
        const User = initUser(Sequelize , sequelize)
        const Book = initBook(Sequelize , sequelize)
        User.hasMany(Book)
-       User.findOne(user).then(user=> {
+       User.findOne({where:{name:user}}).then(user=> {
            user.createBook({book_name: name , book_descr : descr , book_genre : topic}).then(res => {resolve(res)})
        })
    })

@@ -109,7 +109,7 @@ export const blockUser = (user_name , user_status) => {
 }
 
 export const addInitialBook = (name , description , topic , tags , user_name) => {
-    console.log(name)
+    console.log(user_name)
     fetch("https://fanfics-pola.herokuapp.com/addBook",  {
         method: 'POST',
         headers:{'Content-Type': 'application/json' , 'name' : name , 'descr' : description , 'topic' : topic
