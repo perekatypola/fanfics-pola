@@ -17,7 +17,7 @@ class CreateBook extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '' ,
+            name: localStorage.getItem('curUser') ,
             descr:'',
             topics:[] ,
             curTags:[],

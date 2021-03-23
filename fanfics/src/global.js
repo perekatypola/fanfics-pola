@@ -176,6 +176,7 @@ export const addChapter = (name , text , book) => {
         },
         body : JSON.stringify({name: name , text: text , book_name: book})
     }).then((response) => response.text()).then(res => {
+        window.location = "/user"
         console.log(res)
     })
 }
