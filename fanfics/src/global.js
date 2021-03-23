@@ -120,7 +120,7 @@ export const addInitialBook = (name , description , topic , tags) => {
 }
 
 export const editBook = (name , description, tags ,prevName) => {
-    fetch("http://localhost:8080/editBook",  {
+    fetch("https://fanfics-pola.herokuapp.com/editBook",  {
         method: 'POST',
         headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
         body : JSON.stringify({tags : tags , prevName :prevName, name : name ,descr : description})
@@ -131,7 +131,7 @@ export const editBook = (name , description, tags ,prevName) => {
 }
 
 export const editChapter = (name , text, book_name ,prevName) => {
-    fetch("http://localhost:8080/editChapter",  {
+    fetch("https://fanfics-pola.herokuapp.com/editChapter",  {
         method: 'POST',
         headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
         body : JSON.stringify({prevName :prevName, name : name , text: text , book_name: book_name})

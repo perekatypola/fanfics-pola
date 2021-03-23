@@ -3,23 +3,24 @@ import ReactStars from "react-rating-stars-component";
 import {Link} from 'react-router-dom';
 import MainHeader from "../MainHeader/MainHeader";
 import './UserPage.css'
-import CommentArea from "../CommentArea/CommentArea";
 import {getRating, deleteFanfic} from "../global";
-import user from "../user.png";
 import {switchTheme} from "../App";
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
-import Works from "../Fanfics/Works";
 import add from "../add.png";
 import edit from "../edit.png";
+import adduser from "../adduser.png";
+import InlineEdit from 'react-edit-inplace'
+
 class UserPage extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             works: [] ,
-            checked:'',
-            editing:false
+            info:'Поэт, прозаик',
+            contacts: 'ВК:'
         };
+        this.dataChanged = this.dataChanged.bind(this);
     }
 
     componentDidMount() {
@@ -33,6 +34,12 @@ class UserPage extends React.Component {
         })
     }
 
+    dataChanged = (data) => {
+        // data = { description: "New validated text comes here" }
+        // Update your model from here
+        console.log(data)
+        this.setState({...data})
+    }
     render() {
 
         const renderWorks = () => {
@@ -80,79 +87,68 @@ class UserPage extends React.Component {
         }
 
         const renderUserPage = ()=> {
-            if (this.state.editing === false)
-            {
                 return <>
-                    <div className="user-profile">
+                    <div className = "user-profile">
                         <div className="card">
-                            <div className="card-header">
-                                <div>
-                                    <p className="h2">
-                                        Пользователь:
-                                    </p>
-                                    <p className="h3">{localStorage.getItem('curUser')}</p>
+                            <div className="card-header user-header">
+                                <div className = "add-image">
+                                    <img className = "user-add" src={adduser} alt="adduser"></img>
+                                    <button className = "btn custom-button">Загрузить</button>
                                 </div>
-                                <button className="user-button" onClick={() => {
-                                    window.location = "/editUser"
-                                }
-                                }>
-                                    <img className="edit-button" src={edit} alt="edit"></img>
-                                </button>
+                                <p className="h3">
+                                    Пользователь:
+                                </p>
+                                <InlineEdit className = "edit-box"
+                                    validate={this.customValidateText}
+                                    activeClassName="editing"
+                                    text={localStorage.getItem('curUser')}
+                                    paramName="message"
+                                    change={this.dataChanged}
+                                    style={{
+                                        margin: 0,
+                                        padding: 0,
+                                        outline: 0,
+                                        border: 0
+                                    }}
+                                />
                             </div>
                             <div className="card-body">
                                 <p className="h3">
                                     O себе:
                                 </p>
-                                <p>
-                                    ООООО
-                                </p>
+                                <InlineEdit className = "edit-box"
+                                            validate={this.customValidateText}
+                                            activeClassName="editing"
+                                            text={this.state.info}
+                                            paramName="message"
+                                            change={this.dataChanged}
+                                            style={{
+                                                margin: 0,
+                                                padding: 0,
+                                                outline: 0,
+                                                border: 0
+                                            }}
+                                />
                                 <p className="h3">
                                     Контактная информация:
                                 </p>
-                                <p>
-                                    ООООО
-                                </p>
+                                <InlineEdit className = "edit-box"
+                                            validate={this.customValidateText}
+                                            activeClassName="editing"
+                                            text={this.state.contacts}
+                                            paramName="message"
+                                            change={this.dataChanged}
+                                            style={{
+                                                margin: 0,
+                                                padding: 0,
+                                                outline: 0,
+                                                border: 0
+                                            }}
+                                />
                             </div>
                         </div>
                     </div>
                 </>
-        }
-            else {
-                return <>
-                    <div className="user-profile">
-                        <div className="card">
-                            <div className="card-header">
-                                <div>
-                                    <p className="h2">
-                                        Пользователь:
-                                    </p>
-                                    <p className="h3">{localStorage.getItem('curUser')}</p>
-                                </div>
-                                <button className="user-button" onClick={() => {
-                                    window.location = "/editUser"
-                                }
-                                }>
-                                    <img className="edit-button" src={edit} alt="edit"></img>
-                                </button>
-                            </div>
-                            <div className="card-body">
-                                <p className="h3">
-                                    O себе:
-                                </p>
-                                <p>
-                                    ООООО
-                                </p>
-                                <p className="h3">
-                                    Контактная информация:
-                                </p>
-                                <p>
-                                    ООООО
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </>
-            }
 
         }
 
