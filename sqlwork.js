@@ -50,12 +50,12 @@ exports.setConnection = () => {
     return sequelize
 }
 
-exports.writeBookInst = (name , descr, id , topic ,sequelize) => {
+exports.writeBookInst = (name , descr, user , topic ,sequelize) => {
    return new Promise((resolve, reject) => {
        const User = initUser(Sequelize , sequelize)
        const Book = initBook(Sequelize , sequelize)
        User.hasMany(Book)
-       User.findByPk(id).then(user=> {
+       User.findOne(user).then(user=> {
            user.createBook({book_name: name , book_descr : descr , book_genre : topic}).then(res => {resolve(res)})
        })
    })

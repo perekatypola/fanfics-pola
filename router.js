@@ -223,7 +223,7 @@ router.post('/addBook' , (req ,res) => {
         checkUser(safety.decodeToken(req.header('Auth')).data.name , sequelize).then(user=> {
             if(user) {
                 console.log(user.user_id)
-                writeBookInst(req.header('name') , req.header('descr') , user.user_id , req.header('topic'),sequelize).then(result => {
+                writeBookInst(req.header('name') , req.header('descr') , req.body.user , req.header('topic'),sequelize).then(result => {
                     console.log(req.header('name'))
                     req.body.tags.forEach(tag => {
                         addTags(sequelize , tag , result.book_id).then(()=> {
