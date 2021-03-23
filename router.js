@@ -229,7 +229,7 @@ router.post('/addBook' , (req ,res) => {
                         addTags(sequelize , tag , result.book_id).then(()=> {
                         })
                     })
-                    res.send("Added")
+                    res.send(result)
                 })
             }
             else {
