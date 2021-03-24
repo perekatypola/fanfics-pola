@@ -85,6 +85,7 @@ exports.indexing = (Sequelize , sequelize) => {
                             curBook.book_desc = book.book_descr
                             curBook.book_genre =  book.book_genre
                             curBook.cur_rating =  book.cur_rating
+                            curBook.objectID = book.book_id
                         }).then(result => {
                             ind.
                                 saveObject(curBook ,{ autoGenerateObjectIDIfNotExist: true })
@@ -106,7 +107,7 @@ exports.search = (filter , sequelize) => {
     return new Promise((resolve, reject)=> {
         const ind = initBookIndex()
         ind
-            .search("Mr")
+            .search(filter)
             .then(({ hits }) => {
                 resolve(hits)
             })
@@ -118,34 +119,42 @@ exports.search = (filter , sequelize) => {
 
 exports.addIndex = (Sequelize , sequelize) => {
     return new Promise((resolve, reject)=> {
-        const ind = initBookIndex()
-        const Book = initBook(Sequelize, sequelize)
-        const Chapter = initChapter(Sequelize, sequelize)
-        const Comment = initComment(Sequelize, sequelize)
-        Book.hasMany(Chapter)
-        Book.hasMany(Comment)
-        getChaptersList(Book ,book_name).then(chapters => {
-            getComments(Book , book_name).then(comments => {
-                let curBook = {}
-                curBook.chapters = chapters
-                curBook.comments = comments
-                curBook.book_id = book.book_id
-                curBook.book_name = book.book_name
-                curBook.book_desc = book.book_descr
-                curBook.book_genre =  book.book_genre
-                curBook.cur_rating =  book.cur_rating
-            }).then(result => {
-                ind.
-                index.partialUpdateObject(curBook, {
-                    createIfNotExists: true,
-                })
-                    .then(({ objectIDs }) => {
-                        console.log(objectIDs);
+            const ind = initBookIndex()
+            const Book = initBook(Sequelize, sequelize)
+            const Chapter = initChapter(Sequelize, sequelize)
+            const Comment = initComment(Sequelize, sequelize)
+            Book.hasMany(Chapter)
+            Book.hasMany(Comment)
+            let booksArray = []
+            getBooks(Book).then(books => {
+                books.forEach(book => {
+                    let curBook = {}
+                    getChaptersList(Book ,book.book_name).then(chapters => {
+                        getComments(Book , book.book_name).then(comments => {
+                            curBook.chapters = chapters
+                            curBook.comments = comments
+                            curBook.book_id = book.book_id
+                            curBook.book_name = book.book_name
+                            curBook.book_desc = book.book_descr
+                            curBook.book_genre =  book.book_genre
+                            curBook.cur_rating =  book.cur_rating
+                            curBook.objectID = book.book_id
+                            console.log(curBook)
+                        }).then(result => {
+                            ind.
+                            partialUpdateObject(curBook,
+                            {
+                                createIfNotExists: true,
+                            })
+                                .then(({ objectIDs }) => {
+                                    console.log(objectIDs);
+                                })
+                                .catch(err => {
+                                });
+                        })
                     })
-                    .catch(err => {
-                        console.log(err);
-                    });
+                })
             })
-        })
-    })
+        }
+    )
 }

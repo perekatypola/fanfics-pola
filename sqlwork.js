@@ -66,8 +66,9 @@ exports.writeChapterInst = (sequelize, book_name , name , text) => {
         const Book = initBook(Sequelize ,sequelize)
         const Chapter = initChapter(Sequelize , sequelize)
         Book.hasMany(Chapter)
+        console.log(book_name)
         Book.findOne({where : {book_name : book_name}}).then(book => {
-            console.log(book)
+            console.log("hhh")
             book.createChapter({
                 chapter_name:name,
                 text: text

@@ -316,6 +316,7 @@ router.get('/getUsers' , (req ,res) => {
 
 router.post('/addChapter' , (req ,res) => {
     if(req.header('Auth')) {
+        console.log(req.body.book_name)
         writeChapterInst(sequelize , req.body.book_name , req.body.name , req.body.text).then(result => {
             res.send("Added")
         })
