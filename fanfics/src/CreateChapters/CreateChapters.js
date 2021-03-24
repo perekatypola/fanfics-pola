@@ -36,7 +36,7 @@ class CreateChapters extends React.Component {
                 <p></p>
                 <div className = "create-book">
                     <div className="create-chapter card">
-                        <div className="form-outline comment-box">
+                        <div className="comment-box">
                             <label>Название главы:</label>
                             <input className="chapter-name form-control"
                                    onChange={event=>{
@@ -54,8 +54,7 @@ class CreateChapters extends React.Component {
                                     onClick = {()=> {
                                         console.log(getCreatingBook())
                                         addChapter(this.state.name , this.state.text , localStorage.getItem('creatingBook'))
-                                        addIndex()
-                                        window.location = "/user"
+                                        // window.location = "/user"
                                     }}>Опубликовать</button>
                         </div>
                     </div>

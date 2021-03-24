@@ -110,7 +110,7 @@ export const blockUser = (user_name , user_status) => {
 
 export const addInitialBook = (name , description , topic , tags , user_name) => {
     console.log(user_name)
-    fetch("https://fanfics-pola.herokuapp.com/addBook",  {
+    fetch("http://localhost:8080/addBook",  {
         method: 'POST',
         headers:{'Content-Type': 'application/json' , 'name' : name , 'descr' : description , 'topic' : topic
             , 'Auth' : localStorage.getItem('jwt')},
@@ -173,11 +173,12 @@ export const addChapter = (name , text , book) => {
     fetch("https://fanfics-pola.herokuapp.com/addChapter", {
         method: 'POST',
         headers: {
-            'Auth': localStorage.getItem('jwt')
+            'Content-Type': 'application/json' , 'Auth': localStorage.getItem('jwt')
         },
         body : JSON.stringify({name: name , text: text , book_name: book})
     }).then((response) => response.text()).then(res => {
-        console.log(res)
+        addIndex()
+        console.log("jjjjj")
     })
 }
 
@@ -185,10 +186,10 @@ export const addIndex= () => {
     fetch("https://fanfics-pola.herokuapp.com/addIndex", {
         method: 'GET',
         headers: {
-            'Auth': localStorage.getItem('jwt')
+            'Content-Type': 'application/json' , 'Auth': localStorage.getItem('jwt')
         },
     }).then((response) => response.text()).then(res => {
-        console.log(res)
+        console.log("INDEX")
     })
 }
 
