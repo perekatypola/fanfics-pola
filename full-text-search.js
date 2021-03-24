@@ -86,7 +86,6 @@ exports.indexing = (Sequelize , sequelize) => {
                             curBook.book_genre =  book.book_genre
                             curBook.cur_rating =  book.cur_rating
                         }).then(result => {
-                            console.log(curBook)
                             ind.
                                 saveObject(curBook ,{ autoGenerateObjectIDIfNotExist: true })
                                 .then(({ objectIDs }) => {
@@ -103,7 +102,7 @@ exports.indexing = (Sequelize , sequelize) => {
     )
 }
 
-exports.search = (filter , sequelize ) => {
+exports.search = (filter , sequelize) => {
     return new Promise((resolve, reject)=> {
         const ind = initBookIndex()
         ind
@@ -117,10 +116,14 @@ exports.search = (filter , sequelize ) => {
     })
 }
 
-exports.add = (sequelize, bookIndex , book_name) => {
+exports.addIndex = (Sequelize , sequelize) => {
     return new Promise((resolve, reject)=> {
         const ind = initBookIndex()
         const Book = initBook(Sequelize, sequelize)
+        const Chapter = initChapter(Sequelize, sequelize)
+        const Comment = initComment(Sequelize, sequelize)
+        Book.hasMany(Chapter)
+        Book.hasMany(Comment)
         getChaptersList(Book ,book_name).then(chapters => {
             getComments(Book , book_name).then(comments => {
                 let curBook = {}
@@ -133,7 +136,9 @@ exports.add = (sequelize, bookIndex , book_name) => {
                 curBook.cur_rating =  book.cur_rating
             }).then(result => {
                 ind.
-                saveObject(curBook ,{ autoGenerateObjectIDIfNotExist: true })
+                index.partialUpdateObject(curBook, {
+                    createIfNotExists: true,
+                })
                     .then(({ objectIDs }) => {
                         console.log(objectIDs);
                     })

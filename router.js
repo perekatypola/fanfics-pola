@@ -122,9 +122,12 @@ router.post('/search' , (req , res) => {
             })
 })
 
-// router.get('/addIndex' , (req,res) => {
-//     fullText.addIndex()
-// })
+router.get('/addIndex' , (req,res) => {
+    fullText.addIndex(Sequelize ,sequelize)
+        .then(result => {
+            res.send({result: result})
+        })
+})
 
 router.post('/setRating' , (req , res) => {
     if(req.header('Auth')) {
