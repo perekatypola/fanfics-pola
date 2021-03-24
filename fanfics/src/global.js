@@ -181,7 +181,7 @@ export const addChapter = (name , text , book) => {
     })
 }
 
-export const  addIndex= () => {
+export const addIndex= () => {
     fetch("https://fanfics-pola.herokuapp.com/addIndex", {
         method: 'GET',
         headers: {

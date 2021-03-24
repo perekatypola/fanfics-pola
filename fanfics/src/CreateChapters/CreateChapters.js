@@ -4,6 +4,7 @@ import MainHeader from "../MainHeader/MainHeader";
 import {addChapter} from "../global"
 import {getCreatingBook} from "../global"
 import {switchTheme} from "../App";
+import {addIndex} from "../global"
 import ReactMde from "react-mde";
 import "react-mde/lib/styles/css/react-mde-all.css";
 
