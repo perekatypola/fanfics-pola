@@ -82,6 +82,7 @@ export const addLike = (work , user_liked) => {
 }
 
 export const deleteFanfic = (work) => {
+
     fetch("https://fanfics-pola.herokuapp.com/deleteFanfic",  {
         method: 'GET',
         headers:{'Content-Type': 'application/json' , 'book_name' : work.book_name , 'Auth' : localStorage.getItem('jwt')},
@@ -89,28 +90,33 @@ export const deleteFanfic = (work) => {
 }
 
 export const deleteUser = (user_name) => {
-    fetch("https://fanfics-pola.herokuapp.com/deleteUser",  {
-        method: 'POST',
-        headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
-        body: JSON.stringify({user_name : user_name})
-    }).then((response) => response.text()).then(res => {
-        window.location.reload()
+    return new Promise((resolve, reject) => {
+        fetch("https://fanfics-pola.herokuapp.com/deleteUser",  {
+            method: 'POST',
+            headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
+            body: JSON.stringify({user_name : user_name})
+        }).then((response) => response.text()).then(res => {
+            resolve(res)
+        })
     })
 }
 
 export const blockUser = (user_name , user_status) => {
-    fetch("https://fanfics-pola.herokuapp.com/block",  {
-        method: 'POST',
-        headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
-        body: JSON.stringify({user_name : user_name , status:  user_status})
-    }).then((response) => response.text()).then(res => {
-        window.location.reload()
+    return new Promise ((resolve, reject) => {
+        fetch("https://fanfics-pola.herokuapp.com/block",  {
+            method: 'POST',
+            headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
+            body: JSON.stringify({user_name : user_name , status:  user_status})
+        }).then((response) => response.json()).then(res => {
+            console.log(res)
+            resolve(res)
+        })
     })
 }
 
 export const addInitialBook = (name , description , topic , tags , user_name) => {
     console.log(user_name)
-    fetch("http://localhost:8080/addBook",  {
+    fetch("https://fanfics-pola.herokuapp.com/addBook",  {
         method: 'POST',
         headers:{'Content-Type': 'application/json' , 'name' : name , 'descr' : description , 'topic' : topic
             , 'Auth' : localStorage.getItem('jwt')},
@@ -178,7 +184,18 @@ export const addChapter = (name , text , book) => {
         body : JSON.stringify({name: name , text: text , book_name: book})
     }).then((response) => response.text()).then(res => {
         addIndex()
-        console.log("jjjjj")
+    })
+}
+
+export const search = (searchText) => {
+    fetch("https://fanfics-pola.herokuapp.com/search",  {
+        method: 'POST',
+        headers:{'Content-Type': 'application/json'},
+        body: JSON.stringify({searchText: searchText})
+    }).then((response) => response.json()).then(res => {
+        console.log(res.result)
+        localStorage.setItem('results' ,  JSON.stringify(res.result))
+        window.location = "/results"
     })
 }
 

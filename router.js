@@ -352,8 +352,8 @@ router.get('/deleteFanfic' , (req ,res) => {
 router.post('/deleteUser' , (req ,res) => {
     if(req.header('Auth')) {
         if(safety.decodeToken(req.header('Auth')).data.name === "admin") {
-            deleteUser(sequelize , req.body.user_name).then(()=> {
-                res.send("deleted")
+            deleteUser(sequelize , req.body.user_name).then(user=> {
+                res.send(user)
             })
         }
         else {
@@ -368,8 +368,8 @@ router.post('/deleteUser' , (req ,res) => {
 router.post('/block' , (req ,res) => {
     if(req.header('Auth')) {
         // if(safety.decodeToken(req.header('Auth')).data.name === "admin") {
-            blockUser(sequelize , req.body.user_name, req.body.status).then(()=> {
-                res.send("blocked/unblocked")
+            blockUser(sequelize , req.body.user_name, req.body.status).then(user=> {
+                res.send(user)
             })
         // }
         // else {

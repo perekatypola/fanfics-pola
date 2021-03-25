@@ -54,7 +54,7 @@ class CreateChapters extends React.Component {
                                     onClick = {()=> {
                                         console.log(getCreatingBook())
                                         addChapter(this.state.name , this.state.text , localStorage.getItem('creatingBook'))
-                                        // window.location = "/user"
+                                        window.location = "/user"
                                     }}>Опубликовать</button>
                         </div>
                     </div>

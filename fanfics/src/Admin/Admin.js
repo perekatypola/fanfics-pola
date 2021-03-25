@@ -60,10 +60,15 @@ class Admin extends React.Component {
                                                 </a>
                                                 <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                                     <button className="dropdown-item" onClick={() => {
-                                                        deleteUser(user.name)
+                                                        deleteUser(user.name).then(res => {
+                                                            this.setState({users : [...this.state.users.filter(el => el.name != user.name)]})
+                                                        })
                                                     }}>Удалить</button>
                                                     <button className="dropdown-item" onClick={() => {
-                                                        blockUser(user.name , user.status)
+                                                        blockUser(user.name , user.status).then(res => {
+                                                            console.log(res.name)
+                                                            this.setState({users : [...this.state.users.filter(el => el.name != res.name) , res]})
+                                                        })
                                                     }}>Блокировать/Разблокировать</button>
                                                 </div>
                                             </div>
@@ -97,32 +102,6 @@ class Admin extends React.Component {
                         <Works></Works>
                     </TabPanel>
                 </Tabs>
-            {/*    <ul className="nav nav-tabs">*/}
-            {/*        <li className="nav-item tab">*/}
-            {/*            <a className="nav-link active"  data-toggle="tab" id = "authorsTab"  href ="#authors" onClick = {()=> {*/}
-            {/*                document.getElementById("authorsTab").classList.add("active")*/}
-            {/*                document.getElementById("worksTab").classList.remove("active")*/}
-            {/*            }}>Все авторы</a>*/}
-            {/*        </li>*/}
-            {/*        <li className="nav-item">*/}
-            {/*            <a className="nav-link" data-toggle="tab" id = "worksTab" href="#works" onClick={()=> {*/}
-            {/*                document.getElementById("authorsTab").classList.remove("active")*/}
-            {/*                document.getElementById("worksTab").classList.add("active")*/}
-            {/*            }}>Все работы</a>*/}
-            {/*        </li>*/}
-            {/*    </ul>*/}
-            {/*    <div className="tab-content">*/}
-            {/*        <div className="tab-pane fade show active container" id="authors">*/}
-            {/*
-            {/*        </div>*/}
-            {/*        <div className="tab-pane fade" id="works">*/}
-            {/*            <table className="table-responsive">*/}
-            {/*                <tbody>*/}
-            {/*                {renderUsers()}*/}
-            {/*                </tbody>*/}
-            {/*            </table>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
             </div>
         );
     }

@@ -462,6 +462,8 @@ exports.deleteUser = (sequelize , user_name) => {
                         book.destroy()
                     })
                     user.destroy()
+                    console.log(user)
+                    resolve(user)
                 })
             })
     })
@@ -477,8 +479,6 @@ exports.blockUser = (sequelize , user_name , status) => {
         else {
             newStatus = "unblocked"
         }
-        console.log(user_name)
-        console.log(status)
         User.update(
             {status : newStatus},
             {where:
@@ -486,8 +486,14 @@ exports.blockUser = (sequelize , user_name , status) => {
                         name:user_name
                     }
             })
-            .then(user => {
-                resolve(user)
+            .then(()=> {
+                User.findOne({where: {
+                    name: user_name
+                    }})
+                    .then(user => {
+                        console.log(user)
+                        resolve(user)
+                    })
             })
     })
 }

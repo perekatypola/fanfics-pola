@@ -39,7 +39,10 @@ class Works extends React.Component {
                                         </a>
                                         <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                             <button className="dropdown-item" onClick={()=>{deleteFanfic(work)}}>Удалить</button>
-                                            <button className="dropdown-item" >Редактировать</button>
+                                            <button className="dropdown-item" onClick  = {() => {
+                                                localStorage.setItem('curBook' , work.book_name)
+                                                window.location =  "/editBook"
+                                            }}>Редактировать</button>
                                         </div>
                                     </div>
                                 </div>
