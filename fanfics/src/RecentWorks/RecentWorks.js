@@ -68,7 +68,7 @@ class RecentWorks extends React.Component {
         return (
             <div className="RecentWorks background">
                 <MainHeader></MainHeader>
-                <div className="container">
+                <div className="container custom-container">
                     <table className="table">
                         <tbody>
                         {renderWorks()}

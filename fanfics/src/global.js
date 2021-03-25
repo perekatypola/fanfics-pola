@@ -82,11 +82,28 @@ export const addLike = (work , user_liked) => {
 }
 
 export const deleteFanfic = (work) => {
+    return new Promise ((resolve , reject) => {
+        fetch("https://fanfics-pola.herokuapp.com/deleteFanfic",  {
+            method: 'GET',
+            headers:{'Content-Type': 'application/json' , 'book_name' : work.book_name , 'Auth' : localStorage.getItem('jwt')},
+        }).then((response) => response.json()).then(res => {
+            resolve("deleted")
+        })
+    })
+}
 
-    fetch("https://fanfics-pola.herokuapp.com/deleteFanfic",  {
-        method: 'GET',
-        headers:{'Content-Type': 'application/json' , 'book_name' : work.book_name , 'Auth' : localStorage.getItem('jwt')},
-    }).then((response) => response.json()).then(res => {})
+export const updateUser = (name , prevName , contacts , info) => {
+    return new Promise ((resolve , reject) => {
+        console.log(prevName)
+        fetch("https://fanfics-pola.herokuapp.com/updateUser",  {
+            method: 'POST',
+            headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
+            body: JSON.stringify({name: name , prevName : prevName , contacts: contacts , info: info})
+        }).then((response) => response.text()).then(res => {
+            console.log(res)
+            resolve("updated")
+        })
+    })
 }
 
 export const deleteUser = (user_name) => {

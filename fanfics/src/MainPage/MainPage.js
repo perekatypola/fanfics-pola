@@ -2,6 +2,7 @@ import React from "react";
 import './MainPage.css'
 import RecentWorks from '../RecentWorks/RecentWorks'
 import {switchTheme} from "../App";
+import { Draggable, Droppable } from 'react-drag-and-drop'
 class MainPage extends React.Component {
 
     constructor(props) {
@@ -17,6 +18,10 @@ class MainPage extends React.Component {
         switchTheme(localStorage.getItem('theme'))
     }
 
+    onDrop(data) {
+        console.log(data)
+        // => banana
+    }
 
     render() {
         return (

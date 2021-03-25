@@ -38,7 +38,13 @@ class Works extends React.Component {
                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         </a>
                                         <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                            <button className="dropdown-item" onClick={()=>{deleteFanfic(work)}}>Удалить</button>
+                                            <button className="dropdown-item" onClick={()=>{
+                                                deleteFanfic(work).then(res => {
+                                                    if(res === 'deleted') {
+                                                        this.setState({works : [...this.state.works.filter(el => el.name != work.name)]})
+                                                    }
+                                                })
+                                            }}>Удалить</button>
                                             <button className="dropdown-item" onClick  = {() => {
                                                 localStorage.setItem('curBook' , work.book_name)
                                                 window.location =  "/editBook"

@@ -1,0 +1,26 @@
+.modal {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.4);
+    position:fixed;
+    top:0;
+    left:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(0)
+}
+
+.drop-zone-over {
+    border: black 10px dashed;
+}
+
+.modal.active {
+    transform: scale(1);
+}
+
+.modal-content {
+    border-radius: 5px;
+    background-color: white;
+    width: 20%
+}

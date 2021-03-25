@@ -3,13 +3,14 @@ import ReactStars from "react-rating-stars-component";
 import {Link} from 'react-router-dom';
 import MainHeader from "../MainHeader/MainHeader";
 import './UserPage.css'
-import {getRating, deleteFanfic} from "../global";
+import {getRating, deleteFanfic, updateUser} from "../global";
 import {switchTheme} from "../App";
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import add from "../add.png";
 import edit from "../edit.png";
 import adduser from "../adduser.png";
 import InlineEdit from 'react-edit-inplace'
+import Upload from "../Upload/Upload";
 
 class UserPage extends React.Component {
 
@@ -17,10 +18,14 @@ class UserPage extends React.Component {
         super(props);
         this.state = {
             works: [] ,
+            curUser: localStorage.getItem('curUser'),
             info:'Поэт, прозаик',
-            contacts: 'ВК:'
+            contacts: 'ВК:' ,
+            modalActive: 'modal'
         };
-        this.dataChanged = this.dataChanged.bind(this);
+        this.userChanged = this.userChanged.bind(this);
+        this.infoChanged = this.infoChanged.bind(this);
+        this.contactsChanged = this.contactsChanged.bind(this);
     }
 
     componentDidMount() {
@@ -34,12 +39,18 @@ class UserPage extends React.Component {
         })
     }
 
-    dataChanged = (data) => {
-        // data = { description: "New validated text comes here" }
-        // Update your model from here
-        console.log(data)
-        this.setState({...data})
+    userChanged = (data) => {
+        this.setState({curUser: data.message})
     }
+
+    infoChanged = (data) => {
+        this.setState({ info: data.message})
+    }
+
+    contactsChanged = (data) => {
+        this.setState({ contacts: data.message})
+    }
+
     render() {
 
         const renderWorks = () => {
@@ -86,6 +97,10 @@ class UserPage extends React.Component {
             }
         }
 
+        const setModalState = (state) => {
+            this.setState({modalActive: state})
+        }
+
         const renderUserPage = ()=> {
                 return <>
                     <div className = "user-profile">
@@ -93,7 +108,8 @@ class UserPage extends React.Component {
                             <div className="card-header user-header">
                                 <div className = "add-image">
                                     <img className = "user-add" src={adduser} alt="adduser"></img>
-                                    <button className = "btn custom-button">Загрузить</button>
+                                    <button className = "btn custom-button" onClick = {() => {setModalState("modal active")
+                                    console.log(this.state.modalActive)}}>Загрузить</button>
                                 </div>
                                 <p className="h3">
                                     Пользователь:
@@ -101,9 +117,9 @@ class UserPage extends React.Component {
                                 <InlineEdit className = "edit-box"
                                     validate={this.customValidateText}
                                     activeClassName="editing"
-                                    text={localStorage.getItem('curUser')}
+                                    text={this.state.curUser}
                                     paramName="message"
-                                    change={this.dataChanged}
+                                    change={this.userChanged}
                                     style={{
                                         margin: 0,
                                         padding: 0,
@@ -121,7 +137,7 @@ class UserPage extends React.Component {
                                             activeClassName="editing"
                                             text={this.state.info}
                                             paramName="message"
-                                            change={this.dataChanged}
+                                            change={this.infoChanged}
                                             style={{
                                                 margin: 0,
                                                 padding: 0,
@@ -137,7 +153,7 @@ class UserPage extends React.Component {
                                             activeClassName="editing"
                                             text={this.state.contacts}
                                             paramName="message"
-                                            change={this.dataChanged}
+                                            change={this.contactsChanged}
                                             style={{
                                                 margin: 0,
                                                 padding: 0,
@@ -145,12 +161,18 @@ class UserPage extends React.Component {
                                                 border: 0
                                             }}
                                 />
+                                <div className="flex-box">
+                                    <button onClick = {()=> {
+                                        updateUser(this.state.curUser ,localStorage.getItem('curUser') , this.state.info , this.state.contacts)
+                                    }}className="btn custom-button">Обновить</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </>
 
         }
+
 
         return (
             <div className="background UserPage">
@@ -164,7 +186,7 @@ class UserPage extends React.Component {
                         {renderUserPage()}
                     </TabPanel>
                     <TabPanel>
-                        <div className="container user-works">
+                        <div className="container custom-container user-works">
                             <div className="table-responsive">
                                 <table className="table">
                                     <tbody>
@@ -183,7 +205,7 @@ class UserPage extends React.Component {
                         </div>
                     </TabPanel>
                 </Tabs>
-
+                <Upload active = {this.state.modalActive} setState = {setModalState}/>
             </div>
         );
     }
