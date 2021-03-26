@@ -35,13 +35,6 @@ const rejectStyle = {
     borderColor: '#ff1744'
 };
 
-const thumbsContainer = {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginTop: 16
-};
-
 const thumb = {
     display: 'inline-flex',
     borderRadius: 2,
@@ -67,7 +60,7 @@ const img = {
 };
 
 function Upload(props) {
-    const [uploadFiles , setFiles] = useState([])
+    const [uploadFiles , setFiles] = useState('')
     const {
         acceptedFiles,
         getRootProps,
@@ -76,9 +69,13 @@ function Upload(props) {
         isDragAccept,
         isDragReject,
     } = useDropzone({accept: 'image/*' , onDrop: acceptedFiles => {
-            setFiles(acceptedFiles.map(file => Object.assign(file, {preview: URL.createObjectURL(file)})));
-            console.log(acceptedFiles)
-            // uploadImage(file[0])
+           let reader = new FileReader();
+            reader.readAsDataURL(acceptedFiles[0]);
+            reader.onloadend = function () {
+                setFiles(reader.result)
+                console.log(uploadFiles)
+                uploadImage(reader.result).then()
+            };
         }});
 
     const style = useMemo(() => ({
@@ -99,8 +96,18 @@ function Upload(props) {
     ));
 
 
-    const uploadImage = (encodedImage) => {
+    const uploadImage = async (encodedImage) => {
         console.log(encodedImage)
+        const res = await fetch("http://localhost:8080/upload",  {
+            method: 'POST',
+            headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
+            body: JSON.stringify({data: encodedImage , name: localStorage.getItem('curUser')})
+         })
+        const data = await res.json()
+        console.log(data)
+            // .then((response) => response.text()).then(res => {
+        //     console.log(res)
+        // })
     }
 
     useEffect(() => () => {
@@ -109,21 +116,21 @@ function Upload(props) {
     }, [files]);
 
     return (
-        <div id="modal" onClick={()=> {
-            props.setState("modal")
-        }} className={props.active}>
-            <div className="container">
-                <div {...getRootProps({style})}>
-                    <input {...getInputProps()} />
-                    <p>Drag 'n' drop some files here, or click to select files</p>
+                <div id="modal" onClick={()=> {
+                    props.setState("modal")
+                }} className={props.active}>
+                    <div className="container">
+                        <div {...getRootProps({style})}>
+                            <input {...getInputProps()} />
+                            <p>Drag 'n' drop some files here, or click to select files</p>
+                        </div>
+                        <aside>
+                            <h4>Files</h4>
+                            <ul>{files}</ul>
+                        </aside>
+                        <button className="btn custom-button">Загрузить</button>
+                    </div>
                 </div>
-                <aside>
-                    <h4>Files</h4>
-                    <ul>{files}</ul>
-                </aside>
-                <button className="btn custom-button">Загрузить</button>
-            </div>
-        </div>
     );
 }
 export default Upload

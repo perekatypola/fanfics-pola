@@ -11,6 +11,7 @@ import edit from "../edit.png";
 import adduser from "../adduser.png";
 import InlineEdit from 'react-edit-inplace'
 import Upload from "../Upload/Upload";
+import { Image } from 'cloudinary-react';
 
 class UserPage extends React.Component {
 
@@ -19,9 +20,10 @@ class UserPage extends React.Component {
         this.state = {
             works: [] ,
             curUser: localStorage.getItem('curUser'),
-            info:'Поэт, прозаик',
-            contacts: 'ВК:' ,
-            modalActive: 'modal'
+            info:'Информация о тебе',
+            contacts: 'Твои контакты' ,
+            modalActive: 'modal' ,
+            imageIsLoaded: false
         };
         this.userChanged = this.userChanged.bind(this);
         this.infoChanged = this.infoChanged.bind(this);
@@ -30,14 +32,48 @@ class UserPage extends React.Component {
 
     componentDidMount() {
         switchTheme(localStorage.getItem('theme'))
-        fetch("https://fanfics-pola.herokuapp.com/loadUserWorks",  {
+        fetch("https://fanfics-pola.herokuapp.com/loadUserWorks", {
             method: 'GET',
-            headers:{'Content-Type': 'application/json' , Auth: localStorage.getItem('jwt') , "AdminModeUser" : localStorage.getItem('curUser')}
+            headers: {
+                'Content-Type': 'application/json',
+                Auth: localStorage.getItem('jwt'),
+                "AdminModeUser": localStorage.getItem('curUser')
+            }
         }).then((response) => response.json()).then(res => {
             console.log(res)
-            this.setState({works:res})
+            this.setState({works: res})
         })
+        fetch("http://localhost:8080/loadUserInfo", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Auth: localStorage.getItem('jwt'),
+            },
+            body : JSON.stringify({user: localStorage.getItem('curUser')})
+        }).then((response) => response.json()).then(res => {
+            if(res.info)
+                this.setState({info: res.info})
+            if(res.contacts)
+                this.setState({contacts: res.contacts})
+        })
+        this.loadImages()
+
     }
+
+    loadImages = async () => {
+        console.log("loading")
+        try {
+            const res = await fetch("http://localhost:8080/images");
+            const data = await res.json();
+            console.log(data)
+            this.setState({images: data})
+            if(this.state.images.indexOf(this.state.curUser)>=0) {
+                this.setState({imageIsLoaded: true})
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
     userChanged = (data) => {
         this.setState({curUser: data.message})
@@ -52,6 +88,31 @@ class UserPage extends React.Component {
     }
 
     render() {
+        const renderImage = () => {
+            if(this.state.imageIsLoaded) {
+                return <>
+                    <Image
+                        className = "user-add user-image"
+                        cloudName="dncpfo6oa"
+                        publicId={this.state.curUser}
+                        crop="scale"
+                    />
+                    <button className = "btn custom-button "
+                            onClick = {() => {
+                            }}>Удалить</button>
+                    </>
+            }
+            else {
+                return <>
+                    <img className = "user-add" src={adduser} alt="adduser"></img>
+                    <button className = "btn custom-button" onClick = {() => {
+                        setInterval(this.loadImages , 1000)
+                        setModalState("modal active")
+                        console.log(this.state.modalActive)}}>Загрузить</button>
+                    </>
+            }
+        }
+
 
         const renderWorks = () => {
             if(this.state.works.length === 0) {
@@ -107,26 +168,26 @@ class UserPage extends React.Component {
                         <div className="card">
                             <div className="card-header user-header">
                                 <div className = "add-image">
-                                    <img className = "user-add" src={adduser} alt="adduser"></img>
-                                    <button className = "btn custom-button" onClick = {() => {setModalState("modal active")
-                                    console.log(this.state.modalActive)}}>Загрузить</button>
+                                    {renderImage()}
                                 </div>
-                                <p className="h3">
-                                    Пользователь:
-                                </p>
-                                <InlineEdit className = "edit-box"
-                                    validate={this.customValidateText}
-                                    activeClassName="editing"
-                                    text={this.state.curUser}
-                                    paramName="message"
-                                    change={this.userChanged}
-                                    style={{
-                                        margin: 0,
-                                        padding: 0,
-                                        outline: 0,
-                                        border: 0
-                                    }}
-                                />
+                                <div>
+                                    <p className="h3">
+                                        Пользователь:
+                                    </p>
+                                    <InlineEdit className = "edit-box"
+                                                validate={this.customValidateText}
+                                                activeClassName="editing"
+                                                text={this.state.curUser}
+                                                paramName="message"
+                                                change={this.userChanged}
+                                                style={{
+                                                    margin: 0,
+                                                    padding: 0,
+                                                    outline: 0,
+                                                    border: 0
+                                                }}
+                                    />
+                                </div>
                             </div>
                             <div className="card-body">
                                 <p className="h3">
@@ -161,11 +222,10 @@ class UserPage extends React.Component {
                                                 border: 0
                                             }}
                                 />
-                                <div className="flex-box">
                                     <button onClick = {()=> {
                                         updateUser(this.state.curUser ,localStorage.getItem('curUser') , this.state.info , this.state.contacts)
+
                                     }}className="btn custom-button">Обновить</button>
-                                </div>
                             </div>
                         </div>
                     </div>
