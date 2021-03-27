@@ -21,7 +21,7 @@ class  ChapterPage extends React.Component {
     componentDidMount() {
         switchTheme(localStorage.getItem('theme'))
         fetch("https://fanfics-pola.herokuapp.com/loadChapter",  {
-            method: 'GET',
+            method: 'POST',
             headers:{'Content-Type': 'application/json'},
             body: JSON.stringify({chapterName : this.state.chapterName, bookName : this.state.book})
         }).then((response) => response.json()).then(res => {
