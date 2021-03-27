@@ -63,7 +63,7 @@ class UserPage extends React.Component {
     loadImages = async () => {
         console.log("loading")
         try {
-            const res = await fetch("/images");
+            const res = await fetch("https://fanfics-pola.herokuapp.com/images");
             const data = await res.json();
             console.log(data)
             this.setState({images: data})
