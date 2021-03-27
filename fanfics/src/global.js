@@ -92,20 +92,6 @@ export const deleteFanfic = (work) => {
     })
 }
 
-export const checkIfUsers = (name) => {
-    return new Promise ((resolve , reject) => {
-        fetch("https://fanfics-pola.herokuapp.com/loadUserWorks", {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Auth: localStorage.getItem('jwt'),
-                "AdminModeUser": localStorage.getItem('curUser')
-            }
-        }).then((response) => response.json()).then(res => {
-            console.log(res)
-        })
-    })
-}
 export const updateUser = (name , prevName , contacts , info) => {
     return new Promise ((resolve , reject) => {
         console.log(prevName)

@@ -167,8 +167,6 @@ class  BookPage extends React.Component {
         }
 
         const renderRatingBox = () => {
-            checkIfUsers(this.state.header).then(checked => {
-                console.log(checked)
                 if(localStorage.getItem('jwt')!="" && checked === false) {
                     return <> {
                         <div className = "rating-box">
@@ -194,7 +192,6 @@ class  BookPage extends React.Component {
                     }
                     </>
                 }
-            })
          }
 
         return (
