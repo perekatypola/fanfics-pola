@@ -3,7 +3,7 @@ import ReactStars from "react-rating-stars-component";
 import {Link} from 'react-router-dom';
 import MainHeader from "../MainHeader/MainHeader";
 import './UserPage.css'
-import {getRating, deleteFanfic, updateUser} from "../global";
+import {getRating, deleteFanfic, updateUser, deleteImage} from "../global";
 import {switchTheme} from "../App";
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import add from "../add.png";
@@ -99,6 +99,9 @@ class UserPage extends React.Component {
                     />
                     <button className = "btn custom-button "
                             onClick = {() => {
+                              deleteImage(this.state.curUser).then(() => {
+                                  this.setState({imageIsLoaded:false})
+                              })
                             }}>Удалить</button>
                     </>
             }

@@ -28,7 +28,7 @@ app.listen(process.env.PORT || port, () => {
 })
 
 fullText.indexing(Sequelize , sequelize)
-// const intervalId = setInterval(fullText.addIndex , 1800000)
+const intervalId = setInterval(fullText.addIndex , 1800000)
 
 
 

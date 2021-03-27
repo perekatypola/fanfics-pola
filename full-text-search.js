@@ -7,59 +7,6 @@ const algoliasearch = require("algoliasearch");
 const client = algoliasearch("H017D4FJ1A", "29b539cc291a62b792c846e5b6f6b029");
 const bookIndex = client.initIndex("books");
 
-let bookArray = []
-let bookIsIndexed = false
-let chapterIsIndexed = false
-let commentIsIndexed = false
-
-const indexingChapters = (Sequelize , sequelize) => {
-    return new Promise((resolve, reject)=> {
-        const Chapter  = initChapter(Sequelize , sequelize)
-        if(chapterIsIndexed) {
-            chapterIsIndexed = false
-            esClient.indices.delete({
-                index: "chapters"
-            }).then(() => {
-                getChapters(Chapter).then(chapters => {
-                    chapters.forEach(chapter => {
-                        esClient.index({
-                            index: "chapters",
-                            body:
-                                {
-                                    'chapter_id': chapter.chapter_id,
-                                    'chapter_name':chapter.chapter_name,
-                                    'text':chapter.text
-                                }
-                        })
-                            .then(res => {
-                                resolve(res)
-                            })
-                    })
-                })
-            })
-        }
-        else {
-            chapterIsIndexed = true
-            getChapters(Chapter).then(chapters => {
-                chapters.forEach(chapter => {
-                    esClient.index({
-                        index: "chapters",
-                        body:
-                            {
-                                'chapter_id': chapter.chapter_id,
-                                'chapter_name':chapter.chapter_name,
-                                'text':chapter.text
-                            }
-                    })
-                        .then(res => {
-                            resolve(res)
-                        })
-                })
-            })
-        }
-    })
-}
-
 const initBookIndex = () => {
     return bookIndex
 }

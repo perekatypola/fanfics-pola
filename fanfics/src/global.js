@@ -191,6 +191,19 @@ export const loginFacebook = (response)  => {
         })
     }
 }
+
+export const deleteImage = (name) => {
+    fetch("https://fanfics-pola.herokuapp.com/deleteImage", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json' , 'Auth': localStorage.getItem('jwt')
+        },
+        body : JSON.stringify({name: name})
+    }).then((response) => response.text()).then(res => {
+    })
+}
+
+
 export const addChapter = (name , text , book) => {
     fetch("https://fanfics-pola.herokuapp.com/addChapter", {
         method: 'POST',
@@ -199,7 +212,6 @@ export const addChapter = (name , text , book) => {
         },
         body : JSON.stringify({name: name , text: text , book_name: book})
     }).then((response) => response.text()).then(res => {
-        addIndex()
     })
 }
 
@@ -212,17 +224,6 @@ export const search = (searchText) => {
         console.log(res.result)
         localStorage.setItem('results' ,  JSON.stringify(res.result))
         window.location = "/results"
-    })
-}
-
-export const addIndex= () => {
-    fetch("https://fanfics-pola.herokuapp.com/addIndex", {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json' , 'Auth': localStorage.getItem('jwt')
-        },
-    }).then((response) => response.text()).then(res => {
-        console.log("INDEX")
     })
 }
 

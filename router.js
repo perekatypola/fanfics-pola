@@ -204,6 +204,16 @@ router.get('/getRating' , (req , res) => {
     })
 })
 
+router.get('deleteImage' , async (req, res) => {
+    if(req.header('Auth')!="") {
+        await cloudinary.uploader.destroy(req.body.name)
+        res.send("deleted")
+    }
+    else {
+        res.send("Not authorized")
+    }
+})
+
 router.get('/loadTopics' , (req , res) => {
     if(req.header('Auth')) {
         getTopics(sequelize).then(result => {
