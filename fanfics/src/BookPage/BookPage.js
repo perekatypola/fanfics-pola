@@ -68,7 +68,7 @@ class  BookPage extends React.Component {
         fetch("https://fanfics-pola.herokuapp.com/getLike",  {
             method: 'POST',
             headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
-            body: JSON.stringify({book_name: localStorage.getItem('jwt')})
+            body: JSON.stringify({book_name: localStorage.getItem('curBook')})
         }).then((response) => response.json()).then((likes) => {
             console.log(likes)
             this.setState({likes : likes.likes})
@@ -81,7 +81,7 @@ class  BookPage extends React.Component {
         fetch("https://fanfics-pola.herokuapp.com/loadComments", {
             method: 'POST',
             headers: {'Content-Type': 'application/json',  'Auth' : localStorage.getItem('jwt')},
-            body: JSON.stringify({book_name: localStorage.getItem('jwt')})
+            body: JSON.stringify({book_name: localStorage.getItem('curBook')})
         }).then((response) => response.json()).then(res => {
             console.log(res)
             this.setState({comments: res})

@@ -276,11 +276,11 @@ router.get('/loadWorks' , (req , res) => {
     })
 })
 
-router.get('/loadChapter' , (req ,res) => {
+router.post('/loadChapter' , (req ,res) => {
     const Book = initBook(Sequelize, sequelize)
     const Chapter = initChapter(Sequelize, sequelize)
     Book.hasMany(Chapter)
-    loadChapter(Book , req.header('chapterName') , req.header('bookName')).then(result => {
+    loadChapter(Book , req.body.chapterName , req.body.bookName).then(result => {
         res.send(result)
     })
 })
