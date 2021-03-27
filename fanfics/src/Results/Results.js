@@ -29,10 +29,6 @@ class Results extends React.Component {
                                         <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         </a>
-                                        <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                            <button className="dropdown-item" onClick={()=>{deleteFanfic(work)}}>Удалить</button>
-                                            <button className="dropdown-item" >Редактировать</button>
-                                        </div>
                                     </div>
                                 </div>
                                 <div className="card-body">
@@ -53,7 +49,7 @@ class Results extends React.Component {
         return (
             <div className="Works background">
                 <MainHeader></MainHeader>
-                <div className="container">
+                <div className="custom-container">
                     <table className="table">
                         <tbody>
                         {console.log(this.state.works)}
