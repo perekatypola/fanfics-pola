@@ -37,15 +37,17 @@ class  EditBook extends React.Component {
     componentDidMount() {
         switchTheme(localStorage.getItem('theme'))
         fetch("https://fanfics-pola.herokuapp.com/loadChapters",  {
-            method: 'GET',
-            headers:{'Content-Type': 'application/json' , 'bookName' : this.state.header}
+            method: 'POST',
+            headers:{'Content-Type': 'application/json'},
+            body: JSON.stringify({book_name: this.state.header})
         }).then((response) => response.json()).then((res) => {
             console.log(res)
             this.setState({chaptersList:res})
         })
         fetch("https://fanfics-pola.herokuapp.com/getBookProps",  {
-            method: 'GET',
-            headers:{'Content-Type': 'application/json' , 'bookName' : this.state.header}
+            method: 'POST',
+            headers:{'Content-Type': 'application/json'},
+            body: JSON.stringify({book_name: this.state.header})
         }).then((response) => response.json()).then((res) => {
             this.setState({topic:res.topic})
             this.setState({description: res.description})
