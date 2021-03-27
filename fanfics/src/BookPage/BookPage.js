@@ -9,7 +9,7 @@ import {Link} from 'react-router-dom';
 import {WithContext as ReactTags} from "react-tag-input";
 import like from "../like.png";
 import { Provider, LikeButton } from "@lyket/react";
-import {addLike} from "../global";
+import {addLike, checkIfUsers} from "../global";
 import {switchTheme} from "../App";
 class  BookPage extends React.Component {
 
@@ -91,8 +91,7 @@ class  BookPage extends React.Component {
 
     changeRating = {
         onChange : newRating => {
-
-            fetch("http://localhost:8080/setRating", {
+            fetch("https://fanfics-pola.herokuapp.com/setRating", {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json', 'book_name': this.state.header , 'Auth' : localStorage.getItem('jwt')},
                 body: JSON.stringify({user_rating: newRating})
@@ -168,31 +167,34 @@ class  BookPage extends React.Component {
         }
 
         const renderRatingBox = () => {
-         if(localStorage.getItem('jwt')!="") {
-                 return <> {
-                     <div className = "rating-box">
-                         <div className="box">
-                             <strong className="rating-text">Поставьте лайк:</strong>
-                             <LikeButton
-                                 className = "like-button"
-                                 namespace="post"
-                                 id={this.state.likes}
-                                 component={LikeButton.templates.Twitter}
-                                 hideCounterIfLessThan={50000}
-                                 onPress = {data=> {
-                                     addLike(this.state.header , data.attributes.userHasLiked)
-                                 }}
-                             />
-                             <strong className="rating-text">Лайков: {this.state.likes}</strong>
-                         </div>
-                         <div className="box">
-                             <strong className="rating-text">Оставьте рейтинг: </strong>
-                             <ReactStars {...this.changeRating} class = "stars" size={20} activeColor = "#b76a47"/>
-                         </div>
-                     </div>
-                 }
-                 </>
-            }
+            checkIfUsers(this.state.header).then(checked => {
+                console.log(checked)
+                if(localStorage.getItem('jwt')!="" && checked === false) {
+                    return <> {
+                        <div className = "rating-box">
+                            <div className="box">
+                                <strong className="rating-text">Поставьте лайк:</strong>
+                                <LikeButton
+                                    className = "like-button"
+                                    namespace="post"
+                                    id={this.state.likes}
+                                    component={LikeButton.templates.Twitter}
+                                    hideCounterIfLessThan={50000}
+                                    onPress = {data=> {
+                                        addLike(this.state.header , data.attributes.userHasLiked)
+                                    }}
+                                />
+                                <strong className="rating-text">Лайков: {this.state.likes}</strong>
+                            </div>
+                            <div className="box">
+                                <strong className="rating-text">Оставьте рейтинг: </strong>
+                                <ReactStars {...this.changeRating} class = "stars" size={20} activeColor = "#b76a47"/>
+                            </div>
+                        </div>
+                    }
+                    </>
+                }
+            })
          }
 
         return (
