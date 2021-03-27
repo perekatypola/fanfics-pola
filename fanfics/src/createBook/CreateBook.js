@@ -115,7 +115,7 @@ class CreateBook extends React.Component {
                                         onClick = {() => {
                                              window.location = "/createChapters"
                                             localStorage.setItem('creatingBook' , this.state.name)
-                                            addInitialBook(this.state.name , this.state.descr ,this.state.chosenTopic , this.state.curTags,localStorage.getItem('curUser'))}}>Продолжить</button>
+                                            addInitialBook(this.state.name , this.state.descr ,this.state.chosenTopic , this.state.suggestions ,this.state.curTags,localStorage.getItem('curUser'))}}>Продолжить</button>
                             </div>
                         </div>
                     </div>

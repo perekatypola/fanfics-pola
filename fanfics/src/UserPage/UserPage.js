@@ -43,7 +43,7 @@ class UserPage extends React.Component {
             console.log(res)
             this.setState({works: res})
         })
-        fetch("http://localhost:8080/loadUserInfo", {
+        fetch("https://fanfics-pola.herokuapp.com/loadUserInfo", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ class UserPage extends React.Component {
     loadImages = async () => {
         console.log("loading")
         try {
-            const res = await fetch("http://localhost:8080/images");
+            const res = await fetch("https://fanfics-pola.herokuapp.com/images");
             const data = await res.json();
             console.log(data)
             this.setState({images: data})

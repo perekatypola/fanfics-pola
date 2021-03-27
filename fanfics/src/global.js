@@ -131,13 +131,13 @@ export const blockUser = (user_name , user_status) => {
     })
 }
 
-export const addInitialBook = (name , description , topic , tags , user_name) => {
+export const addInitialBook = (name , description , topic ,suggestions ,tags , user_name) => {
     console.log(user_name)
     fetch("https://fanfics-pola.herokuapp.com/addBook",  {
         method: 'POST',
         headers:{'Content-Type': 'application/json' , 'name' : name , 'descr' : description , 'topic' : topic
             , 'Auth' : localStorage.getItem('jwt')},
-        body : JSON.stringify({tags : tags , user:user_name} )
+        body : JSON.stringify({tags : tags , user:user_name , suggestions : suggestions} )
     }).then((response) => response.text()).then(res => {
         console.log(res)
     })

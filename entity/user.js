@@ -14,6 +14,12 @@ exports.initUser = (Sequelize , sequelize) => {
         email : {
             type: Sequelize.STRING
         },
+        contacts : {
+            type:Sequelize.STRING
+        },
+        info : {
+            type:Sequelize.STRING
+        },
         status : {
             type: Sequelize.STRING,
             defaultValue: "unblocked"

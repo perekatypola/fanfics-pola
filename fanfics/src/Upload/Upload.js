@@ -98,7 +98,7 @@ function Upload(props) {
 
     const uploadImage = async (encodedImage) => {
         console.log(encodedImage)
-        const res = await fetch("http://localhost:8080/upload",  {
+        const res = await fetch("https://fanfics-pola.herokuapp.com/upload",  {
             method: 'POST',
             headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
             body: JSON.stringify({data: encodedImage , name: localStorage.getItem('curUser')})

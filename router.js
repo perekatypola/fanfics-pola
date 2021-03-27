@@ -6,12 +6,13 @@ const {initUser} = require("./entity/user");
 const {writeBookInst , setChapter , getChaptersList , setConnection ,
     getComments , loadWorks , loadChapter , addUser , validatePassword , checkUser , getUserBooks , addComment,
     loadBook,getChapters , getTags , addTags , addTagsToBook , getBookTags , setRating , getRating , deleteFanfic , setRatingToBook,
-    addLike , getLikes,getUsers , deleteUser, blockUser ,getBookProps , editBookInst, editChapterInst} = require ("./sqlwork")
+    addLike , getLikes,getUsers , deleteUser, blockUser ,getBookProps , editBookInst, editChapterInst , updateUser , getUserInfo} = require ("./sqlwork")
 const safety = require('./safety')
 const {getTopics} = require("./sqlwork");
 const {initTopic} = require("./entity/topic");
 const fullText = require("./full-text-search")
 const {writeChapterInst} = require("./sqlwork");
+const {cloudinary} = require('./cloudinary')
 const sequelize = setConnection()
 const express = require('express')
 const router = express.Router()
@@ -65,6 +66,53 @@ router.post('/vkAuth' , (req , res) => {
         })
     })
 })
+
+router.post('/upload' ,  async (req, res) => {
+    if(req.header('Auth')) {
+        try{
+            const fileStr = req.body.data
+            const uploaded = await cloudinary.uploader.upload(fileStr ,{public_id:req.body.name})
+            res.send(uploaded)
+
+        }
+        catch(err) {
+            console.log(err)
+        }
+        // res.send({message: "Uploaded"})
+    }
+    else {
+        res.send("Not authorized")
+    }
+})
+
+router.post('/loadUserInfo' ,  (req, res) => {
+    if(req.header('Auth')) {
+        checkUser(safety.decodeToken(req.header('Auth')).data.name , sequelize).then((user) => {
+            if(user) {
+                getUserInfo(req.body.user , sequelize).then(result => {
+                    res.send(result)
+                })
+            }
+            else {
+                res.send("invalid")
+            }
+        })
+    }
+    else {
+        res.send("Not authorized")
+    }
+})
+
+router.get('/images', async (req, res) => {
+    const { resources } = await cloudinary.search
+        .sort_by('public_id')
+        .max_results(30)
+        .execute();
+
+    const publicIds = resources.map((file) => file.public_id);
+    console.log(publicIds)
+    res.send(publicIds);
+});
 
 router.post('/facebookVkAuth' , (req , res) => {
     checkUser(req.body.name , sequelize).then(async (user) => {
@@ -235,7 +283,7 @@ router.post('/addBook' , (req ,res) => {
                 writeBookInst(req.header('name') , req.header('descr') , req.body.user , req.header('topic'),sequelize).then(result => {
                     console.log(req.header('name'))
                     req.body.tags.forEach(tag => {
-                        addTags(sequelize , tag , result.book_id).then(()=> {
+                        addTags(sequelize , tag , result.book_id , req.body.suggestions).then(()=> {
                         })
                     })
                     res.send(result)
@@ -359,6 +407,25 @@ router.post('/deleteUser' , (req ,res) => {
         else {
             res.send("Not admin")
         }
+    }
+    else {
+        res.send("Not authorized")
+    }
+})
+
+router.post('/updateUser' , (req ,res) => {
+    if(req.header('Auth')) {
+        console.log("update")
+        checkUser(safety.decodeToken(req.header('Auth')).data.name , sequelize).then(user=> {
+            if(user) {
+                updateUser(req.body.name , req.body.prevName , req.body.info , req.body.contacts , sequelize).then(result => {
+                    res.send("updated")
+                })
+            }
+            else {
+                res.send("no user")
+            }
+        })
     }
     else {
         res.send("Not authorized")

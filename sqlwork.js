@@ -79,19 +79,30 @@ exports.writeChapterInst = (sequelize, book_name , name , text) => {
     })
 }
 
-exports.addTags =  (sequelize, tag , id) => {
+exports.addTags =  (sequelize, tag , id , suggestions) => {
     return new Promise((resolve, reject) => {
         const Book = initBook(Sequelize ,sequelize)
         const Tag = initTag(Sequelize , sequelize)
         Tag.belongsToMany(Book , {through : 'Book_Tag'})
         Book.belongsToMany(Tag , {through : 'Book_Tag'})
-        Tag.create({tag: tag.text}).then(createdTag => {
-            Book.findByPk(id).then(book => {
+        if(suggestions.indexOf(tag)>=0) {
+            Tag.findOne({where: {tag: tag.text}}).then(foundTag => {
+                Book.findByPk(id).then(book => {
+                    book.addTag(foundTag, {through: {bookBookId : id}}).then(res=> {
+                        resolve(res)
+                    })
+                })
+            })
+        }
+        else {
+            Tag.create({tag: tag.text}).then(createdTag => {
+                Book.findByPk(id).then(book => {
                     book.addTag(createdTag , {through: {bookBookId : id}}).then(res=> {
                         resolve(res)
                     })
+                })
             })
-        })
+        }
     })
 }
 exports.addTagsToBook = (sequelize, tag , id) => {
@@ -290,6 +301,36 @@ exports.addUser =  async (name , password, email , sequelize) => {
             resolve(res)
                 })
             })
+}
+
+exports.getUserInfo =  (name, sequelize) => {
+    return new Promise((resolve,reject) => {
+        console.log(name)
+        const User = initUser(Sequelize , sequelize)
+        User.findOne({where: {
+            name: name
+            }})
+            .then(user => {resolve(user)}
+        )
+    })
+}
+
+exports.updateUser =  (name , prevName, info , contacts , sequelize) => {
+    return new Promise((resolve,reject) => {
+        console.log(prevName)
+        const User = initUser(Sequelize , sequelize)
+        User.update({
+            name:name,
+            contacts: contacts,
+            info: info
+        } , {where :
+                {
+                    name: prevName
+                }}).then(res =>{
+                    console.log(res)
+            resolve(res)
+        })
+    })
 }
 
 exports.getUserBooks = (user) => {
