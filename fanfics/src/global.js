@@ -103,12 +103,6 @@ export const checkIfUsers = (name) => {
             }
         }).then((response) => response.json()).then(res => {
             console.log(res)
-            res.forEach(book => {
-                if(book.book_name === name) {
-                    resolve(true)
-                }
-            })
-            resolve(false)
         })
     })
 }
