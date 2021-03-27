@@ -193,13 +193,8 @@ export const loginFacebook = (response)  => {
         }).then((response) => response.text()).then(res => {
             if(res!=="invalid" && res!== "blocked") {
                 localStorage.setItem('jwt' , res)
-                localStorage.setItem('curUser' , name)
-                if(name === "admin") {
-                    window.location = '/admin'
-                }
-                else {
+                localStorage.setItem('curUser' , response.name)
                     window.location = '/user'
-                }
             }
         })
     }
