@@ -206,8 +206,8 @@ router.post('/getRating' , (req , res) => {
 
 router.post('/deleteImage' , async (req, res) => {
     if(req.header('Auth')!="") {
-        await cloudinary.uploader.destroy(req.body.name)
-        res.send("deleted")
+        let result = await cloudinary.uploader.destroy(req.body.name ,{invalidate: true})
+        res.send(result)
     }
     else {
         res.send("Not authorized")
