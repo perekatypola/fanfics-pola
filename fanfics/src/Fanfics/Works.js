@@ -69,7 +69,7 @@ class Works extends React.Component {
 
         return (
             <div className="Works background">
-                <div className="container">
+                <div className="custom-container container">
                         <table className="table">
                             <tbody>
                             {renderWorks()}

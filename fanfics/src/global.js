@@ -171,11 +171,17 @@ export const loginVk = (name) => {
         method: 'POST',
         headers: {'Content-Type': 'application/json'} ,
         body : JSON.stringify({name : name , email: "vk" , password: "vk"})
-    }).then((response) => response.text()).then(result => {
-        localStorage.setItem('jwt' , result)
-        localStorage.setItem('curUser' , name)
-        window.location = "/user"
-        console.log(result)
+    }).then((response) => response.text()).then(res => {
+        if(res!=="invalid" && res!== "blocked") {
+            localStorage.setItem('jwt' , res)
+            localStorage.setItem('curUser' , name)
+            if(name === "admin") {
+                window.location = '/admin'
+            }
+            else {
+                window.location = '/user'
+            }
+        }
     })
 }
 export const loginFacebook = (response)  => {
@@ -184,11 +190,17 @@ export const loginFacebook = (response)  => {
             method: 'POST',
             headers: {'Content-Type': 'application/json'} ,
             body : JSON.stringify({name : response.name , email : response.email , password : "facebook"})
-        }).then((response) => response.text()).then(result => {
-            localStorage.setItem('jwt' , result)
-            localStorage.setItem('curUser' , response.name)
-            window.location = "/user"
-            console.log(result)
+        }).then((response) => response.text()).then(res => {
+            if(res!=="invalid" && res!== "blocked") {
+                localStorage.setItem('jwt' , res)
+                localStorage.setItem('curUser' , name)
+                if(name === "admin") {
+                    window.location = '/admin'
+                }
+                else {
+                    window.location = '/user'
+                }
+            }
         })
     }
 }
