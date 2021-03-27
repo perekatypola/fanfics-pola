@@ -23,17 +23,13 @@ class EditChapter extends React.Component {
 
     componentDidMount() {
         switchTheme(localStorage.getItem('theme'))
-        fetch("https://fanfics-pola.herokuapp.com/loadChapters",  {
-            method: 'GET',
-            headers:{'Content-Type': 'application/json' , 'chapterName' : this.state.chapterName, 'bookName' : this.state.book}
-        }).then((response) => response.json()).then(res => {
-            console.log(res)
-            res.forEach(ch => {
-                if(ch.chapter_name === this.state.chapterName) {
-                    this.setState({text:ch.text})
-                }
-            })
-            console.log(res)
+        fetch("https://fanfics-pola.herokuapp.com/loadChapter",  {
+            method: 'POST',
+            headers:{'Content-Type': 'application/json'},
+            body: JSON.stringify({chapterName : this.state.chapterName, bookName : this.state.book})
+        }).then((response) => response.json()).then(ch => {
+            this.setState({chapter:ch})
+            this.setState({text:ch.text})
         })
         console.log(this.state)
     }

@@ -60,6 +60,10 @@ class UserPage extends React.Component {
 
     }
 
+    componentWillUnmount() {
+        clearInterval(this.intervalId)
+    }
+
     loadImages = async () => {
         console.log("loading")
         try {
@@ -107,7 +111,8 @@ class UserPage extends React.Component {
                 return <>
                     <img className = "user-add" src={adduser} alt="adduser"></img>
                     <button className = "btn custom-button" onClick = {() => {
-                        setInterval(this.loadImages , 1000)
+                        const id = setInterval(this.loadImages , 1000)
+                        this.setState({intervalId: id})
                         setModalState("modal active")
                         console.log(this.state.modalActive)}}>Загрузить</button>
                     </>

@@ -149,7 +149,12 @@ export const editBook = (name , description, tags ,prevName , suggestions) => {
         headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
         body : JSON.stringify({tags : tags , prevName :prevName, name : name ,descr : description , suggestions: suggestions})
     }).then((response) => response.text()).then(res => {
-        window.location = "/user"
+        if(localStorage.getItem('curUser') === "admin") {
+            window.location = "/admin"
+        }
+        else {
+            window.location = "/user"
+        }
         console.log(res)
     })
 }
