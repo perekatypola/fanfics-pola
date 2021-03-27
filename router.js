@@ -204,7 +204,7 @@ router.get('/getRating' , (req , res) => {
     })
 })
 
-router.get('deleteImage' , async (req, res) => {
+router.post('deleteImage' , async (req, res) => {
     if(req.header('Auth')!="") {
         await cloudinary.uploader.destroy(req.body.name)
         res.send("deleted")
