@@ -27,7 +27,7 @@ class  EditBook extends React.Component {
             suggestions :[],
             tags: [] ,
             newTitle:'',
-            newDescr:'',
+            newDescr: '',
             description:''
         };
         this.handleDelete = this.handleDelete.bind(this);
@@ -65,6 +65,8 @@ class  EditBook extends React.Component {
             })
             this.setState({suggestions: suggestions})
         })
+        this.setState({newDescr: this.state.description})
+        this.setState({newTitle: this.state.header})
     }
 
     handleAddition(tag) {
@@ -112,7 +114,7 @@ class  EditBook extends React.Component {
                             <div className="card-header book-header">
                                 <div>
                                     <input className = "name-book h5" defaultValue ={this.state.header} onChange = {event =>{
-                                        if(event.target.value)
+                                        if(event.target.value!="")
                                             this.setState({newTitle : event.target.value})
                                     }}></input>
                                 </div>
@@ -128,7 +130,7 @@ class  EditBook extends React.Component {
                                                delimiters={delimiters} />
                                 <label>Описание:</label>
                                 <textarea className="form-control" rows="4" onChange = {event =>{
-                                    if(event.target.value)
+                                    if(event.target.value!="")
                                         this.setState({newDescr : event.target.value})
                                 }} defaultValue = {this.state.description}></textarea>
                             </div>

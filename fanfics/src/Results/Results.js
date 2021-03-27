@@ -49,7 +49,7 @@ class Results extends React.Component {
         return (
             <div className="Works background">
                 <MainHeader></MainHeader>
-                <div className="custom-container">
+                <div className="container custom-container">
                     <table className="table">
                         <tbody>
                         {console.log(this.state.works)}

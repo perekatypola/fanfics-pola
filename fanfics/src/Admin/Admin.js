@@ -90,7 +90,7 @@ class Admin extends React.Component {
                         <Tab>Все фанфики</Tab>
                     </TabList>
                     <TabPanel>
-                        <div className = "custom-container">
+                        <div className = "container custom-container">
                             <table className="table-responsive ">
                                 <tbody>
                                 {renderUsers()}

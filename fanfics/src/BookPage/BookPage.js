@@ -17,20 +17,12 @@ class  BookPage extends React.Component {
         super(props);
         this.state = {
             header:localStorage.getItem('curBook') ,
-            topic: 'Романтика',
-            chaptersList: [{chapter_name: 'First'} , {chapter_name : 'Second'} , {chapter_name : 'Second'},{chapter_name : 'Second'},{chapter_name : 'Second'},{chapter_name : 'Second'}],
+            topic: '',
+            chaptersList: [],
             chaptersNames: '',
             comments: [] ,
             tags: [{text:'book'} , {text:'fun'}] ,
-            description: 'Coming out of my cage\n' +
-                'And I\'ve been doing just fine\n' +
-                'Gotta gotta be down\n' +
-                'Because I want it all\n' +
-                '\n' +
-                'Я выхожу из своей клетки,\n' +
-                'Там мне было хорошо,\n' +
-                'Но я в расстроенных чувствах,\n' +
-                'Потому что хочу всего и сразу.'
+            description: ''
         };
     }
 
