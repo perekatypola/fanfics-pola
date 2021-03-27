@@ -37,15 +37,17 @@ class  BookPage extends React.Component {
     componentDidMount() {
         switchTheme(localStorage.getItem('theme'))
         fetch("https://fanfics-pola.herokuapp.com/loadChapters",  {
-            method: 'GET',
-            headers:{'Content-Type': 'application/json' , 'bookName' : this.state.header}
+            method: 'POST',
+            headers:{'Content-Type': 'application/json'},
+            body: JSON.stringify({book_name: this.state.header})
         }).then((response) => response.json()).then((res) => {
             console.log(res)
             this.setState({chaptersList:res})
         })
         fetch("https://fanfics-pola.herokuapp.com/getBookTags",  {
-            method: 'GET',
-            headers:{'Content-Type': 'application/json' , 'bookName' : this.state.header}
+            method: 'POST',
+            headers:{'Content-Type': 'application/json'},
+            body: JSON.stringify({book_name: this.state.header})
         }).then((response) => response.json()).then((res) => {
             const tags = res.map(tag => {
                 return {
@@ -56,15 +58,17 @@ class  BookPage extends React.Component {
             this.setState({tags:tags})
         })
         fetch("https://fanfics-pola.herokuapp.com/getBookProps",  {
-            method: 'GET',
-            headers:{'Content-Type': 'application/json' , 'bookName' : this.state.header}
+            method: 'POST',
+            headers:{'Content-Type': 'application/json'},
+            body: JSON.stringify({book_name: this.state.header})
         }).then((response) => response.json()).then((res) => {
             this.setState({topic:res.topic})
             this.setState({description: res.description})
         })
         fetch("https://fanfics-pola.herokuapp.com/getLike",  {
-            method: 'GET',
-            headers:{'Content-Type': 'application/json' , 'book_name' : localStorage.getItem('curBook') , 'Auth' : localStorage.getItem('jwt')}
+            method: 'POST',
+            headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
+            body: JSON.stringify({book_name: localStorage.getItem('jwt')})
         }).then((response) => response.json()).then((likes) => {
             console.log(likes)
             this.setState({likes : likes.likes})
@@ -75,8 +79,9 @@ class  BookPage extends React.Component {
 
     updateComments = ()=> {
         fetch("https://fanfics-pola.herokuapp.com/loadComments", {
-            method: 'GET',
-            headers: {'Content-Type': 'application/json', 'bookName': this.state.header , 'Auth' : localStorage.getItem('jwt')}
+            method: 'POST',
+            headers: {'Content-Type': 'application/json',  'Auth' : localStorage.getItem('jwt')},
+            body: JSON.stringify({book_name: localStorage.getItem('jwt')})
         }).then((response) => response.json()).then(res => {
             console.log(res)
             this.setState({comments: res})

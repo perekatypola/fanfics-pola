@@ -242,11 +242,11 @@ router.get('/loadRecentWorks' , (req , res) => {
         res.send(result)
     })
 })
-router.get('/loadChapters' , (req , res) => {
+router.post('/loadChapters' , (req , res) => {
     const Book = initBook(Sequelize , sequelize)
     const Chapter = initChapter(Sequelize , sequelize)
     Book.hasMany(Chapter)
-    getChaptersList(Book , req.header('bookName')).then((result) => {
+    getChaptersList(Book , req.body.book_name).then((result) => {
         res.send(result)
     })
 })
@@ -257,7 +257,7 @@ router.get('/loadComments' , (req , res) => {
     Book.hasMany(Comment)
     if(req.header('Auth') !== "") {
         checkUser(safety.decodeToken(req.header('Auth')).data.name , sequelize).then(
-            getComments(Book , req.header('bookName')).then((result) => {
+            getComments(Book , req.body.book_name).then((result) => {
                 res.send(result)
             })
         )
@@ -383,14 +383,14 @@ router.post('/addChapter' , (req ,res) => {
     }
 })
 
-router.get('/getBookTags' , (req ,res) => {
-        getBookTags(req.header('bookName') , sequelize).then(result=> {
+router.post('/getBookTags' , (req ,res) => {
+        getBookTags(req.body.book_name , sequelize).then(result=> {
             res.send(result)
         })
 })
 
-router.get('/getBookProps' , (req ,res) => {
-    getBookProps(req.header('bookName') , sequelize).then(book=> {
+router.post('/getBookProps' , (req ,res) => {
+    getBookProps(req.body.book_name , sequelize).then(book=> {
         res.send({topic: book.book_genre , description: book.book_descr})
     })
 })
@@ -476,9 +476,9 @@ router.post('/addLike' , (req ,res) => {
     }
 })
 
-router.get('/getLike' , (req ,res) => {
+router.post('/getLike' , (req ,res) => {
     if(req.header('Auth')) {
-        getLikes(sequelize , req.header('book_name')).then(likes => {
+        getLikes(sequelize , req.body.book_name).then(likes => {
             console.log(likes)
             res.send({likes:likes})
         })
