@@ -85,10 +85,14 @@ exports.addTags =  (sequelize, tag , id , suggestions) => {
         const Tag = initTag(Sequelize , sequelize)
         Tag.belongsToMany(Book , {through : 'Book_Tag'})
         Book.belongsToMany(Tag , {through : 'Book_Tag'})
-        if(suggestions.indexOf(tag)>=0) {
+
+        if(suggestions.findIndex(el => el.id === tag.id)>=0) {
+            console.log("tag is in sug")
             Tag.findOne({where: {tag: tag.text}}).then(foundTag => {
+                console.log(foundTag)
                 Book.findByPk(id).then(book => {
                     book.addTag(foundTag, {through: {bookBookId : id}}).then(res=> {
+                        console.log(res)
                         resolve(res)
                     })
                 })

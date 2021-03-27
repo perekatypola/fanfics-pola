@@ -279,9 +279,8 @@ router.post('/addBook' , (req ,res) => {
     if(req.header('Auth')) {
         checkUser(safety.decodeToken(req.header('Auth')).data.name , sequelize).then(user=> {
             if(user) {
-                console.log(req.body.user)
-                writeBookInst(req.header('name') , req.header('descr') , req.body.user , req.header('topic'),sequelize).then(result => {
-                    console.log(req.header('name'))
+                console.log(req.body.suggestions)
+                writeBookInst(req.body.name , req.body.descr , req.body.user , req.body.topic,sequelize).then(result => {
                     req.body.tags.forEach(tag => {
                         addTags(sequelize , tag , result.book_id , req.body.suggestions).then(()=> {
                         })
@@ -314,7 +313,7 @@ router.post('/editBook' , (req ,res) => {
             if(user) {
                 editBookInst(req.body.name , req.body.descr , req.body.prevName , sequelize).then(book => {
                     req.body.tags.forEach(tag => {
-                        addTags(sequelize , tag , book.book_id).then(()=> {
+                        addTags(sequelize , tag , book.book_id , req.body.suggestions).then(()=> {
                         })
                     })
                     res.send("Added")

@@ -141,7 +141,7 @@ class  EditBook extends React.Component {
                                 </div>
                             </div>
                             <button className = "save-button btn custom-button" onClick ={() => {
-                                editBook(this.state.newTitle , this.state.newDescr , this.state.curTags , this.state.header)
+                                editBook(this.state.newTitle , this.state.newDescr , this.state.curTags , this.state.header ,this.state.suggestions)
                             }}>Сохранить</button>
                         </div>
                     </div>

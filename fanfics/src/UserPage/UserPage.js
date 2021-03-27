@@ -134,7 +134,11 @@ class UserPage extends React.Component {
                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             </a>
                                             <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                                <button className="dropdown-item" onClick={()=>{deleteFanfic(work)}}>Удалить</button>
+                                                <button className="dropdown-item" onClick={()=>{
+                                                    deleteFanfic(work).then(() => {
+                                                        this.setState({works: [...this.state.works.filter(el => el.book_name != work.book_name)]})
+                                                    })
+                                                }}>Удалить</button>
                                                 <button className="dropdown-item" onClick = {() => {
                                                     localStorage.setItem('curBook' , work.book_name)
                                                     window.location = "/editBook"
@@ -223,7 +227,9 @@ class UserPage extends React.Component {
                                             }}
                                 />
                                     <button onClick = {()=> {
-                                        updateUser(this.state.curUser ,localStorage.getItem('curUser') , this.state.info , this.state.contacts)
+                                        updateUser(this.state.curUser ,localStorage.getItem('curUser') , this.state.info , this.state.contacts).then(()=> {
+                                            localStorage.setItem('curUser' , this.state.curUser)
+                                        })
 
                                     }}className="btn custom-button">Обновить</button>
                             </div>

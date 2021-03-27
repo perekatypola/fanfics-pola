@@ -135,19 +135,18 @@ export const addInitialBook = (name , description , topic ,suggestions ,tags , u
     console.log(user_name)
     fetch("https://fanfics-pola.herokuapp.com/addBook",  {
         method: 'POST',
-        headers:{'Content-Type': 'application/json' , 'name' : name , 'descr' : description , 'topic' : topic
-            , 'Auth' : localStorage.getItem('jwt')},
-        body : JSON.stringify({tags : tags , user:user_name , suggestions : suggestions} )
+        headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
+        body : JSON.stringify({name: name , descr: description , topic: topic ,tags : tags , user:user_name , suggestions : suggestions} )
     }).then((response) => response.text()).then(res => {
         console.log(res)
     })
 }
 
-export const editBook = (name , description, tags ,prevName) => {
+export const editBook = (name , description, tags ,prevName , suggestions) => {
     fetch("https://fanfics-pola.herokuapp.com/editBook",  {
         method: 'POST',
         headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
-        body : JSON.stringify({tags : tags , prevName :prevName, name : name ,descr : description})
+        body : JSON.stringify({tags : tags , prevName :prevName, name : name ,descr : description , suggestions: suggestions})
     }).then((response) => response.text()).then(res => {
         window.location = "/user"
         console.log(res)
