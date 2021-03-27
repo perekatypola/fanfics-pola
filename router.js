@@ -182,7 +182,7 @@ router.post('/setRating' , (req , res) => {
         checkUser(safety.decodeToken(req.header('Auth')).data.name , sequelize).then(
             user => {
                 if(user) {
-                    setRating(sequelize , user.name , req.header('book_name') , req.body.user_rating).then(result=> {
+                    setRating(sequelize , user.name , req.body.book_name , req.body.user_rating).then(result=> {
                         res.send(result)
                     })
                 }
