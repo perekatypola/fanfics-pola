@@ -112,7 +112,8 @@ class  EditBook extends React.Component {
                             <div className="card-header book-header">
                                 <div>
                                     <input className = "name-book h5" defaultValue ={this.state.header} onChange = {event =>{
-                                        this.setState({newTitle : event.target.value})
+                                        if(event.target.value)
+                                            this.setState({newTitle : event.target.value})
                                     }}></input>
                                 </div>
                                 <p className="h5">Жанр : {this.state.topic} </p>
@@ -127,7 +128,8 @@ class  EditBook extends React.Component {
                                                delimiters={delimiters} />
                                 <label>Описание:</label>
                                 <textarea className="form-control" rows="4" onChange = {event =>{
-                                    this.setState({newDescr : event.target.value})
+                                    if(event.target.value)
+                                        this.setState({newDescr : event.target.value})
                                 }} defaultValue = {this.state.description}></textarea>
                             </div>
                             <div className="card-body">
