@@ -251,7 +251,7 @@ router.post('/loadChapters' , (req , res) => {
     })
 })
 
-router.get('/loadComments' , (req , res) => {
+router.post('/loadComments' , (req , res) => {
     const Book = initBook(Sequelize , sequelize)
     const Comment = initComment(Sequelize , sequelize)
     Book.hasMany(Comment)
