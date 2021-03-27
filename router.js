@@ -191,20 +191,20 @@ router.post('/setRating' , (req , res) => {
     }
 })
 
-router.get('/getRating' , (req , res) => {
-    getRating(sequelize , req.header('book_name')).then(ratings => {
+router.post('/getRating' , (req , res) => {
+    getRating(sequelize , req.body.book_name).then(ratings => {
         if(ratings) {
             const rating = ratings.reduce((sum , cur) => {
                 return sum + cur.rating
             } , 0)
             const finalRating = rating/ratings.length
-            setRatingToBook(sequelize , finalRating , req.header('book_name'))
+            setRatingToBook(sequelize , finalRating , req.body.book_name)
             res.send({rating: finalRating})
         }
     })
 })
 
-router.post('deleteImage' , async (req, res) => {
+router.post('/deleteImage' , async (req, res) => {
     if(req.header('Auth')!="") {
         await cloudinary.uploader.destroy(req.body.name)
         res.send("deleted")

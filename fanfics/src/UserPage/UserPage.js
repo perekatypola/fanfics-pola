@@ -99,9 +99,7 @@ class UserPage extends React.Component {
                     />
                     <button className = "btn custom-button "
                             onClick = {() => {
-                              deleteImage(this.state.curUser).then(() => {
-                                  this.setState({imageIsLoaded:false})
-                              })
+                              deleteImage(this.state.curUser).then(() => {this.setState({})})
                             }}>Удалить</button>
                     </>
             }

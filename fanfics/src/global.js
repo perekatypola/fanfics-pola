@@ -58,8 +58,9 @@ export const addComment =(name , text , book) => {
 
 export const getRating = (work) => {
         fetch("https://fanfics-pola.herokuapp.com/getRating",  {
-            method: 'GET',
-            headers:{'Content-Type': 'application/json' , 'book_name' : work.book_name},
+            method: 'POST',
+            headers:{'Content-Type': 'application/json'},
+            body: JSON.stringify({book_name: work.book_name})
         }).then((response) => response.json()).then(res => {
             console.log(res.rating)
             return res.rating
@@ -193,13 +194,16 @@ export const loginFacebook = (response)  => {
 }
 
 export const deleteImage = (name) => {
-    fetch("https://fanfics-pola.herokuapp.com/deleteImage", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json' , 'Auth': localStorage.getItem('jwt')
-        },
-        body : JSON.stringify({name: name})
-    }).then((response) => response.text()).then(res => {
+    return new Promise ((resolve, reject) => {
+        fetch("https://fanfics-pola.herokuapp.com/deleteImage", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' , 'Auth': localStorage.getItem('jwt')
+            },
+            body : JSON.stringify({name: name})
+        }).then((response) => response.text()).then(res => {
+            console.log(res)
+        })
     })
 }
 
