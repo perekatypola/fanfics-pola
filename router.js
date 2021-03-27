@@ -464,11 +464,11 @@ router.post('/addLike' , (req ,res) => {
             user => {
                 if(user) {
                     if(req.body.user_liked) {
-                        console.log(req.header('user_liked'))
-                        addLike(sequelize , user.name, req.header('book_name') , "true")
+                        console.log(req.body.user_liked)
+                        addLike(sequelize , user.name, req.body.book_name , "true")
                     }
                     else {
-                        addLike(sequelize , user.name, req.header('book_name') , "false")
+                        addLike(sequelize , user.name, req.body.book_name , "false")
                     }
                 }
             }

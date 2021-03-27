@@ -76,7 +76,7 @@ export const addLike = (work , user_liked) => {
     fetch("https://fanfics-pola.herokuapp.com/addLike",  {
         method: 'POST',
         headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
-        body: JSON.stringify({user_liked: user_liked , book_name : work })
+        body: JSON.stringify({user_liked: user_liked , book_name : work})
     }).then((response) => response.json()).then(res => {
         console.log(res)
     })
