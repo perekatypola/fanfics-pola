@@ -245,7 +245,7 @@ export const addChapter = (name , text , book) => {
 }
 
 const addIndex = () => {
-      fetch("/addIndex", {
+      fetch("http://localhost:8080/addIndex", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json' , 'Auth': localStorage.getItem('jwt')
