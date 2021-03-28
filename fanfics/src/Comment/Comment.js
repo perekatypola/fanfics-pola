@@ -30,8 +30,9 @@ class  Comment extends React.Component {
                           }}> </textarea>
                 <button className="btn btn-outline custom-button send"
                 onClick = {()=> {
+                    console.log(this.props.book)
                     document.getElementById("comment-user-name").value = ""
-                    document.getElementById("comment-user-name").value = ""
+                    document.getElementById("comment-text").value = ""
                         addComment(this.state.name , this.state.text , this.props.book)
                 }}>Отправить</button>
             </div>

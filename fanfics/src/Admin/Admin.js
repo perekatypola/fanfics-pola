@@ -91,7 +91,7 @@ class Admin extends React.Component {
                     </TabList>
                     <TabPanel>
                         <div className = "custom-container container">
-                            <table className="table-responsive ">
+                            <table className="table-responsive">
                                 <tbody>
                                 {renderUsers()}
                                 </tbody>

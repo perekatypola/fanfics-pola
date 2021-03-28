@@ -195,6 +195,7 @@ export const loginFacebook = (response)  => {
             headers: {'Content-Type': 'application/json'} ,
             body : JSON.stringify({name : response.name , email : response.email , password : "facebook"})
         }).then((response) => response.text()).then(res => {
+            console.log(res)
             if(res!=="invalid" && res!== "blocked") {
                 localStorage.setItem('jwt' , res)
                 localStorage.setItem('curUser' , response.name)
@@ -227,18 +228,18 @@ export const addChapter = (name , text , book) => {
         },
         body : JSON.stringify({name: name , text: text , book_name: book})
     }).then((response) => response.text()).then(res => {
+        console.log(res)
         addIndex()
     })
 }
 
 const addIndex = () => {
-    fetch("https://fanfics-pola.herokuapp.com/addIndex", {
+      fetch("https://fanfics-pola.herokuapp.com/addIndex", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json' , 'Auth': localStorage.getItem('jwt')
         }
     }).then((response) => response.text()).then(res => {
-
     })
 }
 

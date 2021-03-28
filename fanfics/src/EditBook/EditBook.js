@@ -167,7 +167,10 @@ class  EditBook extends React.Component {
                                     <ol>
                                         {renderChapters()}
                                         <li>
-                                            <button className = "user-button">
+                                            <button className = "user-button"
+                                            onClick = {() => {
+                                                window.location = "/createChapters"
+                                            }}>
                                                 <img className = "edit-button" src = {add} alt = "add" ></img>
                                             </button>
                                         </li>
