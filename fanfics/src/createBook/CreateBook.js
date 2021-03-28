@@ -91,7 +91,7 @@ class CreateBook extends React.Component {
                                 <div className="nav-item dropdown">
                                     <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Темы
+                                        Жанр:
                                     </a>
                                     <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                         {renderTopics()}

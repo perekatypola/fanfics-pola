@@ -28,7 +28,9 @@ class  EditBook extends React.Component {
             tags: [] ,
             newTitle:'',
             newDescr: '',
-            description:''
+            description:'' ,
+            topics:[] ,
+            newTopic: ''
         };
         this.handleDelete = this.handleDelete.bind(this);
         this.handleAddition = this.handleAddition.bind(this);
@@ -43,6 +45,13 @@ class  EditBook extends React.Component {
         }).then((response) => response.json()).then((res) => {
             console.log(res)
             this.setState({chaptersList:res})
+        })
+        fetch("https://fanfics-pola.herokuapp.com/loadTopics", {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json','Auth' : localStorage.getItem('jwt')}
+        }).then((response) => response.json()).then(res => {
+            console.log(res)
+            this.setState({topics: res})
         })
         fetch("https://fanfics-pola.herokuapp.com/getBookProps",  {
             method: 'POST',
@@ -67,6 +76,7 @@ class  EditBook extends React.Component {
         })
         this.setState({newDescr: this.state.description})
         this.setState({newTitle: this.state.header})
+        this.setState({newTopic: this.state.topic})
     }
 
     handleAddition(tag) {
@@ -105,19 +115,39 @@ class  EditBook extends React.Component {
             </>
         }
 
+        const renderTopics = () => {
+            return <>
+                {
+                    this.state.topics.map(topic =>
+                        <button className="dropdown-item" type = "button"
+                                onClick={()=> {
+                                    this.setState({newTopic : topic.topic})
+                                }}>{topic.topic}</button>
+                    )}
+            </>
+        }
+
         return (
             <div className="background EditBook">
                 <MainHeader></MainHeader>
                 <div className="card-box">
                     <div className="card book">
                         <div className="content">
-                            <div className="card-header book-header">
+                            <div className="card-header book-header edit-book-header">
                                 <div>
                                     <input className = "name-book h5" defaultValue ={this.state.header} onChange = {event =>{
                                             this.setState({newTitle : event.target.value})
                                     }}></input>
                                 </div>
-                                <p className="h5">Жанр : {this.state.topic} </p>
+                                <div className="nav-item dropdown">
+                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Жанр:
+                                    </a>
+                                    <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        {renderTopics()}
+                                    </div>
+                                </div>
                             </div>
                             <div className="card-header">
                                     <label>Метки:</label>
@@ -145,7 +175,7 @@ class  EditBook extends React.Component {
                                 </div>
                             </div>
                             <button className = "save-button btn custom-button" onClick ={() => {
-                                editBook(this.state.newTitle , this.state.newDescr , this.state.curTags , this.state.header ,this.state.suggestions)
+                                editBook(this.state.newTitle , this.state.newDescr , this.state.curTags , this.state.header ,this.state.suggestions , this.state.newTopic)
                             }}>Сохранить</button>
                         </div>
                     </div>

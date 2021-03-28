@@ -73,7 +73,7 @@ export const getTags = (work) => {
 
 export const addLike = (work , user_liked) => {
     console.log(user_liked)
-    fetch("http://localhost:8080/addLike",  {
+    fetch("https://fanfics-pola.herokuapp.com/addLike",  {
         method: 'POST',
         headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
         body: JSON.stringify({user_liked: user_liked , book_name : work})
@@ -143,11 +143,11 @@ export const addInitialBook = (name , description , topic ,suggestions ,tags , u
     })
 }
 
-export const editBook = (name , description, tags ,prevName , suggestions) => {
+export const editBook = (name , description, tags ,prevName , suggestions , newTopic) => {
     fetch("https://fanfics-pola.herokuapp.com/editBook",  {
         method: 'POST',
         headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
-        body : JSON.stringify({tags : tags , prevName :prevName, name : name ,descr : description , suggestions: suggestions})
+        body : JSON.stringify({tags : tags , prevName :prevName, name : name ,descr : description , suggestions: suggestions , topic: newTopic})
     }).then((response) => response.text()).then(res => {
         if(localStorage.getItem('curUser') === "admin") {
             window.location = "/admin"

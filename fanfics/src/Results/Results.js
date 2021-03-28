@@ -25,16 +25,11 @@ class Results extends React.Component {
                             <div className = "card">
                                 <div className="card-header books-headers">
                                     <Link className = "name-book" to = "/bookPage" onClick = {() => {localStorage.setItem('curBook' ,work.book_name)}}>{work.book_name}</Link>
-                                    <div className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
-                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        </a>
-                                    </div>
                                 </div>
                                 <div className="card-body">
                                     <label>Описание:</label>
                                     <i className="descr-text">
-                                        {work.book_descr}
+                                        {work.book_desc}
                                     </i>
                                 </div>
                                 <div className="card-footer">
