@@ -89,6 +89,7 @@ export const deleteFanfic = (work) => {
             headers:{'Content-Type': 'application/json' , 'book_name' : work.book_name , 'Auth' : localStorage.getItem('jwt')},
         }).then((response) => response.json()).then(res => {
             resolve("deleted")
+            addIndex()
         })
     })
 }

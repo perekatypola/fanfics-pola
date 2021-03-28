@@ -173,7 +173,7 @@ router.post('/search' , (req , res) => {
 router.get('/addIndex' , (req,res) => {
     fullText.addIndex(Sequelize ,sequelize)
         .then(result => {
-            res.send("added")
+            res.send(result)
         })
 })
 
@@ -410,6 +410,7 @@ router.post('/deleteUser' , (req ,res) => {
     if(req.header('Auth')) {
         if(safety.decodeToken(req.header('Auth')).data.name === "admin") {
             deleteUser(sequelize , req.body.user_name).then(user=> {
+                console.log(user)
                 res.send(user)
             })
         }

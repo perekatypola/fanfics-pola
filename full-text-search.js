@@ -72,7 +72,6 @@ exports.addIndex = (Sequelize , sequelize) => {
             const Comment = initComment(Sequelize, sequelize)
             Book.hasMany(Chapter)
             Book.hasMany(Comment)
-            let booksArray = []
             getBooks(Book).then(books => {
                 books.forEach(book => {
                     let curBook = {}
@@ -86,7 +85,6 @@ exports.addIndex = (Sequelize , sequelize) => {
                             curBook.book_genre =  book.book_genre
                             curBook.cur_rating =  book.cur_rating
                             curBook.objectID = book.book_id
-                            console.log(curBook)
                         }).then(result => {
                             ind.
                             partialUpdateObject(curBook,
@@ -94,7 +92,6 @@ exports.addIndex = (Sequelize , sequelize) => {
                                 createIfNotExists: true,
                             })
                                 .then(({ objectIDs }) => {
-                                    console.log(objectIDs);
                                 })
                                 .catch(err => {
                                 });

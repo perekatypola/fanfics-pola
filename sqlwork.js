@@ -381,8 +381,9 @@ exports.addComment = (name , text , sequelize , book_name) => {
     return new Promise((resolve , reject) => {
         const Book = initBook(Sequelize , sequelize)
         const Comment = initComment(Sequelize , sequelize)
+        console.log(book_name)
         Book.hasMany(Comment)
-        Book.findOne({book_name:book_name}).then(book => {
+        Book.findOne({where:{book_name:book_name}}).then(book => {
             book.createComment({username: name , comment_text: text}).then(res=> {resolve(res)}).catch(err=> reject(err))
         })
     })
