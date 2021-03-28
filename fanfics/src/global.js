@@ -73,7 +73,7 @@ export const getTags = (work) => {
 
 export const addLike = (work , user_liked) => {
     console.log(user_liked)
-    fetch("https://fanfics-pola.herokuapp.com/addLike",  {
+    fetch("http://localhost:8080/addLike",  {
         method: 'POST',
         headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
         body: JSON.stringify({user_liked: user_liked , book_name : work})
