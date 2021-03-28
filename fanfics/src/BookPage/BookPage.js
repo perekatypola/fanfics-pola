@@ -65,8 +65,6 @@ class  BookPage extends React.Component {
             body: JSON.stringify({book_name: this.state.header , user: localStorage.getItem('curUser')})
         }).then((response) => response.json()).then((res) => {
             this.setState({userRating: res.rating})
-            console.log(typeof this.state.userRating)
-            console.log(typeof 3)
         })
         fetch("https://fanfics-pola.herokuapp.com/getLike",  {
             method: 'POST',
@@ -173,7 +171,7 @@ class  BookPage extends React.Component {
         }
 
         const renderRatingBox = () => {
-                if(localStorage.getItem('jwt')!="" && this.state.userRating) {
+                if(localStorage.getItem('jwt')!="") {
                     return <> {
                         <div className = "rating-box">
                             <div className="box">
