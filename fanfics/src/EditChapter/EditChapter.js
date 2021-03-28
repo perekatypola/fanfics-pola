@@ -31,6 +31,7 @@ class EditChapter extends React.Component {
             this.setState({chapter:ch})
             this.setState({text:ch.text})
         })
+        this.setState({newName: this.state.chapterName})
         console.log(this.state)
     }
 
@@ -67,6 +68,7 @@ class EditChapter extends React.Component {
                             </div>
                             <button className = "save-button btn custom-button" onClick ={() => {
                                 editChapter(this.state.newName , this.state.text , this.state.book ,this.state.chapterName)
+                                window.location = "/editBook"
                             }}>Сохранить</button>
                         </div>
                     </div>

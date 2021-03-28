@@ -140,13 +140,13 @@ exports.getBookTags = (name , sequelize) => {
     })
 }
 
-exports.editBookInst = (name , descr, prevName , sequelize) => {
+exports.editBookInst = (name , descr, prevName , sequelize, topic) => {
     return new Promise((resolve, reject) => {
         const Book = initBook(Sequelize ,sequelize)
         const Tag = initTag(Sequelize , sequelize)
         Tag.belongsToMany(Book , {through : 'Book_Tag'})
         Book.belongsToMany(Tag , {through : 'Book_Tag'})
-        Book.update({book_name: name , book_descr : descr},{where : {book_name: prevName}}).then(book => {
+        Book.update({book_name: name , book_descr : descr, book_genre: topic},{where : {book_name: prevName}}).then(book => {
             Book.findOne({where: {book_name: name}}).then(result => {
                 resolve(result)
             })
@@ -412,9 +412,8 @@ exports.addLike = (sequelize, user_name, book_name , liked) => {
     return new Promise((resolve , reject) => {
         const Like = initLike(Sequelize , sequelize)
         Like.findOne({where:{user_name:user_name , book_name: book_name}}).then(res => {
+            console.log(res)
             if(res) {
-                console.log(user_name)
-                console.log(book_name)
                 Like.update({like: liked} ,
                     {
                         where : {
@@ -424,6 +423,7 @@ exports.addLike = (sequelize, user_name, book_name , liked) => {
                     })
             }
             else {
+                console.log("creating")
                 Like.create({like: liked , user_name:user_name , book_name: book_name})
             }
         })

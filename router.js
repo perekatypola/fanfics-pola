@@ -163,7 +163,7 @@ router.get('/loadUserWorks' , (req , res) => {
 })
 
 router.post('/search' , (req , res) => {
-        fullText.search(req.header('searchText') , sequelize)
+        fullText.search(req.body.searchText , sequelize)
             .then(result=> {
                 console.log(result)
                 res.send({result: result})
@@ -321,7 +321,7 @@ router.post('/editBook' , (req ,res) => {
     if(req.header('Auth')) {
         checkUser(safety.decodeToken(req.header('Auth')).data.name , sequelize).then(user=> {
             if(user) {
-                editBookInst(req.body.name , req.body.descr , req.body.prevName , sequelize).then(book => {
+                editBookInst(req.body.name , req.body.descr , req.body.prevName , sequelize , req.body.topic).then(book => {
                     req.body.tags.forEach(tag => {
                         addTags(sequelize , tag , book.book_id , req.body.suggestions).then(()=> {
                         })
@@ -443,14 +443,14 @@ router.post('/updateUser' , (req ,res) => {
 
 router.post('/block' , (req ,res) => {
     if(req.header('Auth')) {
-        // if(safety.decodeToken(req.header('Auth')).data.name === "admin") {
+        if(safety.decodeToken(req.header('Auth')).data.name === "admin") {
             blockUser(sequelize , req.body.user_name, req.body.status).then(user=> {
                 res.send(user)
             })
-        // }
-        // else {
-        //     res.send("Not admin")
-        // }
+        }
+        else {
+            res.send("Not admin")
+        }
     }
     else {
         res.send("Not authorized")

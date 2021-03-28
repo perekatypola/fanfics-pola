@@ -32,3 +32,10 @@
 .hide-nav-button {
     display:none;
 }
+
+@media (max-width: 976px){
+    .chapter-content {
+        margin-left : 5%;
+        margin-right: 5%
+    }
+}

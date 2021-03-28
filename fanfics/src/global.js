@@ -165,7 +165,6 @@ export const editChapter = (name , text, book_name ,prevName) => {
         headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
         body : JSON.stringify({prevName :prevName, name : name , text: text , book_name: book_name})
     }).then((response) => response.text()).then(res => {
-        window.location = "/editBook"
         console.log(res)
     })
 }
