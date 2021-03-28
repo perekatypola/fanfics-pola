@@ -89,9 +89,17 @@ export const deleteFanfic = (work) => {
             headers:{'Content-Type': 'application/json' , 'book_name' : work.book_name , 'Auth' : localStorage.getItem('jwt')},
         }).then((response) => response.json()).then(res => {
             resolve("deleted")
-            addIndex()
+            deleteIndex(work)
         })
     })
+}
+
+const deleteIndex = (work) => {
+    fetch("https://fanfics-pola.herokuapp.com/deleteIndex",  {
+        method: 'POST',
+        headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
+        body : JSON.stringify({id: work.book_id})
+    }).then((response) => response.json()).then(res => {})
 }
 
 export const updateUser = (name , prevName , contacts , info) => {

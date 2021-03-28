@@ -406,6 +406,18 @@ router.get('/deleteFanfic' , (req ,res) => {
     }
 })
 
+router.post('/deleteIndex' , (req ,res) => {
+    if(req.header('Auth')) {
+        fullText.deleteIndex(req.body.id).then(()=> {
+            res.send("deleted")
+        })
+    }
+    else {
+        res.send("Not authorized")
+    }
+})
+
+
 router.post('/deleteUser' , (req ,res) => {
     if(req.header('Auth')) {
         if(safety.decodeToken(req.header('Auth')).data.name === "admin") {

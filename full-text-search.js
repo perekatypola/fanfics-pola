@@ -102,3 +102,16 @@ exports.addIndex = (Sequelize , sequelize) => {
         }
     )
 }
+
+exports.deleteIndex = (id) => {
+    return new Promise((resolve, reject)=> {
+            const ind = initBookIndex()
+            ind.
+            deleteObject(id)
+                .then(({ objectIDs }) => {
+                })
+                .catch(err => {
+                });
+            }
+    )
+}
