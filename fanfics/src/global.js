@@ -243,13 +243,12 @@ export const addChapter = (name , text , book) => {
 }
 
 const addIndex = () => {
-      fetch("https://fanfics-pola.herokuapp.com/addIndex", {
+      fetch("/addIndex", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json' , 'Auth': localStorage.getItem('jwt')
         }
-    }).then((response) => response.text()).then(res => {
-    })
+    }).then((response) => response.text()).then(res => {})
 }
 
 export const search = (searchText) => {
