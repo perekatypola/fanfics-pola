@@ -227,6 +227,18 @@ export const addChapter = (name , text , book) => {
         },
         body : JSON.stringify({name: name , text: text , book_name: book})
     }).then((response) => response.text()).then(res => {
+        addIndex()
+    })
+}
+
+const addIndex = () => {
+    fetch("https://fanfics-pola.herokuapp.com/addIndex", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json' , 'Auth': localStorage.getItem('jwt')
+        }
+    }).then((response) => response.text()).then(res => {
+
     })
 }
 

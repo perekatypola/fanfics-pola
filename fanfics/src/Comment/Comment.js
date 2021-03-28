@@ -17,7 +17,7 @@ class  Comment extends React.Component {
 
     render() {
         return (
-            <div className="form-outline comment-box border">
+            <div className="form-outline comment-box border" id = "comment-form">
                 <label>Имя:</label>
                 <input className="name form-control"
                 onChange={event=>{
@@ -31,6 +31,7 @@ class  Comment extends React.Component {
                 <button className="btn btn-outline custom-button send"
                 onClick = {()=> {
                         addComment(this.state.name , this.state.text , this.props.book)
+                    document.getElementById("comment-form").reset()
                 }}>Отправить</button>
             </div>
         );

@@ -173,7 +173,7 @@ router.post('/search' , (req , res) => {
 router.get('/addIndex' , (req,res) => {
     fullText.addIndex(Sequelize ,sequelize)
         .then(result => {
-            res.send({result: result})
+            res.send("added")
         })
 })
 
