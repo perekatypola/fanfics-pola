@@ -170,6 +170,7 @@ class  EditBook extends React.Component {
                                             <button className = "user-button"
                                             onClick = {() => {
                                                 window.location = "/createChapters"
+                                                localStorage.setItem('creatingBook' , this.state.header)
                                             }}>
                                                 <img className = "edit-button" src = {add} alt = "add" ></img>
                                             </button>
