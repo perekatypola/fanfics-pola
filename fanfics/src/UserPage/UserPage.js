@@ -56,7 +56,7 @@ class UserPage extends React.Component {
             if(res.contacts)
                 this.setState({contacts: res.contacts})
         })
-        this.loadImages().bind(this)
+        this.loadImages.bind(this)
 
     }
 
