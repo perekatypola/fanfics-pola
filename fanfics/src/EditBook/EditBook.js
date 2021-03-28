@@ -60,6 +60,9 @@ class  EditBook extends React.Component {
         }).then((response) => response.json()).then((res) => {
             this.setState({topic:res.topic})
             this.setState({description: res.description})
+            this.setState({newDescr: this.state.description})
+            this.setState({newTitle: this.state.header})
+            this.setState({newTopic: this.state.topic})
         })
         fetch("https://fanfics-pola.herokuapp.com/loadTags", {
             method: 'GET',
@@ -74,9 +77,6 @@ class  EditBook extends React.Component {
             })
             this.setState({suggestions: suggestions})
         })
-        this.setState({newDescr: this.state.description})
-        this.setState({newTitle: this.state.header})
-        this.setState({newTopic: this.state.topic})
     }
 
     handleAddition(tag) {
