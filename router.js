@@ -6,7 +6,7 @@ const {initUser} = require("./entity/user");
 const {writeBookInst , setChapter , getChaptersList , setConnection ,
     getComments , loadWorks , loadChapter , addUser , validatePassword , checkUser , getUserBooks , addComment,
     loadBook,getChapters , getTags , addTags , addTagsToBook , getBookTags , setRating , getRating , deleteFanfic , setRatingToBook,
-    addLike , getLikes,getUsers , deleteUser, blockUser ,getBookProps , editBookInst, editChapterInst , updateUser , getUserInfo} = require ("./sqlwork")
+    addLike , getLikes,getUsers , deleteUser, blockUser ,getBookProps , editBookInst, editChapterInst , updateUser , getUserInfo, getUserRating} = require ("./sqlwork")
 const safety = require('./safety')
 const {getTopics} = require("./sqlwork");
 const {initTopic} = require("./entity/topic");
@@ -190,6 +190,21 @@ router.post('/setRating' , (req , res) => {
         )
     }
 })
+
+router.post('/getUserRating' , (req , res) => {
+    if(req.header('Auth')) {
+        checkUser(safety.decodeToken(req.header('Auth')).data.name , sequelize).then(
+            user => {
+                if(user) {
+                    getUserRating(sequelize , req.body.book_name , req.body.user).then(result=> {
+                        res.send({rating: result})
+                    })
+                }
+            }
+        )
+    }
+})
+
 
 router.post('/getRating' , (req , res) => {
     getRating(sequelize , req.body.book_name).then(ratings => {

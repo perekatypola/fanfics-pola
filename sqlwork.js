@@ -409,6 +409,15 @@ exports.setRating = (sequelize, user_name, book_name , rating) => {
     })
 }
 
+exports.getUserRating = (sequelize, book_name, user_name) => {
+    return new Promise((resolve , reject) => {
+        const Rating = initRating(Sequelize , sequelize)
+        Rating.findOne({where:{user_name:user_name , book_name: book_name}}).then(res => {
+            resolve(res.rating)
+        })
+    })
+}
+
 exports.addLike = (sequelize, user_name, book_name , liked) => {
     return new Promise((resolve , reject) => {
         const Like = initLike(Sequelize , sequelize)

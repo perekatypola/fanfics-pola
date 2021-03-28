@@ -22,7 +22,8 @@ class  BookPage extends React.Component {
             chaptersNames: '',
             comments: [] ,
             tags: [{text:'book'} , {text:'fun'}] ,
-            description: ''
+            description: '',
+            userRating: ''
         };
     }
 
@@ -57,6 +58,13 @@ class  BookPage extends React.Component {
             this.setState({topic:res.topic})
             this.setState({description: res.description})
         })
+        fetch("https://fanfics-pola.herokuapp.com/getUserRating",  {
+            method: 'POST',
+            headers:{'Content-Type': 'application/json'},
+            body: JSON.stringify({book_name: this.state.header , user: localStorage.getItem('curUser')})
+        }).then((response) => response.json()).then((res) => {
+            this.setState({userRating: res.rating})
+        })
         fetch("https://fanfics-pola.herokuapp.com/getLike",  {
             method: 'POST',
             headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
@@ -79,8 +87,6 @@ class  BookPage extends React.Component {
             this.setState({comments: res})
         })
     }
-
-
 
     componentWillUnmount() {
         clearInterval(this.intervalId)
@@ -183,7 +189,7 @@ class  BookPage extends React.Component {
                             </div>
                             <div className="box">
                                 <strong className="rating-text">Оставьте рейтинг: </strong>
-                                <ReactStars {...this.changeRating} class = "stars" size={20} activeColor = "#b76a47"/>
+                                <ReactStars {...this.changeRating} class = "stars" value = {this.state.userRating} size={20} activeColor = "#b76a47"/>
                             </div>
                         </div>
                     }

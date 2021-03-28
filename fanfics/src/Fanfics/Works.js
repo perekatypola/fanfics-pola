@@ -40,9 +40,7 @@ class Works extends React.Component {
                                         <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                             <button className="dropdown-item" onClick={()=>{
                                                 deleteFanfic(work).then(res => {
-                                                    if(res === 'deleted') {
-                                                        this.setState({works : [...this.state.works.filter(el => el.name != work.name)]})
-                                                    }
+                                                    this.setState({works : [...this.state.works.filter(el => el.name != work.name)]})
                                                 })
                                             }}>Удалить</button>
                                             <button className="dropdown-item" onClick  = {() => {
