@@ -85,11 +85,13 @@ export const addLike = (work , user_liked) => {
 export const deleteFanfic = (work) => {
     return new Promise ((resolve , reject) => {
         fetch("https://fanfics-pola.herokuapp.com/deleteFanfic",  {
-            method: 'GET',
-            headers:{'Content-Type': 'application/json' , 'book_name' : work.book_name , 'Auth' : localStorage.getItem('jwt')},
+            method: 'POST',
+            headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
+            body: JSON.stringify({book_name : work.book_name})
         }).then((response) => response.json()).then(res => {
+            console.log(res)
+            deleteIndex(res)
             resolve("deleted")
-            deleteIndex(work)
         })
     })
 }

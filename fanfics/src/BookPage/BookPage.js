@@ -11,6 +11,7 @@ import like from "../like.png";
 import { Provider, LikeButton } from "@lyket/react";
 import {addLike, checkIfUsers} from "../global";
 import {switchTheme} from "../App";
+import {typeOf} from "uri-js";
 class  BookPage extends React.Component {
 
     constructor(props) {
@@ -60,10 +61,12 @@ class  BookPage extends React.Component {
         })
         fetch("https://fanfics-pola.herokuapp.com/getUserRating",  {
             method: 'POST',
-            headers:{'Content-Type': 'application/json'},
+            headers:{'Content-Type': 'application/json',  'Auth' : localStorage.getItem('jwt')},
             body: JSON.stringify({book_name: this.state.header , user: localStorage.getItem('curUser')})
         }).then((response) => response.json()).then((res) => {
             this.setState({userRating: res.rating})
+            console.log(typeof this.state.userRating)
+            console.log(typeof 3)
         })
         fetch("https://fanfics-pola.herokuapp.com/getLike",  {
             method: 'POST',
@@ -189,7 +192,7 @@ class  BookPage extends React.Component {
                             </div>
                             <div className="box">
                                 <strong className="rating-text">Оставьте рейтинг: </strong>
-                                <ReactStars {...this.changeRating} class = "stars" value = {this.state.userRating} size={20} activeColor = "#b76a47"/>
+                                <ReactStars value = {this.state.userRating} {...this.changeRating} class = "stars"  size={20} activeColor = "#b76a47"/>
                             </div>
                         </div>
                     }
