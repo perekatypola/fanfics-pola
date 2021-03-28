@@ -493,8 +493,8 @@ exports.deleteFanfic = (sequelize , book_name) => {
                 }
             })
             .then(book => {
-                console.log(book)
                 book.destroy()
+                resolve(book)
             })
     })
 }

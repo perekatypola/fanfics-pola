@@ -109,6 +109,7 @@ exports.deleteIndex = (id) => {
             ind.
             deleteObject(id)
                 .then(({ objectIDs }) => {
+                    resolve("deleted")
                 })
                 .catch(err => {
                 });

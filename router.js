@@ -410,10 +410,10 @@ router.post('/getBookProps' , (req ,res) => {
     })
 })
 
-router.get('/deleteFanfic' , (req ,res) => {
+router.post('/deleteFanfic' , (req ,res) => {
     if(req.header('Auth')) {
-        deleteFanfic(sequelize , req.header('book_name')).then(()=> {
-            res.send("deleted")
+        deleteFanfic(sequelize , req.body.book_name).then(result=> {
+            res.send(result)
         })
     }
     else {
@@ -423,7 +423,8 @@ router.get('/deleteFanfic' , (req ,res) => {
 
 router.post('/deleteIndex' , (req ,res) => {
     if(req.header('Auth')) {
-        fullText.deleteIndex(req.body.id).then(()=> {
+        fullText.deleteIndex(req.body.id).then(result=> {
+            console.log(result)
             res.send("deleted")
         })
     }
