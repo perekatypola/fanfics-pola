@@ -91,7 +91,7 @@ export const deleteFanfic = (work) => {
         }).then((response) => response.json()).then(res => {
             console.log(res)
             deleteIndex(res)
-            resolve("deleted")
+            resolve(res)
         })
     })
 }
@@ -245,7 +245,7 @@ export const addChapter = (name , text , book) => {
 }
 
 const addIndex = () => {
-      fetch("/addIndex", {
+      fetch("https://fanfics-pola.herokuapp.com/addIndex", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json' , 'Auth': localStorage.getItem('jwt')
