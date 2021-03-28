@@ -23,7 +23,7 @@ class  ChapterPage extends React.Component {
         fetch("https://fanfics-pola.herokuapp.com/loadChapters",  {
             method: 'POST',
             headers:{'Content-Type': 'application/json'},
-            body: JSON.stringify({book_name: this.state.header})
+            body: JSON.stringify({book_name: this.state.book})
         }).then((response) => response.json()).then((res) => {
             console.log(res)
             this.setState({chapters:res})
