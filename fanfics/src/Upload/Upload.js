@@ -128,7 +128,6 @@ function Upload(props) {
                             <h4>Files</h4>
                             <ul>{files}</ul>
                         </aside>
-                        <button className="btn custom-button">Загрузить</button>
                     </div>
                 </div>
     );
