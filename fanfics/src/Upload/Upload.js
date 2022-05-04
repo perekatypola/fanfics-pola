@@ -1,6 +1,5 @@
 import React, {useEffect} from "react";
 import './Upload.css'
-import {switchTheme} from "../App";
 import classNames from "classnames";
 import {useDropzone} from 'react-dropzone';
 
@@ -73,8 +72,8 @@ function Upload(props) {
             reader.readAsDataURL(acceptedFiles[0]);
             reader.onloadend = function () {
                 setFiles(reader.result)
-                console.log(uploadFiles)
-                uploadImage(reader.result).then()
+                document.querySelector(".upload-button").classList.add("upload-visible")
+                document.querySelector(".files").classList.remove("hidden")
             };
         }});
 
@@ -116,19 +115,22 @@ function Upload(props) {
     }, [files]);
 
     return (
-                <div id="modal" onClick={()=> {
-                    props.setState("modal")
-                }} className={props.active}>
+                <div id="modal" className={props.active}>
                     <div className="container">
+                        <h4>Files</h4>
                         <div {...getRootProps({style})}>
                             <input {...getInputProps()} />
-                            <p>Drag 'n' drop some files here, or click to select files</p>
+                            <p>Drag 'n' drop some files here</p>
                         </div>
                         <aside>
-                            <h4>Files</h4>
-                            <ul>{files}</ul>
+                            <ul className="files">{files}</ul>
                         </aside>
                     </div>
+                    <button className="btn btn-outline custom-button upload-button"
+                        onClick = {()=> {
+                            document.querySelector(".upload-button").classList.remove("upload-visible")
+                            document.querySelector(".files").classList.add("hidden")
+                            uploadImage(uploadFiles).then()}}>Загрузить</button>
                 </div>
     );
 }

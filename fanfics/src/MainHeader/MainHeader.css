@@ -1,15 +1,55 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 img {
     width: 1.5rem;
     height: 1.5rem;
 }
 
 .sign-in-button{
+    position: absolute;
+    right: 2rem;
+    width:fit-content;
+    margin-left:0.5%;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.sign-out-button{
     width:fit-content;
     margin-left:0.5%;
 }
+
+.account {
+    display: flex;
+    position: absolute;
+    width: 4rem;
+    right: 3rem;
+    cursor: pointer;
+}
+
+.account span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .application-name {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     font-size: 2rem;
     border:  solid 0px  #b76a47;
+}
+
+.application-name img {
+    width: 3rem;
+    height: 3rem;
 }
 
 .navbar-nav {
@@ -49,5 +89,24 @@ App.dark .MainHeader label {
         font-size: 3vw;
     }
 }
+
+@media (max-width: 767px) {
+    .application-name img {
+        width: 2rem;
+        height: 2rem;
+    }
+}
+
+.sign-in-button {
+    display: flex;
+    align-items: center;
+}
+
+.sign-in-button img {
+    width: 1rem;
+    height: 1rem;
+}
+
+
 
 

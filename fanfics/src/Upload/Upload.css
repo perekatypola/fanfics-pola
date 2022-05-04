@@ -15,6 +15,15 @@
     border: black 10px dashed;
 }
 
+.upload-button {
+    visibility: hidden;
+    margin-left: 1rem;
+}
+
+.upload-visible {
+    visibility: visible;
+}
+
 .modal.active {
     transform: scale(1);
 }

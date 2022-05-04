@@ -22,28 +22,33 @@ router.get('/reg' , (req , res) => {
     addUser(req.header('name') , req.header('password') , req.header('email') , sequelize).then(result => {console.log(result)})
 })
 
-router.get('/auth' , (req , res) => {
-    checkUser(req.header('name') , sequelize).then((user) => {
-        if(user) {
-            safety.validatePassword(req.header('password') , user.password).then(async (a) => {
-                if(a) {
-                    if(user.status === "unblocked") {
-                        let hashedPassword =  await safety.hashPassword(req.header('password'))
-                        let dataForJwt = {name :req.header('name') , password: hashedPassword}
-                        let jwtRes = safety.generateToken(dataForJwt)
-                        console.log(jwtRes)
-                        res.send(jwtRes)
-                    }
-                    else {
-                        res.send("blocked")
-                    }
-                }
-                else {
-                    res.send("invalid")
-                }
-            })
-        }
-    })
+router.post('/auth' , (req , res) => {
+    console.log(req.body.name)
+    res.send("blocked")
+//     checkUser(req.body.name, sequelize).then((user) => {
+//         if(user) {
+//             console.log(user)
+//             safety.validatePassword(req.body.password , user.password).then(async (a) => {
+//                 if(a) {
+//                     if(user.status === "unblocked") {
+//                         let hashedPassword =  await safety.hashPassword(req.body.password)
+//                         let dataForJwt = {name :req.body.name , password: hashedPassword}
+//                         let jwtRes = safety.generateToken(dataForJwt)
+//                         res.send(jwtRes)
+//                     }
+//                     else {
+//                         res.send("blocked")
+//                     }
+//                 }
+//                 else {
+//                     console.log("here")
+//                     res.send("invalid")
+//                 }
+//             }).catch(
+//                 res.send("error")
+//             )
+//         }
+//     })
 })
 
 router.post('/vkAuth' , (req , res) => {

@@ -3,7 +3,6 @@ import './EditChapter.css'
 import MainHeader from "../MainHeader/MainHeader";
 import {addChapter, editBook, editChapter} from "../global"
 import {getCreatingBook} from "../global"
-import {switchTheme} from "../App";
 import ReactMde from "react-mde";
 import ReactMarkdown from 'react-markdown'
 import "react-mde/lib/styles/css/react-mde-all.css";
@@ -22,7 +21,6 @@ class EditChapter extends React.Component {
     }
 
     componentDidMount() {
-        switchTheme(localStorage.getItem('theme'))
         fetch("https://fanfics-pola.herokuapp.com/loadChapter",  {
             method: 'POST',
             headers:{'Content-Type': 'application/json'},

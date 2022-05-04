@@ -1,9 +1,9 @@
 .App.light .custom-button {
     margin-right: 0.5vw;
     display:block;
-    color: #b76a47;
+    color: #4f2d01;
     background-color: #ead6aa;
-    border-color: #b76a47;
+    border-color: #4f2d01;
     font-size: 1rem
 }
 
@@ -13,10 +13,38 @@
     border-color: #b76a47
 }
 
+.App.light .work-card__tag {
+    background-color: #b76a47;
+}
+
+.App.light .work-card__tag:hover {
+    background-color: #ede0c9;
+}
+
+.App.light .work-card {
+    background-color: #faf5ea;
+}
+
+.App.light .book__rating {
+    background-color: #faf5ea;
+}
+
+.App.light .book-contents__item {
+    background-color: #faf5ea;
+}
+
+.App.light .book-contents__item:hover {
+    background-color: #e5dacc;
+}
+
 .App.light .navbar {
     display:flex;
     flex-direction:row;
-    background-color: #ead6aa;
+    background: rgba(255,235,205, 0.5);
+}
+
+.App.light .login-popup{
+  background-color: #f6ecda;
 }
 
 .App.light .user-button{
@@ -25,7 +53,7 @@
 }
 
 .App.light .background {
-    background-color: #f5edda;
+    background-color: #f6ecda;
 }
 
 .App.light .card {
@@ -46,17 +74,53 @@
 }
 
 .App.light .comment {
-    background-color: #f5edda;
+    background-color: #faf5ea;
 }
 
 .App.light .comment-box {
-    background-color: #ead6aa;
+    background-color: #faf5ea;
 }
 
 .App.dark .card-header {
     border-color: whitesmoke;
 }
 
-.App.light .chapter-content {
-    background-color: #ead6aa;
+.App.light .UserPage .card {
+    border-color : #b76a47
+}
+
+.App.light .chapter-button {
+    background-color: #faf5ea;
+}
+
+.App.light .user-header {
+    background-color: #faf5ea;
+}
+.App.light .chapter-button:hover {
+    background-color: #e5dacc;
+    color: #4f2d01;
+}
+
+.App.light div a{
+    color:#4f2d01;
+}
+
+.App.light .user-menu__item {
+   background-color: #e5dacc;
+}
+
+.App.light .user-menu__item:hover {
+    background-color: #f6ecda
+}
+
+.App.light div {
+    color:#4f2d01;
+}
+
+.App.light .bookmark {
+    color: #f6ecda
+}
+
+.App.light .tops-slider__header {
+    color: #f6ecda
 }

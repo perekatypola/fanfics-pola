@@ -1,49 +1,48 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import CommentArea from "../CommentArea/CommentArea";
+import {useDispatch, useSelector} from "react-redux";
+import potter from "../potter.jpeg"
+import "./Authors.css"
+import {fetchAuthors} from "../store/slices/mainSlice";
+import {useHistory} from "react-router-dom";
 
-class  Authors extends React.Component {
+const Authors = () => {
+    const dispatch = useDispatch()
+    const authors = useSelector(state => state.main.authors)
+    const [searchValue, setValue] = useState('')
 
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
+    useEffect(() => {
+        dispatch(fetchAuthors())
+    }, [])
 
-    componentDidMount() {}
+    const history = useHistory()
 
-    render() {
+    const filteredAuthors = authors.filter(author => {
+        return author.name.toLowerCase().includes(searchValue)
+    })
+
     return (
-        <div>
-            <nav className="navbar navbar-expand-lg navbar-light">
-                <div className="navbar-nav mr-auto">
-                    <div className="nav-item">
-                        <a className="nav-link" href="/users">авторы</a>
-                    </div>
-                    <div className="nav-item">
-                        <a className="nav-link" href="/works">фанфики</a>
-                    </div>
-                    <form className="form mr-auto">
-                        <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-                        <button className="btn btn-outline-primary" type="submit">Search</button>
-                    </form>
-                </div>
-                <button className="btn btn-outline-primary sign-up" type="submit">Sign Up</button>
-            </nav>
-            <table className="table">
-                <thead>
-                <tr>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>"Гарри Поттер"</td>
-                </tr>
-                </tbody>
-            </table>
+        <div className="authors-container">
+            <div className="search-container">
+                <input placeholder={"Find author"} className="author-search__input"
+                onChange={event => setValue(event.target.value)}/>
+            </div>
+             {
+                 filteredAuthors.map(author => {
+                     return (
+                         <a onClick={() => {
+                             history.push("/user/" + author.id)
+                         }}>
+                             <div className="author-card">
+                                 <img className="user-poster" src={potter}/>
+                                 <div className="user-name">{author.name}</div>
+                            </div>
+                         </a>
+                     );
+                 })
+             }
         </div>
     );
-}
 }
 
 export default Authors;

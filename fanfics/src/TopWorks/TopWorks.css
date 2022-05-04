@@ -1,0 +1,76 @@
+.tops-slider__item img{
+    object-fit: contain;
+    height: 465px;
+    width: 100%;
+}
+
+.tops-slider__item {
+    width: 250px;
+    border-radius: 5px;
+}
+
+.tops-slider__header {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.tops-slider__container {
+    border: 1px solid #373737;
+    border-radius: 5px;
+    background-image: url("../shelf.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    /*background: rgba(55,55,55, 0.7);*/
+}
+.tops-slider {
+    padding: 2rem 2rem;
+}
+
+@media (max-width: 767px) {
+    .tops-slider {
+        padding: 0 0;
+    }
+    .tops-slider__container {
+        border-radius: 0;
+    }
+}
+
+.swiper {
+    margin-top: -2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.swiper-slide img {
+    transform: scale(0.79);
+}
+
+@media (min-width: 767px) {
+    .swiper-slide img:hover {
+        transform: scale(1);
+    }
+    .swiper-pagination {
+        display: none;
+    }
+}
+
+.tops-name {
+    position: absolute;
+}
+
+@media (max-width: 767px) {
+    .swiper-button-next {
+        display: none;
+    }
+    .swiper-button-prev {
+        display: none;
+    }
+}
+
+
+.swiper-pagination-bullet {
+    width: 6px;
+    height: 6px;
+    background-color: #b76a47;
+}

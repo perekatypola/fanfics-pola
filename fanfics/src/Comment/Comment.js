@@ -1,43 +1,25 @@
-import React from "react";
+import React, {useState} from "react";
 import {addComment} from '../global'
-import {switchTheme} from "../App";
-class  Comment extends React.Component {
+import "./Comment.css"
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            name:'',
-            text:''
-        }
-    }
 
-    componentDidMount() {
-        switchTheme(localStorage.getItem('theme'))
-    }
+const Comment = (props) => {
+    const [text, setText] = useState()
 
-    render() {
-        return (
+    return (
             <div className="form-outline comment-box border">
-                <label>Имя:</label>
-                <input className="name form-control" id= "comment-user-name"
-                onChange={event=>{
-                    this.setState({'name': event.target.value})
-                }}/>
                 <label>Комментарий:</label>
                 <textarea className="form-control comments" rows="4" id = "comment-text"
                           onChange={event=>{
-                              this.setState({'text': event.target.value})
+                              setText(event.target.value)
                           }}> </textarea>
                 <button className="btn btn-outline custom-button send"
                 onClick = {()=> {
-                    console.log(this.props.book)
-                    document.getElementById("comment-user-name").value = ""
                     document.getElementById("comment-text").value = ""
-                        addComment(this.state.name , this.state.text , this.props.book)
+                        addComment(localStorage.getItem('curUser'), text , props.book)
                 }}>Отправить</button>
             </div>
         );
-    }
 }
 
 export default Comment;

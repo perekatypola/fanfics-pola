@@ -5,3 +5,73 @@
 .App.dark #form label{
     color: #373737
 }
+
+@media (max-width: 767px) {
+    .popup {
+        width: 100% !important;
+        transform: translate(0, -50%) !important;
+        left: 0px  !important;
+    }
+
+    .display-4 {
+        font-size: 2rem;
+    }
+
+    #form {
+        height: auto;
+    }
+
+    #form .cont {
+        width: auto;
+    }
+
+    .close-button {
+        right: 10vw !important;
+        top: 6vh !important;
+    }
+}
+
+.popup {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 50vw;
+    left:50%;
+    z-index: 300;
+    border-radius: 5px;
+}
+
+.close-button {
+    position: absolute;
+    top: 8rem;
+    right: 20vw;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.popup-background {
+    background: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+
+.visible {
+    display: block !important;
+}
+
+.Auth {
+    display: none;
+}
+
+.login-output {
+    display: none;
+    text-align: center;
+    color: white;
+    background-color: darkred;
+    padding: 5px;
+}
+

@@ -9,7 +9,6 @@ import Works from '../Fanfics/Works'
 import CommentArea from "../CommentArea/CommentArea";
 import {deleteUser, getRating} from "../global";
 import user from "../user.png";
-import {switchTheme} from "../App";
 import {blockUser} from '../global'
 class Admin extends React.Component {
 
@@ -21,7 +20,6 @@ class Admin extends React.Component {
     }
 
     componentDidMount() {
-        switchTheme(localStorage.getItem('theme'))
         fetch("https://fanfics-pola.herokuapp.com/getUsers",  {
             method: 'GET',
             headers:{'Content-Type': 'application/json' , Auth: localStorage.getItem('jwt')}

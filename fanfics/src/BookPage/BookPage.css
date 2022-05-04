@@ -22,6 +22,61 @@
     color:#b76a47
 }
 
+.works__container--book {
+    display: flex;
+    flex-direction: row;
+}
+
+.work-card--book {
+    flex-grow: 2;
+    border-radius: 5px;
+}
+
+.book__rating {
+    flex-grow: 2;
+    height: 20vh;
+    margin:1rem;
+    border-radius: 5px;
+    min-width: 25vw;
+}
+
+
+@media (max-width: 767px) {
+    .works__container--book {
+        flex-direction: column !important;
+    }
+}
+
+.comments-container {
+    padding-top: 1rem;
+    border-top: 1px solid whitesmoke;
+}
+
+.work-card__header--out {
+    padding-top: 2rem;
+    padding-left: 1rem;
+}
+.book-contents__item {
+    align-items: center;
+    border-radius: 3px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+    margin-bottom: 5px;
+}
+
+.book-contents__item:hover {
+
+}
+
+.book-contents {
+    margin:1rem;
+    margin-bottom: 2rem;
+    border-radius: 5px;
+}
+
 .name-book {
     margin-left: 2%;
 }
@@ -70,14 +125,6 @@
     margin-bottom: 3rem
 }
 
-.comments {
-    margin-left:5%;
-    margin-right:5%;
-    margin-bottom: 2%;
-    width: 90%;
-    height: 40%
-}
-
 .name {
     margin-left:5%;
     margin-right:5%;
@@ -97,10 +144,6 @@
 
 .chapters {
     border-bottom: solid 1px #b76a47;
-}
-.send{
-    margin-left:5%;
-    margin-bottom: 5%;
 }
 
 .box {

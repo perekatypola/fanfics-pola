@@ -28,14 +28,19 @@ export const setUser = (name , password , email) => {
 }
 
 export const signIn = (name , password) => {
-    fetch("https://fanfics-pola.herokuapp.com/auth",  {
-        method: 'GET',
-        headers:{'Content-Type': 'application/json' , 'name' : name , 'password' : password}
+    try {
+        fetch("http://localhost:8081/login", {
+        method: 'POST',
+        headers:{'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            username: name,
+            password: password,
+        }),
     }).then((response) => response.text()).then(res => {
-        console.log(res)
-        if(res!=="invalid" && res!== "blocked") {
-            localStorage.setItem('jwt' , res)
-            localStorage.setItem('curUser' , name)
+        if(!res.messageError) {
+            console.log(res)
+            localStorage.setItem('jwt' , res.accessToken)
+            localStorage.setItem('curUser' , res.userId)
             if(name === "admin") {
                 window.location = '/admin'
             }
@@ -43,14 +48,32 @@ export const signIn = (name , password) => {
                 window.location = '/user'
             }
         }
+        else {
+            const output = document.querySelector(".login-output")
+            setTimeout(() => {
+                output.classList.remove("visible")
+            }, 5000)
+            output.innerText = res.messageError
+            output.classList.add("visible")
+        }
     })
+        .catch(err=>{
+    console.log(err)
+    })
+
+    }
+    catch(er) {
+        console.log("error")
+        document.querySelector(".login-output").innerText = er
+        document.querySelector(".login-output").classList.add("visible")
+    }
 }
 
-export const addComment =(name , text , book) => {
+export const addComment =(name, text , book) => {
     fetch("https://fanfics-pola.herokuapp.com/addComment",  {
         method: 'POST',
         headers:{'Content-Type': 'application/json'},
-        body: JSON.stringify({name : name , text: text , book : book})
+        body: JSON.stringify({name: name, text: text , book : book})
     }).then((response) => response.text()).then(res => {
         console.log(res)
     })

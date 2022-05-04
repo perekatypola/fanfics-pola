@@ -8,16 +8,13 @@
     height: 3rem;
     border: solid 1px #b76a47
 }
+
 td {
     min-width: 30vw;
 }
 
 .App.dark .UserPage p {
     color: whitesmoke;
-}
-
-.App.light .UserPage p {
-    color : #b76a47
 }
 
 .user-profile {
@@ -31,14 +28,6 @@ td {
 }
 
 
-.App.dark .UserPage .card {
-    border-color : whitesmoke
-}
-
-.App.light .UserPage .card {
-    border-color : #b76a47
-}
-
 .flex-box {
     margin-top: 2%;
     display:flex;
@@ -50,9 +39,94 @@ td {
     justify-content: space-between;
 }
 
+.UserPage {
+    padding-top: 3rem;
+}
+
+.user-menu {
+    width: 15rem;
+    height: 50px;
+    position: relative;
+    margin-right: -1rem;
+}
+
+
+.user-menu__item {
+    width:100%;
+    cursor: pointer;
+    height:100%;
+    border-radius: 5px;
+    margin: 0.2rem;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+}
+
+.user-menu__dropdown {
+    position: absolute;
+    list-style-type: none;
+    top: 100%;
+    width: 100%;
+    height: 100%;
+    margin-left: -40px;
+    visibility: hidden;
+}
+
+.user-menu__icon {
+    transform: rotate(270deg);
+    cursor:pointer;
+    position: absolute;
+    right: 2.5rem;
+    top: 45%;
+}
+
+.user-head {
+    display:flex;
+    flex-direction: row;
+    align-items:center;
+}
+
+.user-info {
+    display:none;
+    margin: 1rem;
+}
+.user-info strong {
+    margin-bottom: 1rem;
+}
+
+.works {
+    display:none;
+}
+
+.user-info div {
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 767px) {
+    .user-head {
+        flex-direction: column;
+    }
+    .user-header {
+        align-items: flex-start !important;
+    }
+}
+
+.user-page-name {
+    text-align:center;
+}
+
+.user-menu.active .user-menu__icon{
+    transform: rotate(90deg);
+}
+
+.user-menu.active .user-menu__dropdown {
+    visibility: visible;
+}
 
 .user-header {
+    padding-left: 1rem;
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -68,12 +142,6 @@ td {
     width: 700px;
     height:600px;
     border-radius: 10%
-}
-
-@media (max-width: 976px) {
-    .user-header {
-        flex-direction: column;
-    }
 }
 
 @media (max-width: 976px) {

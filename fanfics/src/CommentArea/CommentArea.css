@@ -1,30 +1,49 @@
 .comment {
     min-height : 20vh;
-    margin-left:20%;
-    margin-right:7%;
-    margin-bottom: 5%;
-    margin-top:5%;
-    width: 73%;
+    flex-grow: 1;
 }
 
 label {
     display: block;
-    margin:2%;
+    margin: 1rem;
 }
 
 .comment-text {
-    margin-top: 5%;
-    margin-left:2%
+    margin-top: 1.5rem;
+    margin-left: 1rem;
 }
 
-.username {
-    margin-left:2%;
+.comment-username {
+    margin-left: 2%;
+    padding-top: 1rem;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
-.comment-box {
-    margin-left:2%;
-    margin-right:2%;
-    margin-bottom:2%;
-    width: 96%;
-    border-radius: 5px;
+.comment-username:hover {
+    opacity: 0.7;
+}
+
+.comment-area {
+    margin: 1rem;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.send{
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 767px) {
+    .comment-poster {
+        height: 50px !important
+    }
+}
+
+.existing-comments {
+    border-top: 1px solid white;
+    margin-top: 2rem;
+    padding-top: 1rem;
 }

@@ -25,7 +25,17 @@
   color: #61dafb;
 }
 
+.disable-scroll {
+  height: 100vh;
+  overflow: hidden;
+}
 
+
+@media (max-width: 1310px ) {
+  .main-page__content {
+    width: 98% !important;
+  }
+}
 
 
 

@@ -6,7 +6,7 @@
 form {
     display: flex;
     flex-direction: column;
-    height: 90vh;
+    height: 60vh;
     align-items: center;
     justify-content: center;
 }
@@ -53,8 +53,4 @@ label {
     display: flex;
     flex-direction: row;
     width:100%
-}
-
-div {
-        color:#b76a47;
 }

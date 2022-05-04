@@ -1,0 +1,10 @@
+.comments {
+    margin: 1rem auto;
+    width: 90%;
+    height: 40%
+}
+
+.comment-box {
+    margin: 1rem;
+    border-radius: 5px;
+}

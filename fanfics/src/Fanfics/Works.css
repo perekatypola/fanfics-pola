@@ -13,3 +13,95 @@
     border-color : #b76a47
 }
 
+.work-card {
+    margin: 1rem 1rem;
+    padding: 1rem 1rem;
+}
+
+.work-card--book {
+    display: flex;
+    flex-direction: row;
+}
+
+@media (max-width: 767px) {
+    .work-card__poster {
+        margin: auto;
+    }
+
+    .work-card__container {
+        flex-direction: column !important;
+    }
+
+    .work-card__header{
+        text-align: center;
+        padding-left: 0 !important;
+    }
+
+    .work-card {
+        padding: 1rem 0 !important;
+    }
+}
+
+.work-card__container {
+    display: flex;
+    flex-direction: row;
+}
+
+.works__container--book {
+    padding: 0 0 !important;
+}
+
+.work-card__poster {
+    width: 10rem;
+    object-fit: contain;
+    height: 100%;
+}
+
+.work-card__line {
+    font-size: 16px;
+    display: flex;
+    flex-direction: row;
+}
+
+.work-card__information {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding-top: 1rem;
+    font-size: .875em !important;
+}
+
+.work-card__header {
+    cursor: pointer;
+}
+
+.work-card__header:hover {
+    opacity: 0.7;
+}
+
+.work-card__tag {
+    border-radius: 2px;
+    display: inline-flex;
+    font-size: 0.875rem;
+    line-height:1.3em;
+    padding: 1px;
+    cursor: pointer;
+    margin: 2px;
+}
+
+.work-card__tag:hover {
+    text-decoration: underline;
+}
+
+.work-card__line dt {
+    margin-left: 3px;
+}
+
+
+.work-card__line--left {
+    min-width: 100px;
+}
+
+.works__container {
+    padding: 1rem 0;
+}
+
