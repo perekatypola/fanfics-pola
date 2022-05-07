@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import {addComment} from '../global'
 import "./Comment.css"
-
+import {CLIENT_SECRET} from "../config";
+import * as CryptoJS from "crypto-js";
 
 const Comment = (props) => {
     const [text, setText] = useState()

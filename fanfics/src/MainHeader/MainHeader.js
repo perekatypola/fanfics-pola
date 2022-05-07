@@ -10,6 +10,8 @@ import {applyTheme, changeTheme} from "../store/slices/mainSlice";
 import {hideNodesWithUserStatusName} from "../helpers";
 import {useHistory} from "react-router-dom";
 import {fetchUserInfo} from "../store/slices/userSlice";
+import * as CryptoJS from 'crypto-js';
+import {CLIENT_SECRET} from "../config";
 
 
 function MainHeader() {
@@ -18,7 +20,9 @@ function MainHeader() {
     const user = useSelector(state => state.user.user)
     useEffect(() => {
         dispatch(applyTheme());
-        dispatch(fetchUserInfo(localStorage.getItem("curUser")))
+        if(localStorage.getItem('curUser')) {
+            dispatch(fetchUserInfo(CryptoJS.AES.decrypt(localStorage.getItem('curUser'), CLIENT_SECRET).toString(CryptoJS.enc.Utf8)))
+        }
         hideNodesWithUserStatusName();
     }, [])
 
@@ -75,7 +79,8 @@ function MainHeader() {
                         <div>
                             <a className="account" data-user-status="sign-in"
                             onClick={() => {
-                                window.location = "/user/" + localStorage.getItem("curUser")
+                                const CryptoJS = require('crypto-js');
+                                window.location = "/user/" + localStorage.getItem('curUser')
                             }}>
                                 <img src={icon}/>
                                 <span>{user.name}</span>
@@ -84,6 +89,7 @@ function MainHeader() {
                             onClick={() => {
                                 localStorage.removeItem("jwt")
                                 localStorage.removeItem("curUser")
+                                window.location = "/"
                             }}>
                                 <img src={logout}/>
                             </a>

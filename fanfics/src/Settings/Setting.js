@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchUserInfo, setInfoOpen} from "../store/slices/userSlice";
 import {useTranslation} from "react-i18next";
 import "./Settings.css"
-import {setUser} from "../global";
 import Upload from "../Upload/Upload";
 
 const Settings = (props) => {
@@ -51,13 +50,25 @@ const Settings = (props) => {
                                         return(
                                             <div>
                                                  <li className="settings-list__item"
-                                                    onClick={() => {}}>
+                                                    onClick={() => {
+                                                        document.querySelector(".settings-own").classList.add("visible")
+                                                        document.querySelector(".avatar").classList.remove("visible")
+                                                        document.querySelector(".password-change").classList.remove("visible")
+                                                    }}>
                                                         Личная информация
                                                     </li>
-                                                    <li className="settings-list__item">
+                                                    <li className="settings-list__item" onClick={() => {
+                                                        document.querySelector(".settings-own").classList.remove("visible")
+                                                        document.querySelector(".avatar").classList.add("visible")
+                                                        document.querySelector(".password-change").classList.remove("visible")
+                                                    }}>
                                                         Аватар
                                                     </li>
-                                                    <li className="settings-list__item">
+                                                    <li className="settings-list__item" onClick={() => {
+                                                        document.querySelector(".settings-own").classList.remove("visible")
+                                                        document.querySelector(".avatar").classList.remove("visible")
+                                                        document.querySelector(".password-change").classList.add("visible")
+                                                    }}>
                                                         Смена пароля
                                                     </li>
                                             </div>
@@ -80,10 +91,7 @@ const Settings = (props) => {
                                 <textarea value={user.user.about}></textarea>
                             </div>
                         </div>
-                        <button type="button" className="btn btn-outline custom-button change-info"
-                                        onClick = {() => {setUser(this.state.name , this.state.password,this.state.email)
-                                            document.getElementById("form").reset();}}
-                                >Сохранить</button>
+                        <button type="button" className="btn btn-outline custom-button change-info">Сохранить</button>
                     </div>
                     <div className="avatar" id="avatar">
                         <Upload></Upload>
@@ -96,10 +104,7 @@ const Settings = (props) => {
                                 <textarea value={user.user.password}></textarea>
                             </div>
                         </div>
-                        <button type="button" className="btn btn-outline custom-button change-password"
-                                        onClick = {() => {setUser(this.state.name , this.state.password,this.state.email)
-                                            document.getElementById("form").reset();}}
-                                >Сохранить</button>
+                        <button type="button" className="btn btn-outline custom-button change-password">Сохранить</button>
                     </div>
 
                 </div>

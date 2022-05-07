@@ -57,7 +57,7 @@ function App() {
                                           <Route path="/works">
                                               <Works/>
                                           </Route>
-                                          <Route path="/chapterPage/:id">
+                                          <Route path="/chapterPage/:bookId/:id">
                                               <ChapterPage/>
                                           </Route>
                                           <Route path="/results">
@@ -65,9 +65,6 @@ function App() {
                                           </Route>
                                            <Route path="/authors">
                                               <Authors/>
-                                          </Route>
-                                          <Route path="/regPage">
-                                              <Register/>
                                           </Route>
                                           <Route path="/editChapter">
                                               <EditChapter/>
@@ -97,6 +94,7 @@ function App() {
                                   </Router>
                               </div>
                             <Auth/>
+                            <Register/>
                         </div>
                     </div>
             </div>

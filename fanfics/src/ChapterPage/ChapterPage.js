@@ -11,10 +11,10 @@ import {useHistory, useParams} from "react-router-dom";
 
 import {fetchChapter, setChapterName, setChapterText} from "../store/slices/chapterSlice";
 import arror from "../arror.png";
-import {setBookInfo} from "../store/slices/bookSlice";
+import {fetchBookInfo, setBookInfo} from "../store/slices/bookSlice";
 
 const ChapterPage = () => {
-    const {id} = useParams()
+    const {bookId, id} = useParams()
     const dispatch = useDispatch()
     const chapterData = useSelector((state) => {console.log(state)
         return state.chapter})
@@ -23,6 +23,7 @@ const ChapterPage = () => {
 
     useEffect(() => {
         dispatch(fetchChapter(id))
+        dispatch(fetchBookInfo(bookId))
     }, [])
 
     const bookData = useSelector(state => state.book)
@@ -34,10 +35,7 @@ const ChapterPage = () => {
             if(ch.name === chapterData.chapterName && bookData.chapters.indexOf(ch)!= bookData.chapters.length - 1) {
                 dispatch(setChapterName(bookData.chapters[bookData.chapters.indexOf(ch)+1].name))
                 dispatch(setChapterText(bookData.chapters[bookData.chapters.indexOf(ch)+1].text))
-                history.push("/chapterPage/" + bookData.chapters[bookData.chapters.indexOf(ch)+1].id);
-                // this.setState({chapter:bookData.chapters[bookData.chapters.indexOf(ch)+1]})
-                // this.setState({chapterName:this.state.chapter.chapter_name})
-                // this.setState({text : this.state.chapter.text})
+                history.push("/chapterPage/" + bookData.book.id + "/" +bookData.chapters[bookData.chapters.indexOf(ch)+1].id);
             }
         })
     }
@@ -48,10 +46,7 @@ const ChapterPage = () => {
             if(ch.name === chapterData.chapterName && bookData.chapters.indexOf(ch)!= 0 ) {
                 dispatch(setChapterName(bookData.chapters[bookData.chapters.indexOf(ch)-1].name))
                 dispatch(setChapterText(bookData.chapters[bookData.chapters.indexOf(ch)-1].text))
-                history.push("/chapterPage/" + bookData.chapters[bookData.chapters.indexOf(ch)-1].id);
-                // this.setState({chapter:bookData.chapters[bookData.chapters.indexOf(ch)+1]})
-                // this.setState({chapterName:this.state.chapter.chapter_name})
-                // this.setState({text : this.state.chapter.text})
+                history.push("/chapterPage/" + bookData.book.id + "/" + bookData.chapters[bookData.chapters.indexOf(ch)-1].id);
             }
         })
         // this.state.chapters.forEach(ch => {
@@ -72,7 +67,7 @@ const ChapterPage = () => {
                     Назад
                 </button>
                 <button className="chapter-button__contents chapter-button"
-                        onClick = {() => {window.location = "/bookPage"}}>Содержание</button>
+                        onClick = {() => {window.location = "/bookPage/" + bookData.book.id} }>Содержание</button>
                 <button className="chapter-button__right chapter-button" id = "right"
                         onClick = {() => {navigateRight()}}>
                     Вперед

@@ -47,10 +47,8 @@ const BookPage = () => {
                                 onClick={
                                     () => {
                                         dispatch(setChapterName(ch.name))
-                                        // console.log(chapterInfo.chapterName)
                                         dispatch(setChapterText(ch.text))
-                                        // const chapterName = store.getState().chapter.chapterName
-                                        history.push("/chapterPage/" + ch.id);
+                                        history.push("/chapterPage/"+ bookInfo.id + "/" + ch.id);
                                     }
                                 }>
                                 <div className="part-title word-break">

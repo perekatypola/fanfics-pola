@@ -9,6 +9,11 @@
     border-color : whitesmoke
 }
 
+.work-card__main-header {
+    display: flex;
+    justify-content: space-between;
+}
+
 .App.light .Works .card {
     border-color : #b76a47
 }

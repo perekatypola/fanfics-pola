@@ -20,6 +20,7 @@
     "classnames": "^2.2.6",
     "cloudinary": "^1.25.1",
     "cloudinary-react": "^1.7.0",
+    "crypto-js": "^4.1.1",
     "i18next": "^21.6.16",
     "jquery": "^3.6.0",
     "react": "^17.0.1",

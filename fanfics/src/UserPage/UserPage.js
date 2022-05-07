@@ -18,6 +18,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchUserInfo, setInfoOpen} from "../store/slices/userSlice";
 import Works from "../Fanfics/Works";
 import Setting from "../Settings/Setting";
+import CryptoJS from "crypto-js";
+import {CLIENT_SECRET} from "../config";
 
 const UserPage = (props) => {
     const {id} = useParams()
@@ -33,6 +35,10 @@ const UserPage = (props) => {
 
     return (
             <div className="background UserPage">
+                <select value="{message}">
+                    <a>gh</a>
+                    <a>ghjgj</a>
+                </select>
                 <div className="user-header">
                     <div className="user-head">
                          <img className="user-poster" src={potter}/>
@@ -62,16 +68,19 @@ const UserPage = (props) => {
                                 Работы
                             </li>
                             {(() => {
-                                if(localStorage.getItem("curUser")== user.user.id) {
-                                    return (
-                                            <li className="user-menu__item">
-                                                Добавить фанфик
-                                            </li>
-                                    );
+                                if(localStorage.getItem('curUser')) {
+                                    if(CryptoJS.AES.decrypt(localStorage.getItem('curUser'), CLIENT_SECRET).toString(CryptoJS.enc.Utf8)== user.user.id) {
+                                        return (
+                                                <li className="user-menu__item">
+                                                    Добавить фанфик
+                                                </li>
+                                        );
+                                    }
                                 }
                             })()}
                             {(() => {
-                                if(localStorage.getItem("curUser")== user.user.id) {
+                                if(localStorage.getItem('curUser')) {
+                                 if(CryptoJS.AES.decrypt(localStorage.getItem('curUser'), CLIENT_SECRET).toString(CryptoJS.enc.Utf8)== user.user.id) {
                                     return (
                                             <li className="user-menu__item"
                                             onClick={() => {
@@ -83,6 +92,7 @@ const UserPage = (props) => {
                                                  Настройки
                                             </li>
                                     );
+                                }
                                 }
                             })()}
                         </ul>

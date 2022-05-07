@@ -27,6 +27,7 @@
     "jsonwebtoken": "^8.5.1",
     "lucene-query-parser": "^1.2.0",
     "mysql2": "^2.2.5",
+    "react-client-session": "0.0.8",
     "react-router-dom": "^5.2.0",
     "react-tag-input": "^6.5.2",
     "reflect-metadata": "^0.1.13",

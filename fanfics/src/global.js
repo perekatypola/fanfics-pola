@@ -1,3 +1,6 @@
+import {CLIENT_SECRET} from "./config"
+import * as CryptoJS from 'crypto-js';
+
 export const chaptersNav = async (chapters , curChapter) => {
     return new Promise((resolve , reject) => {
          chapters.forEach(ch => {
@@ -19,11 +22,27 @@ export const chaptersNav = async (chapters , curChapter) => {
     })
 }
 
-export const setUser = (name , password , email) => {
-    fetch("https://fanfics-pola.herokuapp.com/reg",  {
-        method: 'GET',
-        headers:{'Content-Type': 'application/json' , 'name' : name , 'password' : password , 'email' : email}
+export const register = (name , password , email) => {
+    fetch("http://localhost:8081/users",  {
+        method: 'POST',
+        headers:{'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            name: name,
+            password: password,
+            email: email
+        })
     }).then((response) => response.json()).then(res => {
+        if(res.messageError) {
+           window.location = "/thank_you_page";
+        }
+        else {
+           const output = document.querySelector(".reg-output")
+            setTimeout(() => {
+                output.classList.remove("visible")
+            }, 5000)
+            output.innerText = res.messageError
+            output.classList.add("visible")
+        }
     })
 }
 
@@ -36,17 +55,17 @@ export const signIn = (name , password) => {
             username: name,
             password: password,
         }),
-    }).then((response) => response.text()).then(res => {
+    }).then((response) => response.json()).then(res => {
         if(!res.messageError) {
-            console.log(res)
+            let curUser = CryptoJS.AES.encrypt(res.userId.toString() , CLIENT_SECRET).toString();
+            console.log(curUser)
             localStorage.setItem('jwt' , res.accessToken)
-            localStorage.setItem('curUser' , res.userId)
-            if(name === "admin") {
-                window.location = '/admin'
+            localStorage.setItem('curUser', curUser)
+            if(res.admin == true) {
+                let admin = CryptoJS.AES.encrypt("true" , CLIENT_SECRET).toString();
+                localStorage.setItem("admin", admin)
             }
-            else {
-                window.location = '/user'
-            }
+            window.location = "/user/" + localStorage.getItem("curUser");
         }
         else {
             const output = document.querySelector(".login-output")
@@ -57,10 +76,6 @@ export const signIn = (name , password) => {
             output.classList.add("visible")
         }
     })
-        .catch(err=>{
-    console.log(err)
-    })
-
     }
     catch(er) {
         console.log("error")
