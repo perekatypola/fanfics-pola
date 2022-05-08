@@ -10,11 +10,14 @@ import "./TopWorks.css"
 import {fetchRecentBooks} from "../store/slices/worksSlice";
 import {useDispatch, useSelector} from "react-redux";
 import CommentArea from "../CommentArea/CommentArea";
+import {useHistory} from "react-router-dom";
 
 
 function TopWorks() {
     const topWorks = useSelector(state => state.works.topWorks)
     const dispatch = useDispatch()
+
+    const history = useHistory()
 
     useEffect(() => {
         dispatch(fetchRecentBooks())
@@ -42,7 +45,9 @@ function TopWorks() {
                         topWorks.map(work => {
                             return (
                                 <SwiperSlide>
-                                    <a className="tops-slider__item">
+                                    <a className="tops-slider__item" onClick={() => {
+                                        history.push("/bookPage/" + work.id)
+                                    }}>
                                         <img src={potter} />
                                     </a>
                                 </SwiperSlide>

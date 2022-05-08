@@ -32,7 +32,7 @@ export const register = (name , password , email) => {
             email: email
         })
     }).then((response) => response.json()).then(res => {
-        if(res.messageError) {
+        if(!res.messageError) {
            window.location = "/thank_you_page";
         }
         else {

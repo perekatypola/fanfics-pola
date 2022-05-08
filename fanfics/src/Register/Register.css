@@ -47,6 +47,10 @@ label {
     text-align: center;
 }
 
+.Register {
+    display: none;
+}
+
 .header {
     align-items:center;
     height:100%;

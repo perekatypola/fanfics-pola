@@ -50,6 +50,10 @@ const Auth = () => {
                                     <button type="button" className="btn btn-outline custom-button sign-in"
                                             onClick = {()=> signIn(name, password)}
                                            >Sign In</button>
+                                     <button type="button" className="btn btn-outline custom-button sign-in"
+                                            onClick = {()=>  {document.querySelector(".Register").classList.add("visible")
+                                            document.querySelector(".Auth").classList.remove("visible")}}
+                                           >Sign Up</button>
                                 </div>
                                 <div className="button-box">
                                 <button type="button" className="btn vk-button"
@@ -71,7 +75,7 @@ const Auth = () => {
                                 />
                                 </div>
                             </div>
-                                            <div className="login-output"></div>
+                            <div className="login-output"></div>
                         </div>
                     </form>
                 </div>

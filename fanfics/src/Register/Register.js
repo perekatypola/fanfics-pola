@@ -53,10 +53,10 @@ const Register = () =>  {
                                     <div className="button-box">
                                         <button type="button" className="btn btn-outline custom-button sign-in"
                                                 onClick = {()=> register(name, password, email)}
-                                               >Sign In</button>
+                                               >Sign Up</button>
                                     </div>
                                 </div>
-                                <div className="reg-output"></div>
+                                <div className="reg-output lin-output"></div>
                             </div>
                         </form>
                     </div>
