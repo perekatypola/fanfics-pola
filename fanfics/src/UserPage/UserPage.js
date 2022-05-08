@@ -35,10 +35,6 @@ const UserPage = (props) => {
 
     return (
             <div className="background UserPage">
-                <select value="{message}">
-                    <a>gh</a>
-                    <a>ghjgj</a>
-                </select>
                 <div className="user-header">
                     <div className="user-head">
                          <img className="user-poster" src={potter}/>

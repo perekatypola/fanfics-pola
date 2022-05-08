@@ -6,6 +6,7 @@ import * as CryptoJS from "crypto-js";
 
 const Comment = (props) => {
     const [text, setText] = useState()
+    console.log(props)
 
     return (
             <div className="form-outline comment-box border">
@@ -17,7 +18,7 @@ const Comment = (props) => {
                 <button className="btn btn-outline custom-button send"
                 onClick = {()=> {
                     document.getElementById("comment-text").value = ""
-                        addComment(localStorage.getItem('curUser'), text , props.book)
+                        addComment(props.userId, text , props.bookId)
                 }}>Отправить</button>
             </div>
         );

@@ -11,6 +11,17 @@ let fetchCategories = createAsyncThunk(
     }
 )
 
+let fetchGenres = createAsyncThunk(
+    'main/fetchGenres',
+    async function(id, {rejectWithValue, dispatch}) {
+        const resp = await fetch("http://localhost:8081/genres", {
+            method: 'GET',
+        })
+        let data = await resp.json()
+        return data
+    }
+)
+
 let fetchFandoms = createAsyncThunk(
     'main/fetchFandoms',
     async function(id, {rejectWithValue, dispatch}) {
@@ -44,7 +55,7 @@ let fetchBooks = createAsyncThunk(
 let fetchAuthors = createAsyncThunk(
     'main/fetchAuthors',
     async function(id, {rejectWithValue, dispatch}) {
-        const resp = await fetch("http://localhost:8081/users/", {
+        const resp = await fetch("http://localhost:8081/users", {
             method: 'GET',
         })
         let data = await resp.json()
@@ -126,6 +137,9 @@ let mainSlice = createSlice({
             [fetchWorksByFandom.fulfilled]: (state, action) => {
                 state.books = action.payload
             },
+            [fetchGenres.fulfilled]: (state, action) => {
+                state.genres = action.payload
+            },
         }
     }
 )
@@ -138,3 +152,4 @@ export {fetchBooks}
 export {fetchAuthors}
 export {fetchWorksByCategory}
 export {fetchWorksByFandom}
+export {fetchGenres}

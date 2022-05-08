@@ -1,3 +1,8 @@
 .book-name {
     margin-bottom : 3vh;
 }
+
+.book__creation {
+    margin: 1rem;
+    padding-top: 2rem;
+}

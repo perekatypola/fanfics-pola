@@ -84,13 +84,11 @@ export const signIn = (name , password) => {
     }
 }
 
-export const addComment =(name, text , book) => {
-    fetch("https://fanfics-pola.herokuapp.com/addComment",  {
+export const addComment =(userId, text , bookId) => {
+    fetch("http://localhost:8081/comments",  {
         method: 'POST',
-        headers:{'Content-Type': 'application/json'},
-        body: JSON.stringify({name: name, text: text , book : book})
-    }).then((response) => response.text()).then(res => {
-        console.log(res)
+        headers:{'Content-Type': 'application/json', 'Authorization': localStorage.getItem('jwt')},
+        body: JSON.stringify({userId: userId, text: text , bookId  : bookId})
     })
 }
 

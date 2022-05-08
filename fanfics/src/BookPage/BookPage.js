@@ -20,6 +20,8 @@ import {chapterSlice, setChapterName, setChapterText} from "../store/slices/chap
 import {fetchBookInfo, fetchChapters} from "../store/slices/bookSlice"
 import {store} from "../store/store";
 import {BookCard} from "../BookCard/BookCard";
+import CryptoJS from "crypto-js";
+import {CLIENT_SECRET} from "../config";
 
 const BookPage = () => {
     let {id} = useParams()
@@ -61,7 +63,7 @@ const BookPage = () => {
                 }
             </div>
             <div className="comments-container">
-                <Comment></Comment>
+                <Comment bookId={bookInfo.book.id} userId={parseInt(CryptoJS.AES.decrypt(localStorage.getItem('curUser'), CLIENT_SECRET).toString(CryptoJS.enc.Utf8))}></Comment>
                 <div className="existing-comments">
                     {
                        comments.map(tag => {

@@ -12,6 +12,7 @@ import {useHistory} from "react-router-dom";
 import {fetchUserInfo} from "../store/slices/userSlice";
 import * as CryptoJS from 'crypto-js';
 import {CLIENT_SECRET} from "../config";
+import burger from "../burger.png"
 
 
 function MainHeader() {
@@ -41,11 +42,40 @@ function MainHeader() {
                         </div>
                         <div
                             className="theme-icon"
-                            onClick={()=> {
-                                dispatch(changeTheme())
-                            }}
                         >
-                            <img src={theme}/>
+                            {(() => {
+                                if(window.screen.width > 767) {
+                                    return (
+                                        <img                             onClick={()=> {
+                                            dispatch(changeTheme())
+                                        }}  src={theme}/>
+                                    );
+                                }
+                                else {
+                                    return (
+                                        <div className="main-menu">
+                                             <img src={burger} onClick={() => {
+                                                 document.querySelector(".main-menu").classList.toggle("active")
+                                             }}/>
+                                                <ul className="user-menu__dropdown main-menu__dropdown">
+                                                    <li className="user-menu__item main-menu__item">
+                                                        Сменить тему
+                                                    </li>
+                                                    <li className="user-menu__item main-menu__item" onClick={() => {
+                                                        window.location="/works"
+                                                    }}>
+                                                        Фанфики
+                                                    </li>
+                                                    <li className="user-menu__item main-menu__item" onClick={() => {
+                                                        window.location="/authors"
+                                                    }}>
+                                                        Авторы
+                                                    </li>
+                                                </ul>
+                                        </div>
+                                    );
+                                }
+                            })()}
                         </div>
 
                         {/*<form className="form mr-auto">*/}
