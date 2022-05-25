@@ -4,11 +4,10 @@ import {useSelector} from "react-redux";
 let fetchUserInfo = createAsyncThunk(
     'user/fetchUserInfo',
     async function(id, {rejectWithValue, dispatch}) {
-            const resp = await fetch("http://localhost:8081/users/" + id, {
+        const resp = await fetch("http://localhost:8081/users/" + id, {
             method: 'GET'
             })
             let data = await resp.json()
-        console.log(data)
             return data
     }
 )
@@ -21,11 +20,12 @@ let userSlice = createSlice({
         },
         reducers: {
             setInfoOpen(state, payload) {
-                state.isInfoOpen = payload.action;
+                state.isInfoOpen = payload.payload;
             },
         },
         extraReducers: {
             [fetchUserInfo.fulfilled]: (state, action) => {
+                console.log(action)
                 state.user = action.payload
             },
           },

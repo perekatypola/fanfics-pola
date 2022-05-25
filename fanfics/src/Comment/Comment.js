@@ -1,25 +1,28 @@
 import React, {useState} from "react";
 import {addComment} from '../global'
 import "./Comment.css"
-import {CLIENT_SECRET} from "../config";
-import * as CryptoJS from "crypto-js";
+import {useTranslation} from "react-i18next";
 
 const Comment = (props) => {
     const [text, setText] = useState()
-    console.log(props)
+    const {t} = useTranslation()
+
+    const commentAddition = () => {
+        document.getElementById("comment-text").value = ""
+        addComment(props.userId, text , props.bookId)
+    }
+
+    const changeText = event => {
+        setText(event.target.value)
+    }
 
     return (
             <div className="form-outline comment-box border">
-                <label>Комментарий:</label>
+                <label>{t('Comment')}</label>
                 <textarea className="form-control comments" rows="4" id = "comment-text"
-                          onChange={event=>{
-                              setText(event.target.value)
-                          }}> </textarea>
+                          onChange={changeText}/>
                 <button className="btn btn-outline custom-button send"
-                onClick = {()=> {
-                    document.getElementById("comment-text").value = ""
-                        addComment(props.userId, text , props.bookId)
-                }}>Отправить</button>
+                onClick = {commentAddition}>{t('Send')}</button>
             </div>
         );
 }

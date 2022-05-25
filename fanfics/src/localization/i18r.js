@@ -10,19 +10,58 @@ const resources  = {
         "Fandom": "Fandom:",
         "Genre": "Genre:",
         "Tags": "Tags:",
-        "Description": "Description:"
+        "Description": "Description:",
+        "Authors": "Authors",
+        "Fanfics": "Fanfics",
+        "Top works": "Top works",
+        "Name": "Name",
+        "Password": "Password",
+        "Delete": "Delete",
+        "Block": "Block",
+        "Unblock": "Unblock",
+        "Like": "Like",
+        "Liked": "Likes",
+        "Comment": "Comment:",
+        "Create book": "Create book",
+        "Title": "Title:",
+        "Image": "Image:",
+        "Book creation": "Book creation",
+        "Send": "Send",
+        "About": "About:",
+        "Contacts": "Contacts:"
     }
   },
   "ru": {
     "translation": {
         "Sign in header": "Вход на сайт с книгами",
         "Categories": "Категории",
-        "Fandoms"  : "Фандомы",
+        "Fandoms"  : "Fandoms",
         "Fandom": "Фандом:",
         "Genre": "Жанр:",
         "Tags": "Теги:",
-        "Description": "Описание:"
-
+        "Description": "Описание:",
+        "Authors": "Авторы",
+        "Fanfics": "Фанфики",
+        "Top works": "Популярные работы",
+        "Name": "Имя",
+        "Password": "Пароль",
+        "Delete": "Удалить",
+        "Block": "Заблокировать",
+        "Unblock": "Разблокировать",
+        "Like": "Нравится",
+        "Liked": "Понравилось",
+        "Comment": "Комментарий:",
+        "Create book": "Создать книгу",
+        "Title": "Название:",
+        "Image": "Картинка:",
+        "Book creation": "Создание книги",
+        "Send": "Отправить",
+        "About": "О себе:",
+        "Contacts": "Контакты:",
+        "Information": "Информация",
+        "Works": "Работы",
+        "Add fanfic": "Добавить фанфик",
+        "Settings": "Настройки"
     }
   }
 }

@@ -9,6 +9,12 @@
     padding-top: 1rem;
 }
 
+.author-card__container {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .user-poster {
     width: 90px;
     height: 90px;

@@ -1,5 +1,5 @@
 .tops-slider__item img{
-    object-fit: contain;
+    object-fit: cover;
     height: 465px;
     width: 100%;
 }
@@ -7,6 +7,7 @@
 .tops-slider__item {
     width: 250px;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .tops-slider__header {

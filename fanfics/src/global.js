@@ -1,5 +1,11 @@
 import {CLIENT_SECRET} from "./config"
-import * as CryptoJS from 'crypto-js';
+import CryptoJS from 'crypto-js';
+let socket = new WebSocket("ws://localhost:8082");
+
+socket.onmessage = function(event) {
+  var incomingMessage = event.data;
+  console.log(incomingMessage);
+};
 
 export const chaptersNav = async (chapters , curChapter) => {
     return new Promise((resolve , reject) => {
@@ -33,7 +39,7 @@ export const register = (name , password , email) => {
         })
     }).then((response) => response.json()).then(res => {
         if(!res.messageError) {
-           window.location = "/thank_you_page";
+           window.location = "/";
         }
         else {
            const output = document.querySelector(".reg-output")
@@ -56,8 +62,8 @@ export const signIn = (name , password) => {
             password: password,
         }),
     }).then((response) => response.json()).then(res => {
-        if(!res.messageError) {
-            let curUser = CryptoJS.AES.encrypt(res.userId.toString() , CLIENT_SECRET).toString();
+        if(!res.messageError && !res.error) {
+            let curUser = CryptoJS.AES.encrypt(res.userId.toString() , CLIENT_SECRET).toString()
             console.log(curUser)
             localStorage.setItem('jwt' , res.accessToken)
             localStorage.setItem('curUser', curUser)
@@ -72,13 +78,17 @@ export const signIn = (name , password) => {
             setTimeout(() => {
                 output.classList.remove("visible")
             }, 5000)
-            output.innerText = res.messageError
+            if(res.messageError) {
+                output.innerText = res.messageError
+            }
+            if(res.error) {
+                    output.innerText = res.error
+            }
             output.classList.add("visible")
         }
     })
     }
     catch(er) {
-        console.log("error")
         document.querySelector(".login-output").innerText = er
         document.querySelector(".login-output").classList.add("visible")
     }
@@ -95,7 +105,7 @@ export const addComment =(userId, text , bookId) => {
 export const getRating = (work) => {
         fetch("https://fanfics-pola.herokuapp.com/getRating",  {
             method: 'POST',
-            headers:{'Content-Type': 'application/json'},
+            headers:{'Content-Type': 'application/json', 'Authorization': localStorage.getItem("jwt")},
             body: JSON.stringify({book_name: work.book_name})
         }).then((response) => response.json()).then(res => {
             console.log(res.rating)
@@ -103,116 +113,90 @@ export const getRating = (work) => {
         })
 }
 
-export const getTags = (work) => {
-
-}
-
-export const addLike = (work , user_liked) => {
-    console.log(user_liked)
-    fetch("https://fanfics-pola.herokuapp.com/addLike",  {
+export const addLike = (id) => {
+    fetch("http://localhost:8081/books/"+ id + "/like",  {
         method: 'POST',
-        headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
-        body: JSON.stringify({user_liked: user_liked , book_name : work})
-    }).then((response) => response.json()).then(res => {
-        console.log(res)
+        headers:{'Content-Type': 'application/json' , 'Authorization' : localStorage.getItem('jwt')},
     })
 }
 
-export const deleteFanfic = (work) => {
-    return new Promise ((resolve , reject) => {
-        fetch("https://fanfics-pola.herokuapp.com/deleteFanfic",  {
-            method: 'POST',
-            headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
-            body: JSON.stringify({book_name : work.book_name})
-        }).then((response) => response.json()).then(res => {
-            console.log(res)
-            deleteIndex(res)
-            resolve(res)
-        })
-    })
-}
-
-const deleteIndex = (work) => {
-    fetch("https://fanfics-pola.herokuapp.com/deleteIndex",  {
-        method: 'POST',
-        headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
-        body : JSON.stringify({id: work.book_id})
-    }).then((response) => response.json()).then(res => {})
-}
-
-export const updateUser = (name , prevName , contacts , info) => {
-    return new Promise ((resolve , reject) => {
-        console.log(prevName)
-        fetch("https://fanfics-pola.herokuapp.com/updateUser",  {
-            method: 'POST',
-            headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
-            body: JSON.stringify({name: name , prevName : prevName , contacts: contacts , info: info})
-        }).then((response) => response.text()).then(res => {
-            console.log(res)
-            resolve("updated")
-        })
-    })
-}
-
-export const deleteUser = (user_name) => {
+export const deleteUser = (id) => {
     return new Promise((resolve, reject) => {
-        fetch("https://fanfics-pola.herokuapp.com/deleteUser",  {
-            method: 'POST',
-            headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
-            body: JSON.stringify({user_name : user_name})
+        fetch("http://localhost:8081/users/" + id ,  {
+            method: 'DELETE',
+            headers:{'Content-Type': 'application/json' , 'Authorization' : localStorage.getItem('jwt')},
         }).then((response) => response.text()).then(res => {
             resolve(res)
         })
     })
 }
 
-export const blockUser = (user_name , user_status) => {
+export const blockUser = (id) => {
     return new Promise ((resolve, reject) => {
-        fetch("https://fanfics-pola.herokuapp.com/block",  {
+        fetch("http://localhost:8081/users/" + id + "/block",  {
             method: 'POST',
-            headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
-            body: JSON.stringify({user_name : user_name , status:  user_status})
+            headers:{'Content-Type': 'application/json' , 'Authorization' : localStorage.getItem('jwt')},
         }).then((response) => response.json()).then(res => {
-            console.log(res)
+            window.location.reload()
             resolve(res)
         })
     })
 }
 
-export const addInitialBook = (name , description , topic ,suggestions ,tags , user_name) => {
-    console.log(user_name)
-    fetch("https://fanfics-pola.herokuapp.com/addBook",  {
-        method: 'POST',
-        headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
-        body : JSON.stringify({name: name , descr: description , topic: topic ,tags : tags , user:user_name , suggestions : suggestions} )
-    }).then((response) => response.text()).then(res => {
-        console.log(res)
+export const unblockUser = (id) => {
+    return new Promise ((resolve, reject) => {
+        fetch("http://localhost:8081/users/" + id + "/unlock",  {
+            method: 'POST',
+            headers:{'Content-Type': 'application/json' , 'Authorization' : localStorage.getItem('jwt')},
+        }).then((response) => response.json()).then(res => {
+            console.log(res)
+            resolve(res)
+            window.location.reload()
+        })
     })
 }
 
-export const editBook = (name , description, tags ,prevName , suggestions , newTopic) => {
-    fetch("https://fanfics-pola.herokuapp.com/editBook",  {
+export const addInitialBook = (name , description , genreId, tags, fandomId, categoryId, userId) => {
+    console.log(name, description, genreId, tags, fandomId, categoryId, userId)
+    fetch("http://localhost:8081/books",  {
         method: 'POST',
-        headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
-        body : JSON.stringify({tags : tags , prevName :prevName, name : name ,descr : description , suggestions: suggestions , topic: newTopic})
+        headers:{'Content-Type': 'application/json' , 'Authorization' : localStorage.getItem('jwt')},
+        body : JSON.stringify({name: name, genreId: genreId, fandomId: fandomId, categoryId: categoryId, userId: userId, tags: tags, description: description} )
     }).then((response) => response.text()).then(res => {
-        if(localStorage.getItem('curUser') === "admin") {
-            window.location = "/admin"
-        }
-        else {
-            window.location = "/user"
-        }
-        console.log(res)
+        window.location = "/user" + userId
     })
 }
 
-export const editChapter = (name , text, book_name ,prevName) => {
-    fetch("https://fanfics-pola.herokuapp.com/editChapter",  {
-        method: 'POST',
-        headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
-        body : JSON.stringify({prevName :prevName, name : name , text: text , book_name: book_name})
+export const editBook = (userId, name , description, tags , bookId , genre , fandom, category) => {
+    console.log(name, description, tags, bookId, genre, fandom, category)
+    fetch("http://localhost:8081/books/" + bookId , {
+        method: 'PATCH',
+        headers:{'Content-Type': 'application/json' , 'Authorization' : localStorage.getItem('jwt')},
+        body : JSON.stringify({"genreId" : genre , "fandomId": fandom, "categoryId": category , tags : tags, description: description, name: name})
     }).then((response) => response.text()).then(res => {
-        console.log(res)
+        if(res.status == "200") {
+            window.location = "/user/" + userId
+        }
+    })
+}
+
+export const editUser = (userId, password, contactInfo, about) => {
+    fetch("http://localhost:8081/users/" + userId , {
+        method: 'PATCH',
+        headers:{'Content-Type': 'application/json' , 'Authorization' : localStorage.getItem('jwt')},
+        body : JSON.stringify({password: password, contactInfo: contactInfo, about: about})
+    }).then((response) => response.text()).then(res => {
+        window.location.reload()
+    })
+}
+
+export const editChapter = (userId,id, name, text) => {
+    fetch("http://localhost:8081/chapters/" + id,  {
+        method: 'PATCH',
+        headers:{'Content-Type': 'application/json' , 'Authorization' : localStorage.getItem('jwt')},
+        body : JSON.stringify({name: name, text: text})
+    }).then((response) => response.text()).then(res => {
+        window.location = '/user/' + userId
     })
 }
 
@@ -267,26 +251,16 @@ export const deleteImage = (name) => {
 }
 
 
-export const addChapter = (name , text , book) => {
-    fetch("https://fanfics-pola.herokuapp.com/addChapter", {
+export const addChapter = (name , text , bookId) => {
+    fetch("http://localhost:8081/chapters", {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json' , 'Auth': localStorage.getItem('jwt')
+            'Content-Type': 'application/json' , 'Authorization': localStorage.getItem('jwt')
         },
-        body : JSON.stringify({name: name , text: text , book_name: book})
+        body : JSON.stringify({number: "1", name: name , text: text , bookId: bookId})
     }).then((response) => response.text()).then(res => {
         console.log(res)
-        addIndex()
     })
-}
-
-const addIndex = () => {
-      fetch("/addIndex", {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json' , 'Auth': localStorage.getItem('jwt')
-        }
-    }).then((response) => response.text()).then(res => {})
 }
 
 export const search = (searchText) => {
@@ -309,3 +283,5 @@ export const setCreatingBook = (curBook) => {
 export const getCreatingBook = () => {
     return book
 }
+
+export default socket

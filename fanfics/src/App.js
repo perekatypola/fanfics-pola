@@ -20,14 +20,17 @@ import CreateChapters from "./CreateChapters/CreateChapters";
 import Admin from "./Admin/Admin";
 import EditBook from "./EditBook/EditBook";
 import EditChapter from "./EditChapter/EditChapter";
-import Results from "./Results/Results";
 import {Provider, useDispatch} from 'react-redux';
 import {store} from "./store/store";
 import {applyTheme} from "./store/slices/mainSlice";
 import Authors from "./Authors/Authors";
                 import { BrowserRouter} from 'react-router-dom';
 import Settings from "./Settings/Setting";
+import RecentWorks from "./RecentWorks/RecentWorks";
+import ErrorPage from "./Admin/Admin";
+import {useTranslation} from "react-i18next";
 function App() {
+    const {t} = useTranslation()
     return (
         <Provider store={store}>
             <div data-theme = "light" className = "App light main-page">
@@ -38,14 +41,16 @@ function App() {
                                  onClick={() => {
                                     window.location="/authors"
                                  }}>
-                                <span>Authors</span>
+                                <span>{t('Authors')}</span>
                             </div>
                             <div className="bookmark"
                                 onClick={() => {
                                     window.location="/works"
                                 }}>
-                                <span>Fanfics</span>
+                                <span>{t('Fanfics')}</span>
                             </div>
+                            <div onClick={event => {
+                            }}></div>
                         </div>
                         <div className="main-page__page">
                               <div>
@@ -57,16 +62,19 @@ function App() {
                                           <Route path="/works">
                                               <Works/>
                                           </Route>
+                                          <Route path="/error">
+                                              <ErrorPage/>
+                                          </Route>
                                           <Route path="/chapterPage/:bookId/:id">
                                               <ChapterPage/>
                                           </Route>
-                                          <Route path="/results">
-                                              <Results/>
+                                          <Route path="/recent">
+                                              <RecentWorks/>
                                           </Route>
                                            <Route path="/authors">
                                               <Authors/>
                                           </Route>
-                                          <Route path="/editChapter">
+                                          <Route path="/editChapter/:id">
                                               <EditChapter/>
                                           </Route>
                                           <Route path="/user/:id">
@@ -78,7 +86,7 @@ function App() {
                                           <Route path="/createBook">
                                               <CreateBook/>
                                           </Route>
-                                          <Route path="/editBook">
+                                          <Route path="/editBook/:id">
                                               <EditBook/>
                                           </Route>
                                           <Route path="/admin">

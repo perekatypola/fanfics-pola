@@ -56,7 +56,7 @@ const Register = () =>  {
                                                >Sign Up</button>
                                     </div>
                                 </div>
-                                <div className="reg-output lin-output"></div>
+                                <div className="reg-output lin-output login-output"></div>
                             </div>
                         </form>
                     </div>

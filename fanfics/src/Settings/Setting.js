@@ -1,10 +1,13 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Link, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import {fetchUserInfo, setInfoOpen} from "../store/slices/userSlice";
 import {useTranslation} from "react-i18next";
 import "./Settings.css"
 import Upload from "../Upload/Upload";
+import {editUser} from "../global";
+import CryptoJS from "crypto-js";
+import {CLIENT_SECRET} from "../config";
 
 const Settings = (props) => {
     const {t, i18n} = useTranslation();
@@ -13,12 +16,16 @@ const Settings = (props) => {
     })
     const dispatch = useDispatch()
 
+    const [about, setAbout] = useState()
+    const [password, setPassword] = useState()
+    const [info, setInfo] = useState()
+
     useEffect(() => {
         dispatch(fetchUserInfo(props.id))
     }, [])
 
     return (
-            <div className="background Settings">
+            <div className="Settings">
                 <div className="main-page__card settings-card">
                     <h3>Настройки профиля</h3>
                         <ul className="settings-list">
@@ -83,28 +90,39 @@ const Settings = (props) => {
                         <h3>Личная информация</h3>
                         <div className="settings-container">
                             <div className="settings-info__row">
-                                <strong>О себе</strong>
-                                <textarea value={user.user.about}></textarea>
+                                <strong>О себе:</strong>
+                                <textarea onChange={event=> {
+                                    setAbout(event.target.value)
+                                }} defaultValue={user.user.about}></textarea>
                             </div>
                             <div className="settings-info__row">
                                 <strong>Контактная информация:</strong>
-                                <textarea value={user.user.about}></textarea>
+                                <textarea onChange={event => {
+                                    setInfo(event.target.value)
+                                }} defaultValue={user.user.contactInfo}></textarea>
                             </div>
                         </div>
-                        <button type="button" className="btn btn-outline custom-button change-info">Сохранить</button>
+                        <button type="button" className="btn btn-outline custom-button change-info" onClick = {() => {
+                            console.log(user.user)
+                            editUser(user.user.id, password, info, about)
+                        }}>Сохранить</button>
                     </div>
                     <div className="avatar" id="avatar">
-                        <Upload></Upload>
+                        <Upload id={user.user.name}></Upload>
                     </div>
                      <div className="password-change"  id= "password">
                         <h3>Смена пароля</h3>
                         <div className="settings-container">
                             <div className="settings-info__row">
                                 <strong>Пароль:</strong>
-                                <textarea value={user.user.password}></textarea>
+                                <input onChange={event => {
+                                    setPassword(event.target.value)
+                                }}/>
                             </div>
                         </div>
-                        <button type="button" className="btn btn-outline custom-button change-password">Сохранить</button>
+                        <button type="button" className="btn btn-outline custom-button change-password" onClick = {() => {
+                            editUser(user.user.id, password, info, about)
+                        }}>Сохранить</button>
                     </div>
 
                 </div>

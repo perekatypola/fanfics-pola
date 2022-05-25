@@ -1,8 +1,4 @@
 
-.App.dark #form{
-    color: #373737
-}
-
 form {
     display: flex;
     flex-direction: column;

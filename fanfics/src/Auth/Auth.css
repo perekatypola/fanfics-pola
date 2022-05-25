@@ -1,11 +1,3 @@
-.App.dark #form{
-    color: #373737
-}
-
-.App.dark #form label{
-    color: #373737
-}
-
 @media (max-width: 767px) {
     .popup {
         width: 100% !important;

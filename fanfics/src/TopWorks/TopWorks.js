@@ -9,13 +9,27 @@ import 'swiper/swiper.min.css'
 import "./TopWorks.css"
 import {fetchRecentBooks} from "../store/slices/worksSlice";
 import {useDispatch, useSelector} from "react-redux";
-import CommentArea from "../CommentArea/CommentArea";
 import {useHistory} from "react-router-dom";
+import {Cloudinary} from "@cloudinary/url-gen";
+import {useTranslation} from "react-i18next";
 
 
 function TopWorks() {
     const topWorks = useSelector(state => state.works.topWorks)
     const dispatch = useDispatch()
+    const {t} = useTranslation()
+
+    const cld = new Cloudinary({
+          cloud: {
+            cloudName: 'deixwcl0a'
+          }
+        });
+
+    const renderPoster =(image) => {
+        let poster = "poster" + image
+        const myImage = cld.image(poster).toURL();
+        return <img src={myImage}/>
+    }
 
     const history = useHistory()
 
@@ -26,7 +40,7 @@ function TopWorks() {
     return(
         <div className="tops-slider">
             <div className="tops-slider__container">
-                <h2 className="tops-slider__header">Top works</h2>
+                <h2 className="tops-slider__header">{t('Top works')}</h2>
                 <Swiper
                     spaceBetween={0}
                     slidesPerView={1}
@@ -48,7 +62,7 @@ function TopWorks() {
                                     <a className="tops-slider__item" onClick={() => {
                                         history.push("/bookPage/" + work.id)
                                     }}>
-                                        <img src={potter} />
+                                        {renderPoster(work.id.toString())}
                                     </a>
                                 </SwiperSlide>
                             );

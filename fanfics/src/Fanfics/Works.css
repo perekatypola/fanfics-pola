@@ -39,7 +39,7 @@
 
     .work-card__header{
         text-align: center;
-        padding-left: 0 !important;
+        padding-left: 1rem !important;
     }
 
     .work-card {

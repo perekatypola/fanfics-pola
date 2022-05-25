@@ -40,17 +40,18 @@ let bookSlice = createSlice({
         initialState: {
             'bookName': "bookName",
             "description": "",
-            'chapters': [{
-                "chapterName": "name",
-                "text": "ahgdjhasjd"
-            }, {
-                "chapterName": "name@ahsjd",
-                "text": "fhfghfgh"
-            }],
+            'chapters': [],
             'currentChapter': 'name',
             'book': {
-                "fandom": {},
-                "genre": {},
+                "fandom": {
+                    "name": ''
+                },
+                "genre": {
+                    "name": ''
+                },
+                "category": {
+                    "name": ''
+                },
                 "tags": []
             },
             "comments": []
@@ -58,6 +59,12 @@ let bookSlice = createSlice({
         reducers: {
             setBookName(state, payload) {
                 state.bookName = state.book.name;
+            },
+            setLike(state) {
+                state.rating = state.rating + 1;
+            },
+            takeLike(state) {
+                state.rating = state.rating - 1;
             },
             setChapters(state, payload) {
                 state.chapters = payload.payload
@@ -87,6 +94,6 @@ let bookSlice = createSlice({
     }
 )
 
-export const {setBookName, setBookInfo, setChapters} = bookSlice.actions;
+export const {setBookName, setBookInfo, setChapters, setLike, takeLike} = bookSlice.actions;
 export {fetchBookInfo, fetchChapters, fetchComments}
 export {bookSlice}

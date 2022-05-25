@@ -1,10 +1,16 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import './CreateBook.css'
 import MainHeader from "../MainHeader/MainHeader";
 import {addInitialBook, setCreatingBook} from '../global'
-import {WithContext as ReactTags} from "react-tag-input";
+import ReactTagInput from "@pathofdev/react-tag-input";
+import ReactTags from 'react-tag-autocomplete'
+import "@pathofdev/react-tag-input/build/index.css";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchCategories, fetchGenres} from "../store/slices/mainSlice";
+import {fetchCategories, fetchFandoms, fetchGenres, fetchTags} from "../store/slices/mainSlice";
+import CryptoJS from "crypto-js";
+import {CLIENT_SECRET} from "../config";
+import Upload from "../Upload/Upload";
+import {useTranslation} from "react-i18next";
 
 const KeyCodes = {
     comma: 188,
@@ -16,149 +22,96 @@ const delimiters = [KeyCodes.comma, KeyCodes.enter];
 const CreateBook = () => {
     const categories = useSelector(state => state.main.categories)
     const genres = useSelector(state => state.main.genres)
+    const fandoms = useSelector(state => state.main.fandoms)
+    const [curTags, setTags] = useState([])
+
+    const [descr, setDescr] = useState('')
+    const [name, setName] = useState('')
+    const [genre, setGenre] = useState(1)
+    const [fandom, setFandom] = useState(1)
+    const [category, setCategory] = useState(1)
     const dispatch = useDispatch()
 
-    const renderCategories = () => {
-        categories.map(category => {
-            console.log(category.name)
-            return <option>{category.name}</option>
-        })
-    }
+    const {t} = useTranslation()
 
     useEffect(() => {
         dispatch(fetchCategories())
         dispatch(fetchGenres())
+        dispatch(fetchFandoms())
     }, [])
+
+    const findId = (array, name) => {
+        const el = array.find(el => el.name == name)
+        console.log(el)
+        return el.id
+    }
 
     return (
         <div className="book__creation">
-            <h3>Создание книги</h3>
+            <h3>{t('Book creation')}</h3>
             <div className="settings-container">
-                <select>{renderCategories}</select>
                 <div className="settings-info__row">
-                    <strong>Название:</strong>
-                    <textarea></textarea>
+                    <strong>{t('Category')}</strong>
+                    <select onChange={event => {
+                        const id = findId(categories, event.target.value)
+                        setCategory(id)}}>{
+                        categories.map(category => {
+                            return (<option >{category.name}</option>);
+                        })
+                    }</select>
                 </div>
                 <div className="settings-info__row">
-                    <strong>Описание:</strong>
-                    <textarea></textarea>
+                    <strong>{t('Genre')}</strong>
+                    <select onChange={event => {
+                        const id = findId(genres, event.target.value)
+                        setGenre(id)}}>{
+                        genres.map(genre => {
+                            return (<option>{genre.name}</option>);
+                        })
+                    }</select>
                 </div>
+                 <div className="settings-info__row">
+                    <strong>{t('Image')}</strong>
+                    <Upload id={name}></Upload>
+                </div>
+                <div className="settings-info__row">
+                    <strong>{t('Fandom')}</strong>
+                    <select onChange={event => {
+                        const id = findId(fandoms, event.target.value)
+                        setFandom(id)}}>{
+                        fandoms.map(fandom => {
+                            return (<option>{fandom.name}</option>);
+                        })
+                    }</select>
+                </div>
+                <div className="settings-info__row">
+                    <strong>{t('Tags')}</strong>
+                    <ReactTagInput className = "tags" tags={curTags}
+                                   editable={true}
+                                    readOnly={false}
+                                    onChange={(newTags) => {
+                                        setTags(newTags)}}/>
+                </div>
+                <div className="settings-info__row">
+                    <strong>{t('Title')}</strong>
+                    <textarea onChange={event => {
+                        setName(event.target.value)
+                    }}/>
+                </div>
+                <div className="settings-info__row">
+                    <strong>{t('Description')}</strong>
+                    <textarea onChange={event => {
+                        setDescr(event.target.value)
+                    }}/>
+                </div>
+                 <button type="button" className="btn btn-outline custom-button change-info" onClick={() => {
+                    const userId = parseInt(CryptoJS.AES.decrypt(localStorage.getItem('curUser'), CLIENT_SECRET).toString(CryptoJS.enc.Utf8))
+                    addInitialBook(name, descr, genre, curTags, fandom, category, userId)
+                    }}>{t('Create book')}</button>
             </div>
-            <button type="button" className="btn btn-outline custom-button change-info">Сохранить</button>
         </div>
     );
 
 }
-// class CreateBook extends React.Component {
-//
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             name: '' ,
-//             descr:'',
-//             topics:[] ,
-//             curTags:[],
-//             tags: [],
-//             suggestions: [] ,
-//             chosenTopic : ''
-//         }
-//         this.handleDelete = this.handleDelete.bind(this);
-//         this.handleAddition = this.handleAddition.bind(this);
-//     }
-//
-//     componentDidMount() {
-//         fetch("https://fanfics-pola.herokuapp.com/loadTopics", {
-//             method: 'GET',
-//             headers: {'Content-Type': 'application/json','Auth' : localStorage.getItem('jwt')}
-//         }).then((response) => response.json()).then(res => {
-//             console.log(res)
-//             this.setState({topics: res})
-//         })
-//         fetch("https://fanfics-pola.herokuapp.com/loadTags", {
-//             method: 'GET',
-//             headers: {'Content-Type': 'application/json','Auth' : localStorage.getItem('jwt')}
-//         }).then((response) => response.json()).then(res => {
-//             this.setState({tags: res})
-//             const suggestions = this.state.tags.map(tag => {
-//                 return {
-//                     id: tag.tag ,
-//                     text: tag.tag
-//                 }
-//             })
-//             this.setState({suggestions: suggestions})
-//         })
-//     }
-//
-//     handleAddition(tag) {
-//         this.state.curTags.push(tag)
-//         console.log(this.state.curTags)
-//     }
-//
-//     handleDelete(i) {
-//         const { curTags } = this.state;
-//         this.setState({
-//             curTags: curTags.filter((tag, index) => index !== i),
-//         });
-//     }
-//
-//     render() {
-//         const { curTags, suggestions } = this.state;
-//
-//         const renderTopics = () => {
-//             return <>
-//                 {
-//                     this.state.topics.map(topic =>
-//                         <button className="dropdown-item" type = "button"
-//                                 onClick={()=> {
-//                                     this.setState({chosenTopic : topic.topic})
-//                                 }}>{topic.topic}</button>
-//                     )}
-//             </>
-//         }
-//
-//         return (
-//             <div className="background">
-//                 <MainHeader></MainHeader>
-//                 <form id="form">
-//                     <p className="display-4 text-center">Ваша новая работа:</p>
-//                     <div className="cont p-4 my-3 border">
-//                         <div className="form-group">
-//                             <div className = "tags-and-topics-books">
-//                                 <div className="nav-item dropdown">
-//                                     <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
-//                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-//                                         Жанр:
-//                                     </a>
-//                                     <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-//                                         {renderTopics()}
-//                                     </div>
-//                                 </div>
-//                                 <ReactTags className = "tags" tags={curTags}
-//                                            suggestions={suggestions}
-//                                            handleDelete={this.handleDelete}
-//                                            handleAddition={this.handleAddition}
-//                                            handleDrag={this.handleDrag}
-//                                            delimiters={delimiters} />
-//                             </div>
-//                             <label htmlFor="inputUsername">Название:</label>
-//                             <input initialValue="" type="name" className="form-control book-name" placeholder="Фанфик"
-//                             onChange = {event => {this.setState({name:event.target.value})}}/>
-//                             <label htmlFor="inputUsername">Описание:</label>
-//                             <textarea className="form-control" rows="4"
-//                                       onChange = {event => {this.setState({descr:event.target.value})}}> </textarea>
-//                             <div className="button-box">
-//                                 <button type="button" className="btn btn-outline custom-button sign-in"
-//                                         onClick = {() => {
-//                                              window.location = "/createChapters"
-//                                             localStorage.setItem('creatingBook' , this.state.name)
-//                                             addInitialBook(this.state.name , this.state.descr ,this.state.chosenTopic , this.state.suggestions ,this.state.curTags,localStorage.getItem('curUser'))}}>Продолжить</button>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </form>
-//             </div>
-//         );
-//     }
-// }
 
 export default CreateBook;

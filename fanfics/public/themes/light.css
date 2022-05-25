@@ -43,13 +43,29 @@
     background: rgba(255,235,205, 0.5);
 }
 
+.App.light .chapter-button {
+    color: #c69e6b;
+}
+
 .App.light .login-popup{
   background-color: #f6ecda;
 }
 
+.App.light .like-container {
+    background-color: #f6ecda;
+}
+
+.App.light .like-container.liked {
+    background-color: #e5dacc;
+}
+
+.App.light .like-container:hover {
+    background-color: #e5dacc;
+}
+
 .App.light .user-button{
     border: solid 0px;
-    background-color: #ead6aa;
+    background-color: #f6ecda;
 }
 
 .App.light .background {
@@ -63,6 +79,10 @@
 
 .App.light .container {
     background-color: #ead6aa;
+}
+
+.App.light .main-page__page {
+    background-color: #f6ecda;
 }
 
 .App.light .cell {

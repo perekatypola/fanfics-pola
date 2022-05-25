@@ -45,7 +45,18 @@ let fetchBooks = createAsyncThunk(
               dispatch(fetchWorksByCategory(state.category))
             }
             else {
-                dispatch(fetchWorksByFandom(state.fandom))
+                if(state.tagId) {
+                    console.log(state.tagId)
+                    dispatch(fetchWorksByTag(state.tagId))
+                }
+                else {
+                    if(state.user) {
+                        dispatch(fetchWorksByUser(state.user))
+                    }
+                    else {
+                        dispatch(fetchWorksByFandom(state.fandom))
+                    }
+                }
             }
         }
         return data
@@ -56,6 +67,17 @@ let fetchAuthors = createAsyncThunk(
     'main/fetchAuthors',
     async function(id, {rejectWithValue, dispatch}) {
         const resp = await fetch("http://localhost:8081/users", {
+            method: 'GET',
+        })
+        let data = await resp.json()
+        return data
+    }
+)
+
+let fetchTags = createAsyncThunk(
+    'main/fetchTags',
+    async function(id, {rejectWithValue, dispatch}) {
+        const resp = await fetch("http://localhost:8081/tags", {
             method: 'GET',
         })
         let data = await resp.json()
@@ -86,12 +108,33 @@ let fetchWorksByFandom = createAsyncThunk(
     }
 )
 
+let fetchWorksByUser = createAsyncThunk(
+    'main/fetchWorksByUser',
+    async function(id, {rejectWithValue, dispatch}) {
+        const resp = await fetch("http://localhost:8081/books/search?user=" + id, {
+            method: 'GET',
+        })
+        let data = await resp.json()
+        return data
+    }
+)
+
+let fetchWorksByTag = createAsyncThunk(
+    'main/fetchWorksByTag',
+    async function(id, {rejectWithValue, dispatch}) {
+        const resp = await fetch("http://localhost:8081/books/search?tag=" + id, {
+            method: 'GET',
+        })
+        let data = await resp.json()
+        return data
+    }
+)
+
 let mainSlice = createSlice({
         name: 'main',
-        initialState: {theme: 'light', categories: [], fandoms: [], books: [], authors: []},
+        initialState: {theme: 'light', categories: [], fandoms: [], books: [], authors: [], genres:[], tags: [{id: "text", text: "text"}]},
         reducers: {
             applyTheme(state) {
-                console.log(localStorage.getItem("darkTheme"))
                 if (localStorage.getItem("darkTheme") == "1") {
                     const app = document.querySelector('.App');
                     app.classList.remove(app.dataset.theme)
@@ -124,8 +167,6 @@ let mainSlice = createSlice({
                 state.fandoms = action.payload
             },
             [fetchBooks.fulfilled]: (state, action) => {
-                console.log("books")
-                console.log(action.payload)
                 state.books = action.payload
             },
             [fetchAuthors.fulfilled]: (state, action) => {
@@ -140,6 +181,15 @@ let mainSlice = createSlice({
             [fetchGenres.fulfilled]: (state, action) => {
                 state.genres = action.payload
             },
+            [fetchTags.fulfilled]: (state, action) => {
+                state.tags = action.payload
+            },
+            [fetchWorksByTag.fulfilled]: (state, action) => {
+                state.books = action.payload
+            },
+            [fetchWorksByUser.fulfilled]: (state, action) => {
+                state.books = action.payload
+            },
         }
     }
 )
@@ -153,3 +203,6 @@ export {fetchAuthors}
 export {fetchWorksByCategory}
 export {fetchWorksByFandom}
 export {fetchGenres}
+export {fetchTags}
+export {fetchWorksByTag}
+export {fetchWorksByUser}

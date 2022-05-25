@@ -2,12 +2,9 @@ import React, {useEffect} from "react";
 import './MainPage.css'
 import {TopWorks} from '../TopWorks/TopWorks'
 
-import { Draggable, Droppable } from 'react-drag-and-drop'
-import MainHeader from "../MainHeader/MainHeader";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchCategories, fetchFandoms} from "../store/slices/mainSlice";
 import {useTranslation} from "react-i18next";
-import {fetchRecentBooks} from "../store/slices/worksSlice";
 import {useHistory} from "react-router-dom";
 const MainPage = () => {
     const dispatch = useDispatch()
@@ -20,23 +17,36 @@ const MainPage = () => {
     }, [])
     const {t, i18n} = useTranslation();
 
+    const renderCategory = (category) => {
+        const moveToWorks  = () => {
+            history.push("/works", {category: category.id})
+        }
+
+        return (
+            <div  key={category.id} onClick={moveToWorks} className="card-item">{category.name}</div>
+        );
+    }
+
+    const renderCategories = (categories) => {
+        return (
+            <div>{
+                categories.map(category => {
+                return (
+                    <div>
+                        {renderCategory(category)}
+                    </div>
+                );
+            })}</div>
+        );
+    }
+
     return (
             <div>
                 <TopWorks/>
                         <div className="main-page__container">
                             <div className="main-page__card">
                                 <h3> {t('Categories')}</h3>
-                                <div>
-                                    {
-                                        categories.map(category => {
-                                            return (
-                                                <div  key={category.id} onClick={() => {
-                                                    history.push("/works", {category: category.id})
-                                                }} className="card-item">{category.name}</div>
-                                            );
-                                        })
-                                    }
-                                </div>
+                                {renderCategories(categories)}
                             </div>
                             <div className="main-page__card">
                                 <h3>{t('Fandoms')}</h3>

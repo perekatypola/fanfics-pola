@@ -1,80 +1,51 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import './EditChapter.css'
-import MainHeader from "../MainHeader/MainHeader";
 import {addChapter, editBook, editChapter} from "../global"
-import {getCreatingBook} from "../global"
 import ReactMde from "react-mde";
-import ReactMarkdown from 'react-markdown'
 import "react-mde/lib/styles/css/react-mde-all.css";
+import {useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchChapter} from "../store/slices/chapterSlice";
 
-class EditChapter extends React.Component {
+const EditChapter = (props) => {
+    const {id} = useParams()
+    const chapter = useSelector(state => state.chapter.chapter)
+    const [name, setName] = useState('')
+    const [text, setChapterText] = useState(chapter.text)
 
+    const dispatch = useDispatch()
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            book : localStorage.getItem('curBook') ,
-            chapterName: localStorage.getItem('curChapter'),
-            text: '',
-            newName: '',
-        }
-    }
+    useEffect(() => {
+        dispatch(fetchChapter(id))
+    }, [])
 
-    componentDidMount() {
-        fetch("https://fanfics-pola.herokuapp.com/loadChapter",  {
-            method: 'POST',
-            headers:{'Content-Type': 'application/json'},
-            body: JSON.stringify({chapterName : this.state.chapterName, bookName : this.state.book})
-        }).then((response) => response.json()).then(ch => {
-            this.setState({chapter:ch})
-            this.setState({text:ch.text})
-        })
-        this.setState({newName: this.state.chapterName})
-        console.log(this.state)
-    }
-
-    setTextChapter = (text) => {
-        this.setState({text: text})
-    }
-
-    render() {
-        return (
-            <div className="background">
-                <MainHeader></MainHeader>
-                <p></p>
-                <p></p>
-                <div className = "create-book">
-                    <div className="create-chapter card">
-                        <div className="form-outline comment-box">
-                            <label>Название главы:</label>
-                            <input className="chapter-name form-control"
-                                   onChange={event=>{
-                                       this.setState({'newName': event.target.value})
-                                   }}
-                                   defaultValue={this.state.chapterName}
-                            />
-                            <label>Текст главы:</label>
-                            <div className="Editor">
-                                <ReactMde
-                                    value={this.state.text}
-                                    onChange={this.setTextChapter}
-                                    minEditorHeight = {300}
-                                    generateMarkdownPreview={(markdown) =>
-                                        Promise.resolve(<ReactMarkdown source={markdown} />)
-                                    }
-                                />
-                            </div>
-                            <button className = "save-button btn custom-button" onClick ={() => {
-                                editChapter(this.state.newName , this.state.text , this.state.book ,this.state.chapterName)
-                                window.location = "/editBook"
-                            }}>Сохранить</button>
-                        </div>
+    return (
+            <div className="book__creation">
+                <h3>Редактирование главы</h3>
+                <div className="settings-container">
+                    <div className="settings-info__row">
+                        <strong>Название главы:</strong>
+                        <input defaultValue={chapter.name} onChange={event => {
+                            setName(event.target.value)
+                        }}/>
                     </div>
+                    <div className="settings-info__row">
+                        <strong>Текст главы:</strong>
+                        <ReactMde
+                            value={text}
+                            onChange={setChapterText}
+                            minEditorHeight = {300}
+                        />
+                    </div>
+                    <button className="btn btn-outline custom-button send"
+                            onClick = {()=> {
+                                editChapter(localStorage.getItem("curUser"), chapter.id, name , text)
+                            }}>Сохранить</button>
                 </div>
             </div>
 
         );
-    }
 }
+
 
 export default EditChapter;

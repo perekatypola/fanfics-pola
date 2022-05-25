@@ -14,16 +14,46 @@
 }
 
 .App.dark .navbar {
-    max-width: 100%;
     display:flex;
     flex-direction:row;
-     background: rgba(255,235,205, 0.5);
-    /*background: rgba(59,14,14,0.5)*/
+    background: rgba(47,50,55, 0.5);
+}
+
+.App.dark .main-page__page {
+    background-color: #494c51;
+}
+
+.App.dark .comment {
+    background-color: dimgray;
 }
 
 .App.dark .user-button{
     border: solid 0px;
-    background-color: #373737;
+    background-color: #494c51;
+}
+
+.App.dark .chapter-button {
+    color:black
+}
+
+.App.dark .work-card__tag {
+    background-color: dimgray;
+}
+
+.App.dark .work-card__tag:hover {
+    background-color: #494c51;
+}
+
+.App.dark #form {
+    color: white;
+}
+
+.App.dark .settings-card {
+    background-color: dimgray;
+}
+
+.App.dark .settings-list__item {
+    border-color:rgba(47,50,55, 0.5);
 }
 
 .App.dark .UserPage .card {
@@ -54,14 +84,43 @@
     color: whitesmoke;
 }
 
-.App.dark .comment {
-    background-color: #d3d3d3
-}
-
-.App.dark .comment-box {
+.App.dark .work-card {
     background-color: #373737;
 }
 
-.App.dark .chapter-content {
+.App.dark .book__rating {
+    background-color: #373737;
+}
+
+.App.dark .book-contents__item {
+    background-color: dimgray;
+}
+
+.App.dark .book-contents__item:hover {
+    background-color: #373737;
+}
+
+.App.dark .user-header {
+    background-color: dimgray;
+}
+
+.App.dark .user-menu__item {
+    background-color: black;
+    border: 1px solid whitesmoke;
+}
+
+.App.dark .like-container {
+    background-color: dimgray;
+}
+
+.App.dark .like-container.liked {
+    background-color: #494c51;
+}
+
+.App.dark .like-container:hover {
+    background-color: #494c51;
+}
+
+.App.dark .comment-box {
     background-color: #373737;
 }

@@ -48,6 +48,7 @@ td {
     height: 50px;
     position: relative;
     margin-right: -1rem;
+    z-index: 100;
 }
 
 
@@ -67,6 +68,7 @@ td {
     list-style-type: none;
     top: 100%;
     width: 100%;
+    z-index: 1000;
     height: 100%;
     margin-left: -40px;
     visibility: hidden;
@@ -89,6 +91,7 @@ td {
 .user-info {
     display:none;
     margin: 1rem;
+    margin-left: 2rem;
 }
 .user-info strong {
     margin-bottom: 1rem;

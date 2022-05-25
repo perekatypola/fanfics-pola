@@ -50,6 +50,16 @@
     display: flex;
 }
 
+@media (max-width: 767px) {
+    .Settings {
+        padding-top: 1rem !important;
+    }
+
+    .settings-info {
+        margin-top: 1rem;
+    }
+}
+
 .settings {
     display: none;
 }

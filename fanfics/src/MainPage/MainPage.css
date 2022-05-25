@@ -13,7 +13,6 @@
     width: 1250px;
     margin-left:auto;
     margin-right: auto;
-    background: url("../texture.jpg");
 }
 
 .main-page__container {
@@ -21,6 +20,14 @@
     margin: 0 2rem;
     grid-template-columns: 1fr 1fr ;
     grid-column-gap: 20px;
+}
+
+.App.light .main-page__content {
+     background: url("../texture.jpg");
+}
+
+.App.dark .main-page__content {
+     background: url("../texture2.jpg");
 }
 
 .card-item {
@@ -36,8 +43,8 @@
 .main-page__page {
     border-radius: 3px;
     margin: 3rem 3rem;
-    background-color: #f6ecda;
     padding-bottom:2rem;
+    min-height: 75vh;
     /*background: url("../page.jpg");*/
 }
 

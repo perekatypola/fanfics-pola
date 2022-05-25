@@ -32,14 +32,6 @@
     border-radius: 5px;
 }
 
-.book__rating {
-    flex-grow: 2;
-    height: 20vh;
-    margin:1rem;
-    border-radius: 5px;
-    min-width: 25vw;
-}
-
 
 @media (max-width: 767px) {
     .works__container--book {
@@ -54,8 +46,9 @@
 
 .work-card__header--out {
     padding-top: 2rem;
-    padding-left: 1rem;
+    text-align: center;
 }
+
 .book-contents__item {
     align-items: center;
     border-radius: 3px;

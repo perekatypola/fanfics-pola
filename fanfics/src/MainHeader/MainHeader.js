@@ -1,24 +1,91 @@
 import logo from '../logo.png'
 import icon from '../icon.png'
+import dark_icon from "../dark-icon.png"
 import theme from "../theme.png"
+import dark_theme from "../dark-theme.png"
 import logout from "../logout.png"
+import dark_logout from "../dark-logout.png"
 import './MainHeader.css'
+import language from "../internet.png"
 
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {applyTheme, changeTheme} from "../store/slices/mainSlice";
 import {hideNodesWithUserStatusName} from "../helpers";
 import {useHistory} from "react-router-dom";
+
 import {fetchUserInfo} from "../store/slices/userSlice";
+
 import * as CryptoJS from 'crypto-js';
+
 import {CLIENT_SECRET} from "../config";
 import burger from "../burger.png"
+import dark_menu from "../dark-menu.png"
+import {useTranslation} from "react-i18next";
 
 
 function MainHeader() {
     const dispatch = useDispatch()
     const history = useHistory();
     const user = useSelector(state => state.user.user)
+    const {t, i18n} = useTranslation()
+
+    let iconState = null
+    if(localStorage.getItem("darkTheme") == "1") {
+      iconState = dark_icon
+    }
+    else {
+        iconState = icon
+    }
+    const [iconImg, setIcon] = useState(iconState)
+
+
+    const changeThemeColors = () => {
+        if(localStorage.getItem("darkTheme") == "1") {
+            setIcon(dark_icon)
+        }
+        else {
+             setIcon(icon)
+        }
+    }
+
+    const renderLogout = () => {
+        if(localStorage.getItem("darkTheme") == "1") {
+            return <img src={dark_logout}/>
+        }
+        else {
+            return <img src={logout}/>
+        }
+    }
+
+    const renderBurger = () => {
+       if(localStorage.getItem("darkTheme") == "1") {
+            return <img onClick={() => {
+                document.querySelector(".main-menu").classList.toggle("active")
+            }}src={dark_menu}/>
+        }
+        else {
+            return <img onClick={() => {
+                document.querySelector(".main-menu").classList.toggle("active")
+            }}src={burger}/>
+        }
+    }
+
+    const renderTheme = () => {
+        if(localStorage.getItem("darkTheme") == "1") {
+            return <img onClick={()=> {
+                dispatch(changeTheme())
+                changeThemeColors()
+            }}  src={dark_theme}/>
+        }
+        else {
+            return <img onClick={()=> {
+                dispatch(changeTheme())
+                changeThemeColors()
+            }}  src={theme}/>
+        }
+    }
+
     useEffect(() => {
         dispatch(applyTheme());
         if(localStorage.getItem('curUser')) {
@@ -31,6 +98,7 @@ function MainHeader() {
         document.querySelector("body").classList.add("disable-scroll");
         document.querySelector(".Auth").classList.add("visible");
     }
+
     return(
         <div className = "MainHeader">
                 <nav className="navbar navbar-expand-lg navbar-light">
@@ -46,19 +114,28 @@ function MainHeader() {
                             {(() => {
                                 if(window.screen.width > 767) {
                                     return (
-                                        <img                             onClick={()=> {
-                                            dispatch(changeTheme())
-                                        }}  src={theme}/>
+                                        <div className="header-right">
+                                            {renderTheme()}
+                                            <img onClick={() => {
+                                                if(i18n.language == "en") {
+                                                    i18n.changeLanguage("ru")
+                                                }
+                                                else {
+                                                     i18n.changeLanguage("en")
+                                                }
+                                            }} className="language" src={language}/>
+                                        </div>
                                     );
                                 }
                                 else {
                                     return (
                                         <div className="main-menu">
-                                             <img src={burger} onClick={() => {
-                                                 document.querySelector(".main-menu").classList.toggle("active")
-                                             }}/>
+                                                {renderBurger()}
                                                 <ul className="user-menu__dropdown main-menu__dropdown">
-                                                    <li className="user-menu__item main-menu__item">
+                                                    <li className="user-menu__item main-menu__item" onClick={() => {
+                                                        dispatch(changeTheme())
+                                                        changeThemeColors()
+                                                    }}>
                                                         Сменить тему
                                                     </li>
                                                     <li className="user-menu__item main-menu__item" onClick={() => {
@@ -71,6 +148,11 @@ function MainHeader() {
                                                     }}>
                                                         Авторы
                                                     </li>
+                                                    <li className="user-menu__item main-menu__item" onClick={() => {
+                                                        window.location="/authors"
+                                                    }}>
+                                                        Изменить язык
+                                                    </li>
                                                 </ul>
                                         </div>
                                     );
@@ -78,32 +160,9 @@ function MainHeader() {
                             })()}
                         </div>
 
-                        {/*<form className="form mr-auto">*/}
-                        {/*    <input className="form-control mr-sm-2 search" type="search" placeholder="Search" aria-label="Search" onChange = {event => {*/}
-                        {/*        this.setState({searchText : event.target.value})*/}
-                        {/*    }}/>*/}
-                        {/*</form>*/}
-                        {/*<button className="btn custom-button"*/}
-                        {/*        onClick={()=> {*/}
-                        {/*            fetch("https://fanfics-pola.herokuapp.com/search",  {*/}
-                        {/*                method: 'POST',*/}
-                        {/*                headers:{'Content-Type': 'application/json'},*/}
-                        {/*                body: JSON.stringify({searchText: this.state.searchText})*/}
-                        {/*            }).then((response) => response.json()).then(res => {*/}
-                        {/*                console.log(res.result)*/}
-                        {/*                localStorage.setItem('results' ,  JSON.stringify(res.result))*/}
-                        {/*                window.location = "/results"*/}
-                        {/*            })*/}
-                        {/*        }}*/}
-                        {/*>Поиск</button>*/}
-
-                        {/*<button className="btn custom-button sign-in-button"*/}
-                        {/*    onClick = {() =>{window.location = "/"*/}
-                        {/*    localStorage.setItem('jwt' , "")}*/}
-                        {/*}>Выйти</button>*/}
                         <a className="sign-in-button" data-user-status="anonymous"
                             onClick={openPopup}>
-                            <img src={icon}/>
+                            <img src={iconImg}/>
                             <span>Войти</span>
                         </a>
                         <div>
@@ -112,75 +171,24 @@ function MainHeader() {
                                 const CryptoJS = require('crypto-js');
                                 window.location = "/user/" + localStorage.getItem('curUser')
                             }}>
-                                <img src={icon}/>
+                                <img src={iconImg}/>
                                 <span>{user.name}</span>
                             </a>
                             <a className="sign-out-button" data-user-status="sign-in"
                             onClick={() => {
                                 localStorage.removeItem("jwt")
                                 localStorage.removeItem("curUser")
+                                localStorage.removeItem("admin")
                                 window.location = "/"
                             }}>
-                                <img src={logout}/>
+                                {renderLogout()}
                             </a>
                         </div>
-                        {/*<button className="user-button"*/}
-                        {/*onClick = {()=> {*/}
-                        {/*    fetch("https://fanfics-pola.herokuapp.com/getUser",  {*/}
-                        {/*        method: 'GET',*/}
-                        {/*        headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},*/}
-                        {/*    }).then((response) => response.text()).then(res => {*/}
-                        {/*        if(res === "admin")*/}
-                        {/*            window.location = "/admin"*/}
-                        {/*        else*/}
-                        {/*            window.location = "/user"*/}
-                        {/*    })*/}
-                        {/*}}>*/}
-                        {/*    <img src = {user} alt = "user"></img>*/}
-                        {/*</button>*/}
                     </div>
                 </nav>
             </div>
     )
 }
-// class  MainHeader extends React.Component {
-//
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             resultsOfSearch : []
-//         }
-//     }
-//
-//     componentDidMount() {
-//         switchTheme(localStorage.getItem('theme'))
-//     }
-//
-//     render() {
-//         const renderUserImage = () => {
-//             if(localStorage.getItem('jwt')) {
-//                 return <> {
-//                 }
-//                 </>
-//             }
-//         }
-//
-//         const renderLogOut = () => {
-//             if(localStorage.getItem('jwt')!="") {
-//                 return <> {
-//
-//                 }</>
-//             }
-//             else {
-//                 return <> {
-//                     <button className="btn custom-button sign-in-button"
-//                             onClick = {()=> {window.location ="/authPage"}
-//                             }>Войти</button>
-//                 }</>
-//             }
-//         }
-//     }
-// }
 
 
 export default MainHeader

@@ -30,7 +30,7 @@ const Auth = () => {
                         <p className="display-4 text-center">{t('Sign in header')}</p>
                         <div className="cont p-4 my-3 border">
                             <div className="form-group">
-                                <label htmlFor="inputUsername">Имя</label>
+                                <label htmlFor="inputUsername">{t('Name')}</label>
                                 <input initialValue="" type="name" className="form-control" placeholder="Username"
                                        onChange = {event=> {
                                            setName(event.target.value)
@@ -38,7 +38,7 @@ const Auth = () => {
                                        }}/>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="inputPassword">Пароль</label>
+                                <label htmlFor="inputPassword">{t('Password')}</label>
                                 <input initialValue="" type="password" className="form-control" id="passw"
                                        placeholder="Enter password"
                                        onChange = {event=> {
@@ -54,25 +54,6 @@ const Auth = () => {
                                             onClick = {()=>  {document.querySelector(".Register").classList.add("visible")
                                             document.querySelector(".Auth").classList.remove("visible")}}
                                            >Sign Up</button>
-                                </div>
-                                <div className="button-box">
-                                <button type="button" className="btn vk-button"
-                                        onClick = {() => {
-                                            VK.Auth.login(function(response) {  // eslint-disable-line no-undef
-                                                if (response.status === "connected") {
-                                                    loginVk(response.session.user.first_name)
-                                                } else {
-                                                    // Пользователь нажал кнопку Отмена в окне авторизации
-                                                }
-                                            }.bind(this))
-                                        }}>
-                                    <img src = {vk} alt = "vk"></img>
-                                </button>
-                                <FacebookAuth
-                                    appId="149884340333072"
-                                    component={MyFacebookButton}
-                                    callback = {loginFacebook}
-                                />
                                 </div>
                             </div>
                             <div className="login-output"></div>

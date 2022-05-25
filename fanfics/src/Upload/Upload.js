@@ -2,7 +2,6 @@ import React, {useEffect} from "react";
 import './Upload.css'
 import classNames from "classnames";
 import {useDropzone} from 'react-dropzone';
-
 const {useState} = require("react");
 const {useMemo} = require("react");
 
@@ -59,6 +58,7 @@ const img = {
 };
 
 function Upload(props) {
+    console.log(props.id)
     const [uploadFiles , setFiles] = useState('')
     const {
         acceptedFiles,
@@ -95,18 +95,14 @@ function Upload(props) {
     ));
 
 
-    const uploadImage = async (encodedImage) => {
-        console.log(encodedImage)
-        const res = await fetch("https://fanfics-pola.herokuapp.com/upload",  {
+    const uploadImage = async (encodedImage, id) => {
+        const res = await fetch("https://api.cloudinary.com/v1_1/deixwcl0a/upload",  {
             method: 'POST',
-            headers:{'Content-Type': 'application/json' , 'Auth' : localStorage.getItem('jwt')},
-            body: JSON.stringify({data: encodedImage , name: localStorage.getItem('curUser')})
+            headers:{'Content-Type': 'application/json'},
+            body: JSON.stringify({file: encodedImage , public_id: id, upload_preset: "ml_default"})
          })
         const data = await res.json()
         console.log(data)
-            // .then((response) => response.text()).then(res => {
-        //     console.log(res)
-        // })
     }
 
     useEffect(() => () => {
@@ -116,7 +112,7 @@ function Upload(props) {
 
     return (
                 <div id="modal" className={props.active}>
-                    <div className="container">
+                    <div>
                         <h4>Files</h4>
                         <div {...getRootProps({style})}>
                             <input {...getInputProps()} />
@@ -130,7 +126,13 @@ function Upload(props) {
                         onClick = {()=> {
                             document.querySelector(".upload-button").classList.remove("upload-visible")
                             document.querySelector(".files").classList.add("hidden")
-                            uploadImage(uploadFiles).then()}}>Загрузить</button>
+                                if(props.changed) {
+                                    console.log("change")
+                                }
+                                else {
+                                    uploadImage(uploadFiles, props.id).then()
+                                }
+                            }}>Загрузить</button>
                 </div>
     );
 }

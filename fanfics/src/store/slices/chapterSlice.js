@@ -45,3 +45,4 @@ let chapterSlice = createSlice({
 export const {setChapterName, setChapterText} = chapterSlice.actions;
 export {fetchChapter}
 export {chapterSlice}
+
